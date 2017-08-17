@@ -41,7 +41,7 @@ sitemap:
 @import "07_layout.scss";
 @import "foundation-components/grid";
 @import "09_elements.scss";
-@import "spoiler.scss";
+@import "expandable.scss";
 
 {% if site.asciidoctor-enabled == true %}
 @import "10_asciidoc.scss";

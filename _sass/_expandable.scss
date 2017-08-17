@@ -1,0 +1,63 @@
+@charset "utf-8";
+
+$right-triangle-svg: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><path d='M 19,10 1,19 1,1 z' /></svg>";
+
+$down-triangle-svg: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><path fill='#00ffff' d='M 10,19 1,1 19,1 z' /></svg>";
+
+input {
+  display: none;
+  visibility: hidden;
+}
+label {
+  display: block;
+  padding: 0.5em;
+  text-align: center;
+  border-bottom: 1px solid #CCC;
+  color: #666;
+}
+label:hover {
+  color: #000;
+}
+label::before {
+  font-family: Consolas, monaco, monospace;
+  font-weight: bold;
+  font-size: 15px;
+  content: " ";
+  vertical-align: text-top;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 3px;
+  background: url($right-triangle-svg);
+}
+section {
+  padding: 0 20px;
+}
+#qanda_expand0 {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.5s;
+  box-shadow: 10px 10px 5px #888888;
+  background: #0FF;
+  color: #FFF;
+}
+#qanda_toggle0:checked ~ #qanda_expand0 {
+  height: 250px;
+}
+#qanda_toggle0:checked ~ label::before {
+  background: url($down-triangle-svg);
+}
+#qanda_expand1 {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.5s;
+  box-shadow: 10px 10px 5px #888888;
+  background: #0FF;
+  color: #FFF;
+}
+#qanda_toggle1:checked ~ #qanda_expand1 {
+  height: 250px;
+}
+#qanda_toggle1:checked ~ label::before {
+  background: url($down-triangle-svg);
+}
