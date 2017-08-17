@@ -1,0 +1,140 @@
+@charset "utf-8";
+
+a[href="#spoiler"] {
+  text-decoration: none !important;
+  cursor: default;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #FFF8DC;
+  border-left: 2px solid #ffeb8e;
+  display: inline-block;
+}
+a[href="#spoiler"]::after {
+  content: attr(title);
+  color: #FFF8DC;
+  padding: 0 0.5em;
+}
+a[href="#spoiler"]:hover::after,
+a[href="#spoiler"]:active::after {
+  cursor: auto;
+  color: black;
+  transition: color .5s ease-in-out;
+}
+
+.collapse-able {
+    height: 2.4rem;
+    overflow: hidden;
+}
+
+.collapse-able:active, .collapse-able:hover {
+    height: auto;
+}
+
+.foobar_details,
+.foobar_show,
+.foobar_hide:target {
+  display: none;
+}
+.foobar_hide:target + .foobar_show,
+.foobar_hide:target ~ .foobar_details {
+  display: block;
+}
+
+.gorfo_answer,
+#gorfo_show,
+#gorfo_hide:target {
+    display: none; 
+}
+
+#gorfo_hide:target + #gorfo_show,
+#gorfo_hide:target ~ .gorfo_answer {
+    display: block; 
+}
+
+
+input {
+  display: none;
+  visibility: hidden;
+}
+label {
+  display: block;
+  padding: 0.5em;
+  text-align: center;
+  border-bottom: 1px solid #CCC;
+  color: #666;
+}
+label:hover {
+  color: #000;
+}
+label::before {
+  font-family: Consolas, monaco, monospace;
+  font-weight: bold;
+  font-size: 15px;
+  content: " ";
+  vertical-align: text-top;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 3px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><path d='M 19,10 1,19 1,1 z' /></svg>");
+}
+section {
+  padding: 0 20px;
+}
+
+#baz_expand {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.5s;
+  box-shadow: 10px 10px 5px #888888;
+  /*background: url(http://placekitten.com/g/600/300);*/
+  background: #0FF;
+  color: #FFF;
+}
+#baz_toggle:checked ~ #baz_expand {
+  height: 250px;
+}
+#baz_toggle:checked ~ label::before {
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><path fill='#00ffff' d='M 10,19 1,1 19,1 z' /></svg>");
+}
+#baz_expand2 {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.5s;
+  background: url(http://placekitten.com/g/600/300);
+  color: #FFF;
+}
+#baz_toggle2:checked ~ #baz_expand {
+  height: 250px;
+}
+#baz_toggle2:checked ~ label::before {
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><path fill='#00ffff' d='M 10,19 1,1 19,1 z' /></svg>");
+}
+
+#qanda_expand0 {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.5s;
+  box-shadow: 10px 10px 5px #888888;
+  background: #0FF;
+  color: #FFF;
+}
+#qanda_toggle0:checked ~ #qanda_expand0 {
+  height: 250px;
+}
+#qanda_toggle0:checked ~ label::before {
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><path fill='#00ffff' d='M 10,19 1,1 19,1 z' /></svg>");
+}
+#qanda_expand1 {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.5s;
+  background: url(http://placekitten.com/g/600/300);
+  color: #FFF;
+}
+#qanda_toggle1:checked ~ #qanda_expand1 {
+  height: 250px;
+}
+#qanda_toggle1:checked ~ label::before {
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><path fill='#00ffff' d='M 10,19 1,1 19,1 z' /></svg>");
+}

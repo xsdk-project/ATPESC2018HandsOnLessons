@@ -1,0 +1,23 @@
+{% comment %}
+*
+*   This include lets you easily create a click-able question and answer
+*
+*   You can even use markdown and <html>-tags inside a QandA but beware to use " and ' properly; for example:
+*
+*       {% include qanda question='Some Question' answer='Some Answer' %}
+*
+{% endcomment %}
+{% if qanda_count %}
+{% increment qanda_count %}
+{% else %}
+{% assign qanda_count = 0 %}
+{% endif %}
+<div class="qanda">
+  <input id="qanda_toggle{{ qanda_count }}" type="checkbox" unchecked>
+  <label for="qanda_toggle{{ qanda_count }}">{{ include.question }}</label>
+  <div id="qanda_expand{{ qanda_count }}">
+    <section>
+      <p>{{ include.answer }}</p>
+    </section>
+  </div>
+</div>

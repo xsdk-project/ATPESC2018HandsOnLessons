@@ -22,6 +22,94 @@ header:
 <div class="medium-8 medium-pull-4 columns" markdown="1">
 {% include _improve_content.html %}
 
+{% include alert warning='Help. I am trapped.
+   Can I have a multi-line message.
+   What if I go on and on and on and on and on
+   and on and on and on and on and on and on
+   and on and on and on and on and on and on
+   and on and on and on and on and on and on
+   and on and on and on and on and on and on
+   and on and on and on and on and on and on
+   and on and on and on and on and on and on' %}
+
+{% assign foobar = 0 %}
+{% increment my_counter %}
+{% assign foobar = my_counter  %}
+{% increment my_counter %}
+{% assign foobar = my_counter  %}
+{% increment my_counter %}
+
+---
+
+{{ foobar }}
+
+---
+
+<p>
+  <a href="#spoiler" title="Spoiler Filled Text"></a>
+</p>
+
+---
+
+<div class="collapse-able">
+  <h1> The first line will always show </h1>
+  <br> 
+  But what's underneath won't until hover or click and drag. Which is neat.
+</div>
+
+---
+
+<div>
+  <a id="hide1" href="#hide1" class="foobar_hide">+ Summary goes here</a>
+  <a id="show1" href="#show1" class="foobar_show">- Summary goes here</a>
+  <div class="foobar_details">
+    Content A goes here.
+  </div>
+</div>
+<div>
+  <a id="hide2" href="#hide2" class="foobar_hide">+ Summary goes here</a>
+  <a id="show2" href="#show2" class="foobar_show">- Summary goes here</a>
+  <div class="foobar_details">
+    Content B goes here.
+  </div>
+</div>
+
+---
+
+<div>
+<a href="#gorfo_hide" id="gorfo_hide">Show</a>
+<a href="#gorfo_show" id="gorfo_show">Hide</a>
+<div class="gorfo_answer"><p>Answer</p></div>
+</div>
+
+---
+
+<div>
+<input id="baz_toggle" type="checkbox" unchecked>
+<label for="baz_toggle">Why did the method fail?</label>
+<div id="baz_expand">
+  <section>
+    <p>The method failed because it is an explicit method and the time step was too large.</p>
+  </section>
+</div>
+</div>
+
+<div>
+<input id="baz_toggle2" type="checkbox" unchecked>
+<label for="baz_toggle2">Kitten 2</label>
+<div id="baz_expand">
+  <section>
+    <p>mew</p>
+  </section>
+</div>
+</div>
+
+{% include qanda question='Why did the method fail?'
+   answer='The method failed because it is an explicit 
+           method and the time step was too large.' %}
+
+---
+
 ## Different Page/Posts Formats   {#formats}
 
 *Feeling Responsive* supports you with different templates for your content. These are the actual page/post formats:
