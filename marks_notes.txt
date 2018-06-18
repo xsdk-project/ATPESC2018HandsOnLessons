@@ -1,0 +1,9 @@
+* how to make work on github
+* how import lessons from other site?
+* color scheme
+* import lessons from other site?
+* use jekyll 3.0 collections for lessons
+* replace imagery (with what?)
+* adjust menus
+* do we keep blog? (maybe as lessons)
+* faq / comments / questions?

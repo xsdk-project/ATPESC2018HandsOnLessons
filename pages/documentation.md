@@ -49,6 +49,17 @@ header:
    answer='The method failed because it is an explicit 
            method and the time step was too large.' %}
 
+{% include qanda question='Why did the method fail?'
+   answer='The method failed because it is an explicit 
+           method and the time step was too large.' %}
+
+{% include qanda question='Why did the method fail?'
+   answer='The method failed because it is an explicit 
+           method and the time step was too large.' %}
+
+{% include qanda question='Why did the method fail?'
+   answer='The method failed because it is an explicit 
+           method and the time step was too large.' %}
 ---
 
 ## Different Page/Posts Formats   {#formats}

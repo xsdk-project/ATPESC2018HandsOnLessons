@@ -1,8 +1,12 @@
 @charset "utf-8";
 
+/* Some SVG graphics for triangle shapes */
 $right-triangle-svg: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><path d='M 19,10 1,19 1,1 z' /></svg>";
-
 $down-triangle-svg: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><path fill='#00ffff' d='M 10,19 1,1 19,1 z' /></svg>";
+
+/* Change these to affect icon shape for expanded and UNexpanded states */
+$unexpanded-icon: $right-triangle-svg;
+$expanded-icon: $down-triangle-svg;
 
 input {
   display: none;
@@ -16,7 +20,7 @@ label {
   color: #666;
 }
 label:hover {
-  color: #000;
+  color: #F00;
 }
 label::before {
   font-family: Consolas, monaco, monospace;
@@ -28,7 +32,7 @@ label::before {
   width: 20px;
   height: 20px;
   margin-right: 3px;
-  background: url($right-triangle-svg);
+  background: url($unexpanded-icon);
 }
 section {
   padding: 0 20px;
@@ -45,7 +49,7 @@ section {
   height: 250px;
 }
 #qanda_toggle0:checked ~ label::before {
-  background: url($down-triangle-svg);
+  background: url($expanded-icon);
 }
 #qanda_expand1 {
   height: 0px;
@@ -59,5 +63,23 @@ section {
   height: 250px;
 }
 #qanda_toggle1:checked ~ label::before {
-  background: url($down-triangle-svg);
+  background: url($expanded-icon);
+}
+
+/* create 20 'slots' for Q and A on a single page */
+@for $i from 2 through 20 {
+  #qanda_expand#{$i} {
+    height: 0px;
+    overflow: hidden;
+    transition: height 0.5s;
+    box-shadow: 10px 10px 5px #888888;
+    background: #0FF;
+    color: #FFF;
+  }
+  #qanda_toggle#{$i}:checked ~ #qanda_expand#{$i} {
+    height: 250px;
+  }
+  #qanda_toggle#{$i}:checked ~ label::before {
+    background: url($expanded-icon);
+  }
 }

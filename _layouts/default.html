@@ -7,6 +7,8 @@ layout: compress
 	{% include _head.html %}
 </head>
 <body id="top-of-page" class="{{ layout.format }}">
+        {% assign qanda_count = 0 %}
+
 	{% unless page.skip_boilerplate %}
 	{% include _navigation.html %}
 	{% endunless %}
