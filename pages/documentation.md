@@ -4,6 +4,7 @@ title: "Theme Documentation"
 subheadline: "How to use Feeling Responsive"
 teaser: "The documentation is a work in progress..."
 permalink: "/documentation/"
+use_math: true
 header:
    image_fullwidth: "header_roadmap_2.jpg"
 ---
@@ -61,6 +62,11 @@ header:
    answer='The method failed because it is an explicit 
            method and the time step was too large.' %}
 ---
+
+<p>
+  When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
+  $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+</p>
 
 ## Different Page/Posts Formats   {#formats}
 
