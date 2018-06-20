@@ -5,7 +5,7 @@ meta_title: "Feeling Responsive Theme Changelog"
 subheadline: "Feeling Responsive Theme Changelog"
 teaser: "History and changelog of Feeling Responsive Theme"
 header:
-   image_fullwidth: "header_unsplash_9.jpg"
+   image_fullwidth: "pres_movie_b.gif"
 permalink: "/changelog/"
 ---
 2015-11-10 // Version 1.91

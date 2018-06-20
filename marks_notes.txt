@@ -1,18 +1,19 @@
 COMPLETED
     * how to make work on github
         - so far, just stood up as a site under my name
-        - need to move to xsdk later
         - need to add other users in settings
     * get mathjax working
     * Get expand/collapse QandA working
 
 
 TODO
+    * Cleanup QandA styling
+    * Decide styling for lesson metadata @ front (Questions / Objectives / Key points)
+    * need to move to xsdk
     * how import lessons from other site?
         - create "lesson" layouts and includes
         - back to main lessons page
         - maybe create lessons collection
-        - fix lesson metadata @ front (Questions / objectives / Key points)
     * color scheme
     * import lessons from other site?
     * use jekyll 3.0 collections for lessons

@@ -6,7 +6,7 @@ teaser: "The documentation is a work in progress..."
 permalink: "/documentation/"
 use_math: true
 header:
-   image_fullwidth: "header_roadmap_2.jpg"
+ image_fullwidth: "xsdk_logo_wide.png"
 ---
 <div class="row">
 <div class="medium-4 medium-push-8 columns" markdown="1">

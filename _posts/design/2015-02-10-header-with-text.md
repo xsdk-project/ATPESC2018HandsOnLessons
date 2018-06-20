@@ -13,7 +13,7 @@ header:
     title: header with text
     background-color: "#EFC94C;"
 #    pattern: pattern_concrete.jpg
-    image_fullwidth: unsplash_brooklyn-bridge_header.jpg
+    image_fullwidth: Differential-Equations-e1509686869201.png 
     caption: This is a caption for the header image with link
     caption_url: https://unsplash.com/
 ---
