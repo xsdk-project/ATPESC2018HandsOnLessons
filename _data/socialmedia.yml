@@ -1,27 +1,32 @@
-- name: GitHub
-  url: http://github.com/phlow
-  class: icon-github
-  title: Code und mehr...
-
-- name: YouTube
-  url: http://www.youtube.com/PhlowMedia
+- name: ATPESC
+  url: https://www.youtube.com/playlist?list=PLGj2a3KTwhRZKjI7pRFxQDBORsswJAdJt
   class: icon-youtube
-  title: "Videos, Video-Anleitungen und Filme von Phlow auf YouTube"
+  title: "ATPESC-2017 Numerical Libaries"
 
-- name: Twitter
-  url: http://twitter.com/phlow
+- name: IDEAS-ECP
+  url: https://www.youtube.com/channel/UCEkJLPAMOUsjC_RXGFcVq-A/videos
+  class: icon-youtube
+  title: "IDEAS on YouTube"
+
+- name: ECP 
+  url: http://twitter.com/exascaleproject
   class: icon-twitter
-  title: "Immer das Neuste von Phlow gibt es auf Twitter"
+  title: "Exascale Project on Twitter"
 
-- name: Mixcloud
-  url: http://www.mixcloud.com/phlow/
-  class: icon-cloud
-  title: "Mixe, was sonst?"
+- name: HPC
+  url: https://twitter.com/hashtag/hpcconnects
+  class: icon-twitter
+  title: "#HPCConnects"
 
-- name: Phlow YouTube Google+
-  url: https://plus.google.com/u/0/+Phlow
-  class: icon-googleplus
-  title: "YouTube Google+"
+- name: IDEAS-ECP
+  url: https://ideas-productivity.org/ideas-ecp/
+  class: icon-home
+  title: "Ideas Productivity"
+
+- name: FASTMath
+  url: https://fastmath-scidac.llnl.gov
+  class: icon-home
+  title: "FASTMath"
 
 # - name: Facebook
 #   url: http://www.facebook.com/

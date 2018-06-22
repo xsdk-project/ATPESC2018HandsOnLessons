@@ -68,6 +68,25 @@ header:
   $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
 </p>
 
+```c
+static void
+solution_update_ftcs(int n,
+    double *curr, double const *last,
+    double alpha, double dx, double dt,
+    double bc_0, double bc_1)
+{
+    double const r = alpha * dt / (dx * dx);
+
+    /* Impose boundary conditions for solution indices i==0 and i==n-1 */
+    curr[0  ] = bc_0;
+    curr[n-1] = bc_1;
+
+    /* Update the solution using FTCS algorithm */
+    for (int i = 1; i < n-1; i++)
+        curr[i] = r*last[i+1] + (1-2*r)*last[i] + r*last[i-1];
+}
+```
+
 ## Different Page/Posts Formats   {#formats}
 
 *Feeling Responsive* supports you with different templates for your content. These are the actual page/post formats:

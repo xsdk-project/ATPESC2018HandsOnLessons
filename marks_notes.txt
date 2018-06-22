@@ -21,3 +21,20 @@ TODO
     * adjust menus
     * do we keep blog? (maybe as lessons)
     * faq / comments / questions?
+
+Content to be added/linked
+    * project homes
+    * project documentation
+    * project code / examples
+    * related (shared values)
+        - xSDK
+        - FASTMath
+        - IDEAS-ECP
+        - etc. 
+    * ways for visitors to suggest additions?
+    * launching in an aws instance?
+    * downloads of ?
+    * events
+    * preparatory stuff
+    * ATPESC setup instructions
+    * past ATPESC stuff (YouTube, old lessons, 
