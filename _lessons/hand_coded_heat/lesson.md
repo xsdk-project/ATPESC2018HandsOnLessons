@@ -1,10 +1,11 @@
 ---
 layout: page-fullwidth
-title: "Theme Documentation"
-subheadline: "How to use Feeling Responsive"
-teaser: "The documentation is a work in progress..."
+title: "Hand Coded Heat"
+subheadline: "Simple, 1D Numerical Method"
+teaser: "Why use numerical packages..."
 permalink: "lessons/hand_coded_heat/"
 use_math: true
+lesson: true
 header:
  image_fullwidth: "xsdk_logo_wide.png"
 ---
@@ -684,11 +685,3 @@ equation with a variety of algorithms and with MPI, OpenMP and Cuda](https://git
 results from _explicit_ numerical algorithms.](http://www.math.ubc.ca/~costanza/HeatEqTutorial.html)
 
 [An example Excel spreadsheet is available.](1d_heat_equation.xlsx)
-
-<!-- Insert space, horizontal line, and link to HandsOnLesson table -->
-
-&nbsp;
-
----
-
-[Back to all HandsOnLessons](../lessons.md)

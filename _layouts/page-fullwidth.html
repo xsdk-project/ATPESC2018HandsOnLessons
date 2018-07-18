@@ -31,6 +31,11 @@ format: page-fullwidth
 			{% endif %}
 
 			{{ content }}
+
+                        {% if page.lesson %}
+                        <p><a href='../../lessons'>Back to all ATPESC 2018 Lessons</a></p>
+                        {% endif %}
+
 		</article>
 	</div><!-- /.medium-12.columns -->
 </div><!-- /.row -->
