@@ -5,24 +5,28 @@ COMPLETED
     * get mathjax working
     * Get expand/collapse QandA working
     * replace imagery (with what?)
-
-
-TODO
     * Cleanup QandA styling
     * Decide styling for lesson metadata @ front (Questions / Objectives / Key points)
+    * color scheme
+    * use jekyll 3.0 collections for lessons
+    * adjust menus
+
+TODO
     * need to move to xsdk
     * how import lessons from other site?
         - create "lesson" layouts and includes
         - back to main lessons page
         - maybe create lessons collection
-    * color scheme
     * import lessons from other site?
-    * use jekyll 3.0 collections for lessons
-    * adjust menus
     * do we keep blog? (maybe as lessons)
     * faq / comments / questions?
     * change word "libraries" to "packages"
     * chat options: WebEx (limited), PureChat
+    * instructions
+    * ways for students to enter answers
+    * ways for us to collect student answers
+    * gift/prizes/points for evening contesting
+
 
 Menu arrangement:
     Start: (rename to ATPESC2018 or Lessons)
