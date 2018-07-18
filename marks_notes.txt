@@ -4,6 +4,7 @@ COMPLETED
         - need to add other users in settings
     * get mathjax working
     * Get expand/collapse QandA working
+    * replace imagery (with what?)
 
 
 TODO
@@ -17,24 +18,65 @@ TODO
     * color scheme
     * import lessons from other site?
     * use jekyll 3.0 collections for lessons
-    * replace imagery (with what?)
     * adjust menus
     * do we keep blog? (maybe as lessons)
     * faq / comments / questions?
+    * change word "libraries" to "packages"
+    * chat options: WebEx (limited), PureChat
 
-Content to be added/linked
-    * project homes
-    * project documentation
-    * project code / examples
-    * related (shared values)
+Menu arrangement:
+    Start: (rename to ATPESC2018 or Lessons)
+        - 2018 lessons top-level
+        - 2017 lessons link at bottom
+    Getting Started: (ATPESC2017)
+        - take to past lessons site or re-formed pages here?
+        - links to corresponding lecture for day-time hands on
+        - links to data file(s)
+    HPC Relevant Announcements / Events or Package Relevant stuff
+        - blog entries?
+        - hack-a-thons
+        - recent machines
+    Contributing
+        - Existing docs and templating from orig. fr jekyll template site
+        - my contributing doc
+    Side bar navigation?
+         
+    Other resources
+
+
+
+Possible content to be added/linked
+    * package/project homes
+    * package/project documentation
+    * package/project code / examples
+    * related projects (shared values)
         - xSDK
         - FASTMath
         - IDEAS-ECP
+        - ATPESC
         - etc. 
-    * ways for visitors to suggest additions?
+    * ways for visitors to suggest additions, ask questions, ?
     * launching in an aws instance?
     * downloads of ?
     * events
     * preparatory stuff
     * ATPESC setup instructions
     * past ATPESC stuff (YouTube, old lessons, 
+    * pre-ATPESC notices / infos
+    * What do we use menus for?
+        * lessons
+        * setup instructions
+        * student uploads
+            * blogs
+            * results from evening hands on
+            * progress dashboard?
+        * developer instructions / templates
+        * other useful guides
+            * roadmap / decision tree
+    * if work from 1D heat as example of progression...
+        * multi-lesson activity with more complex instantiatons
+        * maybe single app or multiple apps (probably)
+        * would be one whole part of the site
+    * integrating with legacy / new app (could be extension of above)
+
+

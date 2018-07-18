@@ -2,7 +2,7 @@
 
 /* Some SVG graphics for triangle shapes */
 $right-triangle-svg: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><path d='M 19,10 1,19 1,1 z' /></svg>";
-$down-triangle-svg: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><path fill='#00ffff' d='M 10,19 1,1 19,1 z' /></svg>";
+$down-triangle-svg: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><path fill='#45B29D' d='M 10,19 1,1 19,1 z' /></svg>";
 
 /* Change these to affect icon shape for expanded and UNexpanded states */
 $unexpanded-icon: $right-triangle-svg;
@@ -12,74 +12,42 @@ input {
   display: none;
   visibility: hidden;
 }
-label {
-  display: block;
+label.qanda {
+  color: $ci-2;
+  display: inline;
+  font-style: italic;
+}
+label.qanda:hover {
+  text-decoration: underline;
+}
+label.qanda::after {
+  content: url($unexpanded-icon);
+  display: inline;
   padding: 0.5em;
-  text-align: center;
-  border-bottom: 1px solid #CCC;
-  color: #666;
-}
-label:hover {
-  color: #F00;
-}
-label::before {
-  font-family: Consolas, monaco, monospace;
-  font-weight: bold;
-  font-size: 15px;
-  content: " ";
   vertical-align: text-top;
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin-right: 3px;
-  background: url($unexpanded-icon);
+}
+/* override foundation classes here */
+input[type="checkbox"] + label.qanda {
+  margin-left: 0.0rem;
 }
 section {
-  padding: 0 20px;
-}
-#qanda_expand0 {
-  height: 0px;
-  overflow: hidden;
-  transition: height 0.5s;
-  box-shadow: 10px 10px 5px #888888;
-  background: #0FF;
-  color: #FFF;
-}
-#qanda_toggle0:checked ~ #qanda_expand0 {
-  height: 250px;
-}
-#qanda_toggle0:checked ~ label::before {
-  background: url($expanded-icon);
-}
-#qanda_expand1 {
-  height: 0px;
-  overflow: hidden;
-  transition: height 0.5s;
-  box-shadow: 10px 10px 5px #888888;
-  background: #0FF;
-  color: #FFF;
-}
-#qanda_toggle1:checked ~ #qanda_expand1 {
-  height: 250px;
-}
-#qanda_toggle1:checked ~ label::before {
-  background: url($expanded-icon);
+  padding: 0 10px;
 }
 
 /* create 20 'slots' for Q and A on a single page */
-@for $i from 2 through 20 {
+@for $i from 0 through 39 {
   #qanda_expand#{$i} {
     height: 0px;
     overflow: hidden;
     transition: height 0.5s;
-    box-shadow: 10px 10px 5px #888888;
-    background: #0FF;
+    box-shadow: 7px 7px 5px #979797;
+    background: $ci-2;
     color: #FFF;
   }
-  #qanda_toggle#{$i}:checked ~ #qanda_expand#{$i} {
-    height: 250px;
-  }
-  #qanda_toggle#{$i}:checked ~ label::before {
-    background: url($expanded-icon);
+  #qanda_toggle#{$i}:checked ~ label.qanda::after {
+    content: url($expanded-icon);
+    display: inline;
+    padding: 0.5em;
+    vertical-align: text-top;
   }
 }

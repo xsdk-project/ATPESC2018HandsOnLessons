@@ -1,43 +1,32 @@
 ---
 layout: page
 title: "About"
-subheadline: "Why another Jekyll Theme?"
-teaser: "Since years I am programming and designing websites. I love to work with open source tools and learn via code from others. This time I want to try to give something back..."
+subheadline: "Why a new numerical libraries lessons site?"
+teaser: "Major improvements include responsive layouts, programmable pull-down menus, block and in-line native LaTeX, expandable Q&A's..."
 permalink: "/info/"
 header:
     image_fullwidth: "mesh2.jpg"
 ---
-...and learn at the same time.
-
-*Feeling Responsive* is my first theme which I let into the world. It's built on work and knowledge of others. While I am still designing it, you read about whats behind this theme in the – *hopefully* – near future.
-
+...and to learn more about [Jekyll][13], [Liquid][14], [YAML Frontmatter][15], [SASS][16], [CSS][17]
+and [GitHub Markdown][18] for hosting this content going forward.
 
 ## Features
 
+[//]: # (Note: The markdown in this page uses reference style links)
+[//]: # (where a set of footnotes at the bottom of the page holds the links)
+
+* Based on the [Feeling Responsive][19] [Jekyll][13] theme by [Phlow][22].
+* Inline and Block Native [LaTex][20] with  [MathJax][21]
+* Expandable Q&A's that hide/show lesson questions.
 * [Responsive Gallery][8], [Videos][9], [Grid][10], [Typography][11],...
-* 100% GitHub Pages friendly
+* 100% GitHub Pages friendly (e.g. no special plugins)
 * Easy editable navigation, footer and social media links
 * Language Ready – just translate one file.
 * Lots of possibilities to customize it to your needs
-* Lots of different headers
-* Various post formats to let your content shine
 * Uses Jekyll 3.0
 * Multiple possibilities to use images in different ways
 * Fine typography
 * Play Video and Audio with [Mediaelement.js][12]
-
-
-
-## I got inspired by...
-
-[Michael Rose][1] and his fabulous [themes for jekyll][2]. Authors of [A List Apart][4] and [Smashing Magazine][5] since 2002. [GitHub][6] and how they built such a habitat for cooperation worldwide. [Automattic][3] and how they built a fantastic community around WordPress. And many, many more...
-
-Please make *Feeling Responsive* yours and if you like it, please link back to my homebase <a href="http://phlow.de/">Phlow</a>. That would be awesome.
-
-#### Since then, fork it!
-
-Yours sincerelly, [Moritz »mo.« Sauer][7]
-
 
  [1]: http://mademistakes.com/about/
  [2]: http://mademistakes.com/work/jekyll-themes/
@@ -51,11 +40,13 @@ Yours sincerelly, [Moritz »mo.« Sauer][7]
  [10]: {{ site.url }}/design/grid/
  [11]: {{ site.url }}/design/typography/
  [12]: {{ site.url }}/design/mediaelement_js/
- [13]: #
- [14]: #
- [15]: #
- [16]: #
- [17]: #
- [18]: #
- [19]: #
- [20]: #
+ [13]: https://jekyllrb.com
+ [14]: https://shopify.github.io/liquid/
+ [15]: https://jekyllrb.com/docs/frontmatter/
+ [16]: https://sass-lang.com
+ [17]: https://www.w3schools.com/css/
+ [18]: https://github.github.com/gfm/
+ [19]: http://phlow.github.io/feeling-responsive/
+ [20]: https://www.latex-project.org
+ [21]: https://www.mathjax.org
+ [22]: http://phlow.de/

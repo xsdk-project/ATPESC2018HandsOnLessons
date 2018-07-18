@@ -1,7 +1,6 @@
 ---
 layout: page-fullwidth
 title: "Theme Documentation"
-subheadline: "How to use Feeling Responsive"
 teaser: "The documentation is a work in progress..."
 permalink: "/documentation/"
 use_math: true
@@ -17,75 +16,7 @@ header:
 {:toc}
 </div>
 </div><!-- /.medium-4.columns -->
-
-
-
 <div class="medium-8 medium-pull-4 columns" markdown="1">
-{% include _improve_content.html %}
-
-{% include alert warning='Help. I am trapped.
-   Can I have a multi-line message.
-   What if I go on and on and on and on and on
-   and on and on and on and on and on and on
-   and on and on and on and on and on and on
-   and on and on and on and on and on and on
-   and on and on and on and on and on and on
-   and on and on and on and on and on and on
-   and on and on and on and on and on and on' %}
-
-{% assign foobar = 0 %}
-{% increment my_counter %}
-{% assign foobar = my_counter  %}
-{% increment my_counter %}
-{% assign foobar = my_counter  %}
-{% increment my_counter %}
-
----
-
-{{ foobar }}
-
----
-
-{% include qanda question='Why did the method fail?'
-   answer='The method failed because it is an explicit 
-           method and the time step was too large.' %}
-
-{% include qanda question='Why did the method fail?'
-   answer='The method failed because it is an explicit 
-           method and the time step was too large.' %}
-
-{% include qanda question='Why did the method fail?'
-   answer='The method failed because it is an explicit 
-           method and the time step was too large.' %}
-
-{% include qanda question='Why did the method fail?'
-   answer='The method failed because it is an explicit 
-           method and the time step was too large.' %}
----
-
-<p>
-  When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
-  $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
-</p>
-
-```c
-static void
-solution_update_ftcs(int n,
-    double *curr, double const *last,
-    double alpha, double dx, double dt,
-    double bc_0, double bc_1)
-{
-    double const r = alpha * dt / (dx * dx);
-
-    /* Impose boundary conditions for solution indices i==0 and i==n-1 */
-    curr[0  ] = bc_0;
-    curr[n-1] = bc_1;
-
-    /* Update the solution using FTCS algorithm */
-    for (int i = 1; i < n-1; i++)
-        curr[i] = r*last[i+1] + (1-2*r)*last[i] + r*last[i-1];
-}
-```
 
 ## Different Page/Posts Formats   {#formats}
 

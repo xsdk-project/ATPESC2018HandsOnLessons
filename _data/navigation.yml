@@ -1,70 +1,67 @@
-- title: Start
+- title: Intro
   url: "/"
   side: left
 
-- title: Getting Started
-  url: "/getting-started/"
-  side: left
-
-- title: "Templates"
-  url: "/design/"
+- title: ATPESC 2017 Lessons
+  url: "https://xsdk-project.github.io/HandsOnLessons/lessons/lessons.html"
   side: left
   dropdown:
-  - title: "Grid & Colors"
-    url: "/design/grid/"
-  - title: "Typography"
-    url: "/design/typography/typography/"
-  - title: "Page/Post"
-    url: "/design/page/"
-  - title: "Post-Left-Sidebar"
-    url: "/design/post-left-sidebar/"
-  - title: "Post-Right-Sidebar"
-    url: "/design/post-right-sidebar/"
-  - title: "Page Full-Width"
-    url: "/design/page-fullwidth/"
-  - title: "Blog-Page"
-    url: "/blog/"
-  - title: "Video"
-    url: "/design/video/"
-  - title: "Gallery"
-    url: "/design/gallery/"
-  - title: "Portfolio"
-    url: "/design/portfolio/"
+  - title: "Hand Coded Heat"
+    url: "https://xsdk-project.github.io/HandsOnLessons/lessons/hand_coded_heat/lesson.html"
+  - title: "Structured Meshes"
+    url: "https://xsdk-project.github.io/HandsOnLessons/lessons/AMReX/lesson.html"
+  - title: "Finite Elements Convergence"
+    url: "https://xsdk-project.github.io/HandsOnLessons/lessons/mfem_convergence/lesson.html"
+  - title: "Time Integrators"
+    url: "https://xsdk-project.github.io/HandsOnLessons/lessons/time_integrators/lesson.html"
+  - title: "Iterative Solvers"
+    url: "https://xsdk-project.github.io/HandsOnLessons/lessons/iterativesolvers/lesson.html"
+  - title: "Sparse Direct Solvers"
+    url: "https://xsdk-project.github.io/HandsOnLessons/lessons/superlu-mfem/lesson.html"
+  - title: "Algebraic Multigrid"
+    url: "https://xsdk-project.github.io/HandsOnLessons/lessons/AMG/lesson.html"
+  - title: "Adjoint Solvers"
+    url: "https://xsdk-project.github.io/HandsOnLessons/lessons/adjoint/lesson.html"
 
-- title: "Header Styles"
-  url: "/headers/"
+- title: ATPESC 2018 Lessons
+  url: "/lessons/"
   side: left
   dropdown:
-  - title: "Header with Full-Width-Image"
-    url: "/design/header-full-width-image/"
-  - title: "Header with Image and Pattern"
-    url: "/design/header-image-pattern/"
-  - title: "Header with image and color"
-    url: "/design/header-image-color/"
-  - title: "Header Only With Logo"
-    url: "/design/header-logo-only/"
-  - title: "Header With Text"
-    url: "/design/header-with-text/"
-  - title: "No Header"
-    url: "/design/no-header/"
-  - title: "No Header but Image"
-    url: "/design/no-header-but-image/"
+  - title: "Hand Coded Heat"
+    url: "/lessons/hand_coded_heat/"
 
-- title: Documentation
+- title: Packages
+  url: "fastmath-scidac.org"
+  side: left
+  dropdown:
+  - title: "PETSc"
+    url: "https://www.mcs.anl.gov/petsc/"
+  - title: "HYPRE"
+    url: "https://computation.llnl.gov/projects/hypre-scalable-linear-solvers-multigrid-methods"
+  - title: "MFEM"
+    url: "http://mfem.org"
+  - title: "SuperLU"
+    url: "https://github.com/xiaoyeli/superlu"
+  - title: "PUMI"
+    url: "https://www.scorec.rpi.edu/pumi"
+  - title: "SUNDIALS"
+    url: "https://computation.llnl.gov/projects/sundials"
+  - title: "AMReX"
+    url: "https://amrex-codes.github.io"
+
+- title: Contributing
   url: "/documentation/"
   side: left
   dropdown:
-  - title: "Changelog"
-    url: "/changelog/"
-  - title: "Roadmap"
-    url: "/roadmap/"
-
-- title: Blog
-  url: "/blog/"
-  side: left
-  dropdown:
-  - title: "Blog Archive"
-    url: "/blog/archive/"
+  - title: "Why the new theme?"
+    url: "/info/"
+  - title: "Many Header Styles"
+    url: "/headers/"
+  - title: "Many Design Options"
+    url: "/design/"
+  - title: "Full Documentation"
+    url: "/documentation/"
+  
 
 - title: "Search"
   url: "/search/"

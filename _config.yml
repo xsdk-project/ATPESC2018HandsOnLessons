@@ -21,7 +21,7 @@ credits: '<p>Created by <a href="https://github.com/markcmiller86">Mark C Miller
 
 # Main author of the website
 # See > authors.yml
-author: mcmiller
+author: markcmiller86
 
 # This URL is the main address for absolute links. Don't include a slash at the end.
 #
@@ -49,6 +49,9 @@ gems:
     - jekyll-gist
     - jekyll-paginate
 
+collections:
+  lessons:
+    output: true
 
 #       ____              _             __  _
 #      / __ \____ _____ _(_)___  ____ _/ /_(_)___  ____
@@ -66,7 +69,7 @@ markdown: kramdown
 permalink: /:categories/:title/
 highlight: rouge
 excerpt_separator: "<!--more-->"
-include: ['.htaccess']
+include: ['.htaccess', '*.jpg', '*.png']
 # Exclude these files from your production _site
 exclude:
     - .sass-cache
@@ -109,7 +112,7 @@ defaults:
       show_meta: false 	# Hide metadata for all pages
       # sidebar:    		# Possible values › left, right › by default there will be no sidebar
       comments: false
-      author: mcmiller # Default author for pages
+      author: markcmiller86 # Default author for pages
   -
     scope:
       path: ''
@@ -118,9 +121,13 @@ defaults:
       show_meta: true   # Show metadata for all posts
       # sidebar:        # Possible values › left, right › by default there will be no sidebar
       comments: false
-      author: mcmiller # Default author for posts
-
-
+      author: markcmiller86 # Default author for posts
+  -
+    scope:
+      path: ''
+      type: 'lessons'
+    values:
+      layout: lesson
 
 #       _   __            _             __  _
 #      / | / /___ __   __(_)___ _____ _/ /_(_)___  ____
