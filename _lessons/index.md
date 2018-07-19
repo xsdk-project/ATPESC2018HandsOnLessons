@@ -7,5 +7,11 @@ header:
 permalink: /lessons/
 ---
 
-* [Basic, One-Dimensional Heat Equation](/lessons/hand_coded_heat/)
-
+<table>
+{% for item in site.lessons %}
+<tr>
+<td><a href="{{ item.url }}">{{ item.title }}</a></td>
+<td>{{ item.subheadline }}</td>
+</tr>
+{% endfor %}
+</table>
