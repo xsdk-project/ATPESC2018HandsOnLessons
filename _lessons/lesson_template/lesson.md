@@ -10,21 +10,6 @@ header:
  image_fullwidth: "2012.jpg"
 ---
 
-Use this template as an example of both the high-level layout of a lesson as well as
-how to include and use various features such as equations, QandA's, images, gif
-animations and/or videos. 
-
-Start by copying this lesson template to a new sub-directory under `_lessons`. For
-example
-
-```shell
-% mkdir _lessons/foobar
-% cp _lessons/lesson_template/lesson.md foobar/.
-```
-
-
-
-
 ## At a Glance
 
 * **Questions** are the those things we want learners to know the answers to by the end of the lesson.
@@ -57,11 +42,18 @@ that but here just include a cool or motivating picture of the problem they will
 below. Maybe include the equation(s) being solved as well.
 
 Including [LaTeX](https://www.latex-project.org)
-equations is easy. Below are examples of block-displayed equations. You can also
-
+equations is easy. Below are examples of block-displayed equations. Introduce and terminate
+equations with the `$$` delimiter like so..
 ```
 $$\frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$
 ```
+which yields
+
+$$\frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$
+
+Surround equations with blank lines to format them is independent paragraphs. Otherwise,
+they will be rendered in-line with the current paragraph.
+
 
 If you want to refer to the equation in text, add a label like so...
 
