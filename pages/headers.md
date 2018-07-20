@@ -7,9 +7,6 @@ header:
    image_fullwidth: "ecp_logo2.png"
 permalink: "/headers/"
 ---
-{% include qanda question='Why did the method fail?'
-   answer='The method failed because it is an explicit 
-           method and the time step was too large.' %}
 <ul>
     {% for post in site.tags.header %}
     <li><a href="{{ site.url }}{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>

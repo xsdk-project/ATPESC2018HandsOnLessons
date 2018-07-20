@@ -40,10 +40,15 @@ positioned points in _x_.
 In general, heat [conduction](https://en.wikipedia.org/wiki/Thermal_conduction) is governed
 by the partial differential (PDE)...
 
-|![](http://latex.codecogs.com/gif.latex?%5Cfrac%7B%5Cpartial%20u%7D%7B%5Cpartial%20t%7D%20-%20%5Cnabla%20%5Ccdot%20%5Calpha%20%5Cnabla%20u%20%3D%200)|(1)|
+$$
+  \label{foo}
 
-where _u_ is the temperature within the wall at spatial positions, _x_, and times, _t_, \(\alpha\) 
-![](http://latex.codecogs.com/gif.latex?%5Calpha) is the _thermal diffusivity_
+
+  \frac{\partial u}{\partial t} - \nabla \cdot \alpha \nabla u = 0
+$$
+
+where _u_ is the temperature within the wall at spatial positions, _x_, and times, _t_, \\( \alpha \\),
+is the _thermal diffusivity_
 of the material(s) comprising the wall. This equation is known as the
 _Diffusion Equation_ and also the [_Heat Equation_](https://en.wikipedia.org/wiki/Heat_equation).
 
@@ -53,27 +58,14 @@ _Diffusion Equation_ and also the [_Heat Equation_](https://en.wikipedia.org/wik
 
 To make the problem tractable for this lesson, we make some simplifying assumptions...
 
-1. The thermal diffusivity, ![](http://latex.codecogs.com/gif.latex?%5Calpha),
+1. The thermal diffusivity, \\( \alpha \\)
    is constant for all _space_ and _time_.
 1. The only heat _source_ is from the initial and/or boundary conditions.
 1. We will deal only with the _one dimensional_ problem in _Cartesian coordinates_.
 
 In this case, the PDE we need to develop an application to solve simplifies to...
 
-|![](http://latex.codecogs.com/gif.latex?%5Cfrac%7B%5Cpartial%20u%7D%7B%5Cpartial%20t%7D%20%3D%20%5Calpha%20%5Cfrac%7B%5Cpartial%5E2%20u%7D%7B%5Cpartial%20x%5E2%7D)|(2)|
-
-|$$\frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$|(default)|
-
-|$$\small \frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$|(small)|
-
-|$$\huge \frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$|(huge)|
-
 $$\frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$
-
-$$\small \frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$
-
-$$\huge \frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$
-
 
 ---
 
@@ -111,20 +103,22 @@ Consider discretizing, independently, the left- and right-hand sides of
 equation 2. For the left-hand side, we can approximate the first derivative
 of _u_ with respect to time, _t_, by the equation...
 
-|![](http://latex.codecogs.com/gif.latex?%5Cfrac%7B%5Cpartial%20u%7D%7B%5Cpartial%20t%7D%20%5CBigr%7C_%7Bt_%7Bk%2B1%7D%7D%20%5Capprox%20%5Cfrac%7Bu_i%5E%7Bk%2B1%7D-u_i%5Ek%7D%7B%5CDelta%20t%7D)|(3)|
+$$\frac{\partial u}{\partial t} \Bigr\vert_{t_{k+1}} \approx \frac{u_i^{k+1}-u_i^k}{\Delta t}$$
+
 
 We can approximate the right-hand side of equation 2 with
 the second derivative of _u_ with respect to space, _x_, by the equation...
 
-|![](http://latex.codecogs.com/gif.latex?%5Calpha%20%5Cfrac%7B%5Cpartial%5E2%20u%7D%7B%5Cpartial%20x%5E2%7D%5CBigr%7C_%7Bx_i%7D%20%5Capprox%20%5Calpha%20%5Cfrac%7Bu_%7Bi-1%7D%5Ek-2u_i%5Ek%2Bu_%7Bi%2B1%7D%5Ek%7D%7B%5CDelta%20x%5E2%7D)|(4)|
+$$\alpha \frac{\partial^2 u}{\partial x^2}\Bigr\vert_{x_i} \approx \alpha \frac{u_{i-1}^k-2u_i^k+u_{i+1}^k}{\Delta x^2}$$
+
 
 Setting equations 3 and 4 equal to each other and re-arranging terms, we
 arrive at the following update scheme for producing the temperatures at
 the next time, _k+1_, from temperatures at the current time, _k_, as
 
-|![](http://latex.codecogs.com/gif.latex?u_i%5E%7Bk%2B1%7D%20%3D%20ru_%7Bi%2B1%7D%5Ek%2B%281-2r%29u_i%5Ek%2Bru_%7Bi-1%7D%5Ek)|(5)|
+$$u_i^{k+1} = ru_{i+1}^k+(1-2r)u_i^k+ru_{i-1}^k$$
 
-where ![](http://latex.codecogs.com/gif.latex?r%3D%5Calpha%5Cfrac%7B%5CDelta%20t%7D%7B%5CDelta%20x%5E2%7D)
+where \\( r=\alpha\frac{\Delta t}{\Delta x^2} \\)
 
 {% include qanda question='Is there anything in the discrete form of the PDE that looks like a _mesh_?' answer='In the process of discretizing the PDE, we have defined a fixed spacing in x and a fixed spacing in t. This is essentially a uniform mesh. Later lessons here address more sophisticated discretizations in space and in time which depart from these all too inflexible fixed spacings.' %}
 
@@ -395,9 +389,10 @@ Plots from some early times in the run are shown below...
 Using the [Crank-Nicolson](https://en.wikipedia.org/wiki/Crank–Nicolson_method) discretization,
 we arrive at the following discretization of equation 2...
 
-![](http://latex.codecogs.com/gif.latex?-ru_%7Bi%2B1%7D%5E%7Bk%2B1%7D%2B%281%2B2r%29u_i%5E%7Bk%2B1%7D-ru_%7Bi-1%7D%5E%7Bk%2B1%7D%20%3D%20ru_%7Bi%2B1%7D%5Ek%2B%281-2r%29u_i%5Ek%2Bru_%7Bi-1%7D%5Ek)|(7)|
+$$-ru_{i+1}^{k+1}+(1+2r)u_i^{k+1}-ru_{i-1}^{k+1} = ru_{i+1}^k+(1-2r)u_i^k+ru_{i-1}^k$$
 
-where ![](http://latex.codecogs.com/gif.latex?r%3D%20%5Calpha%20%5Cfrac%7B%5CDelta%20t%7D%7B2%20%5CDelta%20x%5E2%7D)
+
+where $$r= \alpha \frac{\Delta t}{2 \Delta x^2}$$.
 
 In equation 7, the solution at spatial position _i_ and time _k+1_
 now depends not only on values of u at time _k_ but also on other
@@ -635,12 +630,12 @@ one dimensional, Cartesian coordinate, homogeneous material  case is governed by
 partial differential
 equation (PDE)...
 
-![](http://latex.codecogs.com/gif.latex?%5Cfrac%7B%5Cpartial%20u%7D%7B%5Cpartial%20t%7D%20%3D%20%5Calpha%20%5Cfrac%7B%5Cpartial%5E2%20u%7D%7B%5Cpartial%20x%5E2%7D)
+$$\frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$
 
 ### Steady State or Variation with Time
 
 In some cases, the only solution we may care about is the _steady state_ solution.
-That is the solution for ![](http://latex.codecogs.com/gif.latex?t%5Cgg0), after a _long, long_ time,
+That is the solution for $$t\gg0$$, after a _long, long_ time,
 where whatever the initial condition may have been, its transient effects have died out and all
 that remains are the effects due to constant temperature boundary conditions.
 In other cases, we may care about how the temperature varies with time either at a given
@@ -657,19 +652,28 @@ our implementation of any numerical algorithm.
 For example, for the case of _bc0=0_, _bc1=0_, _ic=const(U0)_, the analytic
 solution **for all time, _t_**, is given by...
 
-![](http://latex.codecogs.com/gif.latex?%5Csum%5Climits_%7Bn%3D1%7D%5E%5Cinfty%20%5Cfrac%7B%7BU%7D_0%281-%28-1%29%5En%29%7D%7Bn%5Cpi%7D%5Csin%28%7B%7Bn%7D%5Cpi%7Bx%7D%7D%29%29%5Cexp%7B-%5Calpha%7Bn%7D%7Bx%7D%5E2%7Bt%7D%7D)
+$$
+  \sum
+     \limits_{n=1}^\infty
+     \frac{U_0(1-(-1)^n)}{n\pi}\sin({
+         {n}\pi{x}
+       }))\exp{-\alpha{n}{x}^2{t}
+              }
+$$
 
-Similarly, for the case of _bc0=0_, _bc1=0_,
-_ic=![](http://latex.codecogs.com/gif.latex?%7BU_0%7D%5Csin%28%7B%5Cpi%7D%7Bx%7D%29)
+Similarly, for the case of _bc0=0_, _bc1=0_, _ic_=$${U_0}\sin({\pi}{x})$$
 the analytic solution **for all time, _t_**, is given by...
 
-![](http://latex.codecogs.com/gif.latex?%7BU_0%7D%5Csin%28%7B%7B%5Cpi%7D%7Bx%7D%7D%29%5Cexp%5E%7B-%5Calpha%7B%5Cpi%7D%5E2%7Bt%7D%7D)
+$$
+  {U_0}\sin({
+    {\pi}{x}})\exp^{-\alpha{\pi}^2{t}
+                   }
+$$
 
-The analytic solution, _u(x,t)_,
-for _steady state_, ![](http://latex.codecogs.com/gif.latex?t%5Cgg0), is
+The analytic solution, _u(x,t)_, for _steady state_, $$t\gg0$$, is
 a simple linear interpolation between temperature values at the ends...
 
-![](http://latex.codecogs.com/gif.latex?u%28x%2Ct%29%20%3D%20x%7Bbc0%7D%2B%281-x%29%7Bbc1%7D%2C%20t%5Cgg0)
+$$u(x,t) = x{bc0}+(1-x){bc1}, t\gg0$$
 
 ### Simple Examples
 
@@ -685,3 +689,5 @@ equation with a variety of algorithms and with MPI, OpenMP and Cuda](https://git
 results from _explicit_ numerical algorithms.](http://www.math.ubc.ca/~costanza/HeatEqTutorial.html)
 
 [An example Excel spreadsheet is available.](1d_heat_equation.xlsx)
+
+\ref{foo}

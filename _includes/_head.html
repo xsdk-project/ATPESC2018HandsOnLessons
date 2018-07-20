@@ -91,14 +91,24 @@
 	{% endunless %}
 
         {% if page.use_math %}
-            <script type="text/x-mathjax-config">
-                MathJax.Hub.Config({
+	   <!-- MathJax Config
                     CommonHTML: {
                         scale: 200
                     }
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Config({
+                    displayAlign: "left"
                 });
             </script>
+            -->
             <script type="text/javascript" async
                 src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async>
+            </script>
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Config({
+                    TeX: { 
+                        equationNumbers: {  autoNumber: "all"  }
+                    }
+                });
             </script>
         {% endif %}

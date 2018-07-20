@@ -50,9 +50,11 @@
     url: "https://amrex-codes.github.io"
 
 - title: Contributing
-  url: "/documentation/"
+  url: "/contributing_guide/"
   side: left
   dropdown:
+  - title: "Contributing Guide"
+    url: "/contributing_guide/"
   - title: "Why the new theme?"
     url: "/info/"
   - title: "Many Header Styles"
