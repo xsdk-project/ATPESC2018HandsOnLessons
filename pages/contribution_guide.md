@@ -145,7 +145,7 @@ To preview changes locally, you will need to run these commands
 
 ```
 $ gem install github-pages
-$ bundle exec jekyll serve
+$ bundle exec jekyll serve --config _config.yml,_config_dev.yml
 ```
 
 To get all the tools on my Mac (gem, bundle, jekyll), I used Homebrew.
