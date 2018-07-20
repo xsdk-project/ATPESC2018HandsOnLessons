@@ -10,7 +10,7 @@ permalink: /lessons/
 <table>
 {% for item in site.lessons %}
 <tr>
-<td><a href="{{ item.url }}">{{ item.title }}</a></td>
+<td><a href="{{ site.url }}{{ site.baseurl }}{{ item.url }}">{{ item.title }}</a></td>
 <td>{{ item.subheadline }}</td>
 </tr>
 {% endfor %}

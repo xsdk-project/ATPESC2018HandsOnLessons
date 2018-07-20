@@ -40,12 +40,7 @@ positioned points in _x_.
 In general, heat [conduction](https://en.wikipedia.org/wiki/Thermal_conduction) is governed
 by the partial differential (PDE)...
 
-$$
-  \label{foo}
-
-
-  \frac{\partial u}{\partial t} - \nabla \cdot \alpha \nabla u = 0
-$$
+$$\frac{\partial u}{\partial t} - \nabla \cdot \alpha \nabla u = 0$$
 
 where _u_ is the temperature within the wall at spatial positions, _x_, and times, _t_, \\( \alpha \\),
 is the _thermal diffusivity_
@@ -689,5 +684,3 @@ equation with a variety of algorithms and with MPI, OpenMP and Cuda](https://git
 results from _explicit_ numerical algorithms.](http://www.math.ubc.ca/~costanza/HeatEqTutorial.html)
 
 [An example Excel spreadsheet is available.](1d_heat_equation.xlsx)
-
-\ref{foo}
