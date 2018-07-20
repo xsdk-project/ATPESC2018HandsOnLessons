@@ -24,9 +24,9 @@ cp _lessons/lesson_template/lesson.md _lessons/my_new_lesson
 ---
 layout: page-fullwidth
 title: "Lesson Template"
-subheadline: "Outline of lesson"
+subheadline: "My New Lesson"
 teaser: "Set your teaser here..."
-permalink: "lessons/lesson_template/"
+permalink: "lessons/my_new_lesson/"
 use_math: true
 lesson: true
 header:
@@ -57,6 +57,12 @@ header:
    with whatever you need. As you add pictures, be sure to add them to the same
    directory as the `lesson.md` file you are creating. Examine the lesson template
    to see how to link to them from your `lesson.md` file.
+1. Edit `_data/navigation.yml` and add a line for your lesson in the `ATPESC 2018 Lessons`
+   section of the YAML data for your lesson. If you named things as above...
+```
+- title: "My New Lesson"
+  url: "/lessons/my_new_lesson/"
+```
 1. Finally, remember that in order to see the raw markup used to create any rendered
    web page, equation, etc. you can simply go to the GitHub repo for the site, and
    find the associated page there. For example, to view the raw markup for the
