@@ -57,6 +57,14 @@ header:
    with whatever you need. As you add pictures, be sure to add them to the same
    directory as the `lesson.md` file you are creating. Examine the lesson template
    to see how to link to them from your `lesson.md` file.
+1. Finally, remember that in order to see the raw markup used to create any rendered
+   web page, equation, etc. you can simply go to the GitHub repo for the site, and
+   find the associated page there. For example, to view the raw markup for the
+   [Hand Coded Heat Lesson](/lessons/hand_coded_heat/), you would go
+   [here](https://github.com/xsdk-project/ATPESC2018HandsOnLessons/blob/gh-pages/_lessons/hand_coded_heat/lesson.md)
+   and then hit the `Raw` button to view the
+   [raw file contents](https://raw.githubusercontent.com/xsdk-project/ATPESC2018HandsOnLessons/gh-pages/_lessons/hand_coded_heat/lesson.md).
+   To go to the top of the GitHub repo for this site, go [here](https://github.com/xsdk-project/ATPESC2018HandsOnLessons)
 
 ## More About GitHub Pages and Jekyll
 
