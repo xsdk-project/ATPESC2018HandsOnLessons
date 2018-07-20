@@ -121,27 +121,10 @@ minute or two in re-generating the site. And, it also means your changes
 are always going live.
 
 This site is a GitHub pages site using a GitHub [supported](https://pages.github.com/themes/)
-Jekyll theme backend. This means you compose content in GitHub Markdown and when you commit
+and the [Feeling Responsive Jekyll Theme](https://phlow.github.io/feeling-responsive/)
+This means you compose content in GitHub Markdown and when you commit
 changes to GitHub, Jekyll generates the HTML pages for the site automatically. But, it also
 means its a bit harder for you to preview, locally, your changes before committing.
-
-But, if we don't like the current theme we're using,
-[Cayman](https://pages-themes.github.io/cayman/), we can easily change
-it by going to the repository's settings page on github, scrolling down to the
-GitHub Pages section and hitting the `Change Theme` button and then selecting
-another theme. Note, there are only a handful of themes supported by GitHub this
-way (e.g. easily switchable via the `Change Theme` button). However, that does not
-mean we cannot choose from another UNsupported theme. There are hundreds of
-[Jekyll themes](http://jekyllthemes.org) available and we should probably spend
-some more time to find best. Using an UNsupported theme simply means that we'd have
-to buy into committing all the Jekyll accouterments to our repo and, as a result,
-it is not as easy to switch the theme later if we don't like it.
-
-To permit the site to be easily switched to another GitHub supported Jekyll theme,
-I have chosen **not** to commit to the repository all the Jekyll accouterments.
-In any event, even if they were present, you would still wind up having to run
-Jekyll to re-build and serve the site, each time you want to preview it.
-To preview changes locally, you will need to run these commands
 
 ```
 $ gem install github-pages
@@ -150,7 +133,7 @@ $ bundle exec jekyll serve --config _config.yml,_config_dev.yml
 
 To get all the tools on my Mac (gem, bundle, jekyll), I used Homebrew.
 
-Detailed instructions on setting up GitHub pages locally can be found [here](how_to_preview_locally.md).
+Detailed instructions on setting up GitHub pages locally can be found [here](/how_to_preview_locally/).
 
 ## Including Math Equations
 
