@@ -25,6 +25,8 @@
     url: "/lessons/adjoint/"
   - title: "Numerical Optimization"
     url: "/lessons/obstacle_tao"
+  - title: "MFEM+PUMI Adaptive Workflow"
+    url: "/lessons/pumi/"
 
 - title: Packages
   url: "https://fastmath-scidac.org/software-catalog.html"
