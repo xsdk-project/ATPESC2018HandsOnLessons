@@ -12,7 +12,8 @@ permalink: "/contributing_guide/"
 
 1. The easiest way to start creating a new lesson is to copy and then start modifying
    modify the [lesson template](/lessons/lesson_template/). Starting from the top-level
-   directory, copy the lesson template to a new sub-directory in `_lessons`.
+   directory, copy the lesson template to a new sub-directory in `_lessons`. **Note:
+   Use underscores instead of dashes in the directory name.**
 ```shell
 mkdir _lessons/my_new_lesson
 cp _lessons/lesson_template/lesson.md _lessons/my_new_lesson
@@ -71,6 +72,9 @@ header:
    and then hit the `Raw` button to view the
    [raw file contents](https://raw.githubusercontent.com/xsdk-project/ATPESC2018HandsOnLessons/gh-pages/_lessons/hand_coded_heat/lesson.md).
    To go to the top of the GitHub repo for this site, go [here](https://github.com/xsdk-project/ATPESC2018HandsOnLessons)
+1. It is not necessary to submit _pull requests_ to update your lessons. You
+   may simply push your changes to the `gh-pages` branch and your changes
+   go live automatically.
 
 ## More About GitHub Pages and Jekyll
 

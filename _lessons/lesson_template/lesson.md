@@ -3,11 +3,11 @@ layout: page-fullwidth
 title: "Lesson Template"
 subheadline: "Outline of lesson"
 teaser: "Set your teaser here..."
-permalink: "lessons/lesson_template/"
+permalink: "lessons/superlu_mfem/"
 use_math: true
 lesson: true
 header:
- image_fullwidth: "2012.jpg"
+ image_fullwidth: "matrices.png"
 ---
 
 ## At a Glance
@@ -130,6 +130,9 @@ question and answer boxes. To use it...
 {% include qanda question='The question to ask' answer='The _answer_ you want to provide' %}
 ```
 {% endraw %}
+
+Be sure, however, not to include any single quote characters (e.g. apostrophe) in the string
+assigned to either parameter.
 
 You may include standard [GitHub Markdown](https://guides.github.com/features/mastering-markdown/)
 styling within the quoted text to both the _question_ and _answer_ parameters of the Liquid

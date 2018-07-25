@@ -69,7 +69,7 @@ markdown: kramdown
 permalink: /:categories/:title/
 highlight: rouge
 excerpt_separator: "<!--more-->"
-include: ['.htaccess', '*.jpg', '*.png']
+include: ['.htaccess', '*.jpg', '*.png', '*.mpg', '*.mp4']
 # Exclude these files from your production _site
 exclude:
     - .sass-cache
