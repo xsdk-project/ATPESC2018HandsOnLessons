@@ -3,7 +3,7 @@ layout: page-fullwidth
 title: "Lesson Template"
 subheadline: "Outline of lesson"
 teaser: "Set your teaser here..."
-permalink: "lessons/superlu_mfem/"
+permalink: "lessons/lesson_template/"
 use_math: true
 lesson: true
 header:
