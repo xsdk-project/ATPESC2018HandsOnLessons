@@ -29,6 +29,8 @@
   dropdown:
   - title: "Hand Coded Heat"
     url: "/lessons/hand_coded_heat/"
+  - title: "Sparse Direct Solvers"
+    url: "/lessons/superlu_mfem/"
 
 - title: Packages
   url: "https://fastmath-scidac.org"
