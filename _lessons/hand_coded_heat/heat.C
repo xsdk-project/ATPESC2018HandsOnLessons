@@ -1,6 +1,6 @@
 #include <assert.h>
 #include <float.h>
-#include <math.h>
+#include <cmath>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,6 +13,91 @@
 #endif
 #endif
 
+#include <ostream>
+#include <sstream>
+#include <iostream>
+
+using std::ostream;
+
+
+class Double {
+  public:
+    static int nadds;
+    static int nmults;
+    static int ndivs;
+    static std::size_t nbytes;
+    static void *operator new(std::size_t sz) { Double::nbytes += sz; return ::operator new(sz); };
+    static void *operator new[](std::size_t sz) { Double::nbytes += sz; return ::operator new(sz); };
+    double x;
+    inline Double() : x(0) {};
+    inline Double(double _x) : x(_x) {};
+    inline Double(int _x) : x((double) _x) {};
+    inline Double &operator=(const Double& rhs) { this->x = rhs.x; return *this; };
+    inline operator double() const { return x; };
+};
+
+inline Double operator+(const Double& lhs, const Double& rhs) {  Double::nadds++; return lhs.x + rhs.x; };
+inline Double operator+(const int& lhs, const Double& rhs) {  Double::nadds++; return lhs + rhs.x; };
+inline Double operator+(const Double& lhs, const int& rhs) {  Double::nadds++; return lhs.x + rhs; };
+inline Double operator+(const double& lhs, const Double& rhs) {  Double::nadds++; return lhs + rhs.x; };
+inline Double operator+(const Double& lhs, const double& rhs) {  Double::nadds++; return lhs.x + rhs; };
+inline Double operator+=(Double& lhs, const Double& rhs) {  Double::nadds++; return lhs.x += rhs.x; };
+inline Double operator-(const Double& lhs, const Double& rhs) {  Double::nadds++; return lhs.x - rhs.x; };
+inline Double operator-(const int& lhs, const Double& rhs) {  Double::nadds++; return lhs - rhs.x; };
+inline Double operator-(const Double& lhs, const int& rhs) {  Double::nadds++; return lhs.x - rhs; };
+inline Double operator-(const double& lhs, const Double& rhs) {  Double::nadds++; return lhs - rhs.x; };
+inline Double operator-(const Double& lhs, const double& rhs) {  Double::nadds++; return lhs.x - rhs; };
+inline Double operator-(const Double& rhs) {  Double::nadds++; return -rhs.x; };
+inline Double operator-=(Double& lhs, const Double& rhs) {  Double::nadds++; return lhs.x -= rhs.x; };
+inline Double operator*(const Double& lhs, const Double& rhs) { Double::nmults++; return lhs.x * rhs.x; };
+inline Double operator*(const int& lhs, const Double& rhs) { Double::nmults++; return lhs * rhs.x; };
+inline Double operator*(const Double& lhs, const int& rhs) { Double::nmults++; return lhs.x * rhs; };
+inline Double operator*(const double& lhs, const Double& rhs) { Double::nmults++; return lhs * rhs.x; };
+inline Double operator*(const Double& lhs, const double& rhs) { Double::nmults++; return lhs.x * rhs; };
+inline Double operator*=(Double& lhs, const Double& rhs) { Double::nmults++; return lhs.x *= rhs.x; };
+inline Double operator/(const Double& lhs, const Double& rhs) { Double::ndivs++; return lhs.x / rhs.x; };
+inline Double operator/(const int& lhs, const Double& rhs) { Double::ndivs++; return lhs / rhs.x; };
+inline Double operator/(const Double& lhs, const int& rhs) { Double::ndivs++; return lhs.x / rhs; };
+inline Double operator/(const double& lhs, const Double& rhs) { Double::ndivs++; return lhs / rhs.x; };
+inline Double operator/(const Double& lhs, const double& rhs) { Double::ndivs++; return lhs.x / rhs; };
+inline Double operator/=(Double& lhs, const Double& rhs) { Double::ndivs++; return lhs.x /= rhs.x; };
+inline bool operator< (const Double& lhs, const Double& rhs){ return lhs.x < rhs.x; }
+inline bool operator< (const int& lhs, const Double& rhs){ return lhs < rhs.x; }
+inline bool operator< (const Double& lhs, const int& rhs){ return lhs.x < rhs; }
+inline bool operator< (const double& lhs, const Double& rhs){ return lhs < rhs.x; }
+inline bool operator< (const Double& lhs, const double& rhs){ return lhs.x < rhs; }
+inline bool operator> (const Double& lhs, const Double& rhs){ return rhs < lhs; }
+inline bool operator> (const int& lhs, const Double& rhs){ return rhs < lhs; }
+inline bool operator> (const Double& lhs, const int& rhs){ return rhs < lhs; }
+inline bool operator> (const double& lhs, const Double& rhs){ return rhs < lhs; }
+inline bool operator> (const Double& lhs, const double& rhs){ return rhs < lhs; }
+inline bool operator<=(const Double& lhs, const Double& rhs){ return !(lhs > rhs); }
+inline bool operator<=(const int& lhs, const Double& rhs){ return !(lhs > rhs); }
+inline bool operator<=(const Double& lhs, const int& rhs){ return !(lhs > rhs); }
+inline bool operator<=(const double& lhs, const Double& rhs){ return !(lhs > rhs); }
+inline bool operator<=(const Double& lhs, const double& rhs){ return !(lhs > rhs); }
+inline bool operator>=(const Double& lhs, const Double& rhs){ return !(lhs < rhs); }
+inline bool operator>=(const int& lhs, const Double& rhs){ return !(lhs < rhs); }
+inline bool operator>=(const Double& lhs, const int& rhs){ return !(lhs < rhs); }
+inline bool operator>=(const double& lhs, const Double& rhs){ return !(lhs < rhs); }
+inline bool operator>=(const Double& lhs, const double& rhs){ return !(lhs < rhs); }
+inline bool operator==(const Double& lhs, const Double& rhs){ return lhs.x == rhs.x; }
+inline bool operator==(const int& lhs, const Double& rhs){ return lhs == rhs.x; }
+inline bool operator==(const Double& lhs, const int& rhs){ return lhs.x == rhs; }
+inline bool operator==(const double& lhs, const Double& rhs){ return lhs == rhs.x; }
+inline bool operator==(const Double& lhs, const double& rhs){ return lhs.x == rhs; }
+inline bool operator!=(const Double& lhs, const Double& rhs){ return !(lhs == rhs); }
+inline bool operator!=(const int& lhs, const Double& rhs){ return !(lhs == rhs); }
+inline bool operator!=(const Double& lhs, const int& rhs){ return !(lhs == rhs); }
+inline bool operator!=(const double& lhs, const Double& rhs){ return !(lhs == rhs); }
+inline bool operator!=(const Double& lhs, const double& rhs){ return !(lhs == rhs); }
+inline ostream& operator<<(ostream& os, const Double& rhs)  { os << rhs.x; return os; }
+
+int Double::nadds = 0;
+int Double::nmults = 0;
+int Double::ndivs = 0;
+std::size_t Double::nbytes = 0;
+
 int const Nt_max = 50000;
 int const Nx_max = 10000;
 
@@ -23,15 +108,15 @@ int save = 0;
 char const *alg = "ftcs";
 char const *prec = "double";
 char const *ic = "const(1)";
-double alpha = 0.2;
-double dt = 0.004;
-double dx = 0.1;
-double bc0 = 0;
-double bc1 = 1;
-double maxt = 2.0;
+Double alpha = 0.2;
+Double dt = 0.004;
+Double dx = 0.1;
+Double bc0 = 0;
+Double bc1 = 1;
+Double maxt = 2.0;
 
-double *curr=0, *last=0, *change_history=0, *exact=0, *error_history=0;
-double *cn_Amat = 0;
+Double *curr=0, *last=0, *change_history=0, *exact=0, *error_history=0;
+Double *cn_Amat = 0;
 
 int Nx = (int) (1/0.1+1.5);
 int Nt = (int) (1 / 0.004);
@@ -39,21 +124,21 @@ int Nt = (int) (1 / 0.004);
 /*
  * Utilities 
  */
-static double
-l2_norm(int n, double const *a, double const *b)
+static Double
+l2_norm(int n, Double const *a, Double const *b)
 {
     int i;
-    double sum = 0;
+    Double sum = 0;
     for (i = 0; i < n; i++)
     {
-        double diff = a[i] - b[i];
+        Double diff = a[i] - b[i];
         sum += diff * diff;
     }
     return sum;
 }
 
 static void
-copy(int n, double *dst, double const *src)
+copy(int n, Double *dst, Double const *src)
 {
     int i;
     for (i = 0; i < n; i++)
@@ -65,7 +150,7 @@ copy(int n, double *dst, double const *src)
 #define RESIDUAL -3
 #define ERROR -4
 static void
-write_array(int t, int n, double dx, double const *a)
+write_array(int t, int n, Double dx, Double const *a)
 {
     int i;
     char fname[32];
@@ -91,13 +176,13 @@ write_array(int t, int n, double dx, double const *a)
     
     outf = fopen(fname,"w");
     for (i = 0; i < n; i++)
-        fprintf(outf, "%8.4g %8.4g\n", i*dx, a[i]);
+        fprintf(outf, "%8.4g %8.4g\n", i*dx.x, a[i].x);
     fclose(outf);
 }
 
 
 static void
-r83_np_fa(int n, double *a)
+r83_np_fa(int n, Double *a)
 /*
   Licensing: This code is distributed under the GNU LGPL license. 
   Modified: 30 May 2009 Author: John Burkardt
@@ -125,13 +210,13 @@ r83_np_fa(int n, double *a)
 static void
 initialize(void)
 {
-    curr = (double *) calloc(Nx, sizeof(double));
-    last = (double *) calloc(Nx, sizeof(double));
+    curr = new Double[Nx]();
+    last = new Double[Nx]();
     if (save)
     {
-        exact = (double *) calloc(Nx, sizeof(double));
-        change_history = (double *) calloc(Nt, sizeof(double));
-        error_history = (double *) calloc(Nt, sizeof(double));
+        exact = new Double[Nx]();
+        change_history = new Double[Nx]();
+        error_history = new Double[Nx]();
     }
 
     assert(strncmp(alg, "ftcs", 4)==0 ||
@@ -150,9 +235,9 @@ initialize(void)
           factor it once, and solve repeatedly.
         */
         int i;
-        double w = alpha * dt / dx / dx;
+        Double w = alpha * dt / dx / dx;
 
-        cn_Amat = ( double * ) malloc ( 3 * Nx * sizeof ( double ) );
+        cn_Amat = new Double[3*Nx]();
 
         cn_Amat[0+0*3] = 0.0;
         cn_Amat[1+0*3] = 1.0;
@@ -178,11 +263,14 @@ initialize(void)
 
 #define HANDLE_ARG(VAR, TYPE, STYLE, HELP) \
 { \
+    char const *style = #STYLE; \
+    char const *q = style[1]=='s'?"\"":""; \
     void *valp = (void*) &VAR; \
     int const len = strlen(#VAR)+1; \
+    std::stringstream strmvar; \
+    strmvar << VAR; \
     for (i = 1; i < argc; i++) \
     {\
-        char const *style = #STYLE; \
         int valid_style = style[1]=='d'||style[1]=='g'||style[1]=='s'; \
         if (strncmp(argv[i], #VAR"=", len)) \
             continue; \
@@ -192,7 +280,7 @@ initialize(void)
             if      (style[1] == 'd') /* int */ \
                 *((int*) valp) = (int) strtol(argv[i]+len,0,10); \
             else if (style[1] == 'g') /* double */ \
-                *((double*) valp) = (double) strtod(argv[i]+len,0); \
+                *((Double*) valp) = (double) strtod(argv[i]+len,0); \
             else if (style[1] == 's') /* char* */ \
                 *((char**) valp) = (char*) strdup(argv[i]+len); \
         }\
@@ -200,15 +288,15 @@ initialize(void)
     if (help) \
     {\
         char tmp[256]; \
-        int len = snprintf(tmp, sizeof(tmp), "        %s=" #STYLE, \
-            #VAR, VAR);\
+        int len = snprintf(tmp, sizeof(tmp), "        %s=%s%s%s", \
+            #VAR, q, strmvar.str().c_str(), q);\
         snprintf(tmp, sizeof(tmp), "%s (%s)", #HELP, #TYPE); \
-        fprintf(stderr, "        %s=" #STYLE "%*s\n", \
-            #VAR, VAR, 80-len, tmp);\
+        fprintf(stderr, "        %s=%s%s%s%*s\n", \
+            #VAR, q, strmvar.str().c_str(), q, 80-len, tmp);\
     }\
     else \
-        fprintf(stderr, "    %s="#STYLE"\n", \
-            #VAR, VAR);\
+        fprintf(stderr, "    %s=%s\n", \
+            #VAR, strmvar.str().c_str());\
 }
 
 static void
@@ -252,10 +340,10 @@ process_args(int argc, char **argv)
 }
 
 static void
-set_initial_condition(int n, double *a, double dx, char const *ic)
+set_initial_condition(int n, Double *a, Double dx, char const *ic)
 {
     int i;
-    double x;
+    Double x;
 
     if (!strncmp(ic, "const(", 6)) /* const(val) */
     {
@@ -299,11 +387,13 @@ set_initial_condition(int n, double *a, double dx, char const *ic)
         for (i = 0, x = 0; i < n; i++, x+=dx)
             a[i] = sin(M_PI*x);
     }
-    else if (!strncmp(ic, "spikes(", 7)) /* spikes(Amp,Loc,Amp,Loc,...) */
+    else if (!strncmp(ic, "spikes(", 7)) /* spikes(Const,Amp,Loc,Amp,Loc,...) */
     {
-        char const *p = &ic[6];
+        char *next;
+        double cval = strtod(ic+7, &next);
+        char const *p = next;
         for (i = 0, x = 0; i < n; i++)
-            a[i] = 0;
+            a[i] = cval;
         while (*p != ')')
         {
             char *ep_amp, *ep_idx;
@@ -320,11 +410,11 @@ set_initial_condition(int n, double *a, double dx, char const *ic)
 }
 
 static void 
-compute_exact_solution(int n, double *a, double dx, char const *ic,
-    double alpha, double t, double bc0, double bc1)
+compute_exact_solution(int n, Double *a, Double dx, char const *ic,
+    Double alpha, Double t, Double bc0, Double bc1)
 {
     int i;
-    double x;
+    Double x;
     
     if (bc0 == 0 && bc1 == 0 && !strncmp(ic, "sin(Pi*x)", 9))
     {
@@ -333,17 +423,17 @@ compute_exact_solution(int n, double *a, double dx, char const *ic,
     }
     else if (bc0 == 0 && bc1 == 0 && !strncmp(ic, "const(", 6))
     {
-        double cval = strtod(ic+6, 0);
+        Double cval = strtod(ic+6, 0);
         for (i = 0, x = 0; i < n; i++, x+=dx)
         {
             int n;
-            double fsum = 0;
+            Double fsum = 0;
 
             /* sum first 200 terms of Fourier series */
             for (n = 1; n < 200; n++)
             {
-                double coeff = 2*cval*(1-pow(-1.0,(double)n))/(n*M_PI);
-                double func = sin(n*M_PI*x)*exp(-alpha*n*n*M_PI*M_PI*t);
+                Double coeff = 2*cval*(1-pow(-1.0,(double)n))/(n*M_PI);
+                Double func = sin(n*M_PI*x)*exp(-alpha.x*n*n*M_PI*M_PI*t.x);
                 fsum += coeff * func;
             }
             a[i] = fsum;
@@ -357,19 +447,11 @@ compute_exact_solution(int n, double *a, double dx, char const *ic,
 }
 
 static void
-solution_update_ftcs(int n, double *curr, double const *last,
-    double alpha, double dx, double dt,
-    double bc_0, double bc_1)
+solution_update_ftcs(int n, Double *curr, Double const *last,
+    Double alpha, Double dx, Double dt,
+    Double bc_0, Double bc_1)
 {
-#if 0
-    int i;
-    double k = alpha * alpha * dt / (dx * dx);
-    curr[0  ] = bc_0;
-    curr[n-1] = bc_1;
-    for (i = 1; i < n-1; i++)
-        curr[i] = last[i] + k * (last[i-1] - 2 * last[i] + last[i+1]);
-#endif
-    double const r = alpha * dt / (dx * dx);
+    Double const r = alpha * dt / (dx * dx);
 
     /* Impose boundary conditions for solution indices i==0 and i==n-1 */
     curr[0  ] = bc_0;
@@ -381,15 +463,15 @@ solution_update_ftcs(int n, double *curr, double const *last,
 }
 
 static void
-solution_update_upwind15(int n, double *curr, double const *last,
-    double alpha, double dx, double dt,
-    double bc_0, double bc_1)
+solution_update_upwind15(int n, Double *curr, Double const *last,
+    Double alpha, Double dx, Double dt,
+    Double bc_0, Double bc_1)
 {
-    double const f2 = 1.0/24;
-    double const f1 = 1.0/6;
-    double const f0 = 1.0/4;
-    double const k = alpha * alpha * dt / (dx * dx);
-    double const k2 = k*k;
+    Double const f2 = 1.0/24;
+    Double const f1 = 1.0/6;
+    Double const f0 = 1.0/4;
+    Double const k = alpha * alpha * dt / (dx * dx);
+    Double const k2 = k*k;
 
     int i;
     curr[0  ] = bc_0;
@@ -405,7 +487,7 @@ solution_update_upwind15(int n, double *curr, double const *last,
 }
 
 static void 
-r83_np_sl ( int n, double const *a_lu, double const *b, double *x)
+r83_np_sl ( int n, Double const *a_lu, Double const *b, Double *x)
     /* Licensing: This code is distributed under the GNU LGPL license. 
        Modified: 30 May 2009 Author: John Burkardt
        Modified by Mark C. Miller, miller86@llnl.gov, July 23, 2017
@@ -430,9 +512,9 @@ r83_np_sl ( int n, double const *a_lu, double const *b, double *x)
 }
 
 static void
-solution_update_crankn(int n, double *curr, double const *last,
-    double alpha, double dx, double dt,
-    double bc_0, double bc_1)
+solution_update_crankn(int n, Double *curr, Double const *last,
+    Double alpha, Double dx, Double dt,
+    Double bc_0, Double bc_1)
 {
     /* Do the solve */
     r83_np_sl (n, cn_Amat, last, curr);
@@ -440,19 +522,25 @@ solution_update_crankn(int n, double *curr, double const *last,
     curr[n-1] = bc1;
 }
 
-int finalize(int ti, double maxt, double change)
+int finalize(int ti, Double maxt, Double change)
 {
     int retval = 0;
 
     if (outi)
-        printf("Iteration %04d: last change l2=%g\n", ti, change);
+    {
+        printf("Iteration %04d: last change l2=%g\n", ti, change.x);
+        printf("Total adds = %d\n", Double::nadds);
+        printf("Total mults = %d\n", Double::nmults);
+        printf("Total divs = %d\n", Double::ndivs);
+        printf("Total bytes = %lu\n", Double::nbytes);
+    }
 
-    free(curr);
-    free(last);
-    if (exact) free(exact);
-    if (change_history) free(change_history);
-    if (error_history) free(error_history);
-    if (cn_Amat) free(cn_Amat);
+    delete [] curr;
+    delete [] last;
+    if (exact) delete [] exact;
+    if (change_history) delete [] change_history;
+    if (error_history) delete [] error_history;
+    if (cn_Amat) delete [] cn_Amat;
     if (strncmp(alg, "ftcs", 4)) free((void*)alg);
     if (strncmp(prec, "double", 6)) free((void*)prec);
     if (strncmp(ic, "const(1)", 8)) free((void*)ic);
@@ -463,12 +551,11 @@ int finalize(int ti, double maxt, double change)
 int main(int argc, char **argv)
 {
     int i, ti;
-    double error;
-    FILE *outf;
+    Double error;
 
     process_args(argc, argv);
 
-    double change;
+    Double change;
     Nx = (int) (1/dx+1.5);
     Nt = (int) (maxt / dt);
     dx = 1.0/(Nx-1);
@@ -509,7 +596,7 @@ int main(int argc, char **argv)
 
         if (outi && ti%outi==0)
         {
-            printf("Iteration %04d: last change l2=%g\n", ti, change);
+            printf("Iteration %04d: last change l2=%g\n", ti, change.x);
         }
     }
 
