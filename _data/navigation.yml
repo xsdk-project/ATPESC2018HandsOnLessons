@@ -33,7 +33,7 @@
     url: "/lessons/superlu_mfem/"
 
 - title: Packages
-  url: "https://fastmath-scidac.org"
+  url: "https://fastmath-scidac.org/software-catalog.html"
   side: left
   dropdown:
   - title: "PETSc"
