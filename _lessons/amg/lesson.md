@@ -18,7 +18,7 @@ We don't have to list all possible questions here...only the two or three _most_
 only list here the ones that are _most_ important.
 * **Key Points** are those things we want learners to take-away from the lesson.
 
-
+```
 Questions                 |Objectives                           |Key Points
 --------------------------|----------- -------------------------|--------------------------
 Why multigrid over CG for |Understand multigrid concept         |Faster convergence,
@@ -27,28 +27,17 @@ Why use more aggressive   |Understand need for low complexities |Lower memory us
 coarsening for AMG?       |                                     |times, but more iterations
 Why a structured solver   |Understand importance of suitable    |Higher efficiency,
 for a structured problem? |data structures                      |faster solve times
-
+```
 
 ## The Problem Being Solved
 
-Describe the problem(s) that will be solved in this lesson.
-If possible, include a picture or graphic here describing the physical problem setup. If the application
-or tool being used can deal with a variety of input physical problems, its fine to mention
-that but here just include a cool or motivating picture of the problem they will be running in the _runs_
-below. Maybe include the equation(s) being solved as well.
+The linear system to be solved is generated using central finite differences applied to the Poisson equation
 
-Including [LaTeX](https://www.latex-project.org)
-equations is easy. Below are examples of block-displayed equations. Introduce and terminate
-equations with the `$$` delimiter like so..
-```
-$$\frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$
-```
-which yields
+$$-{\Delta u} = f$$
 
-$$\frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$
+on a cuboid of size $$n_x \times n_y \times n_z$$ with Dirichlet boundary conditions
 
-Surround equations with blank lines to format them is independent paragraphs. Otherwise,
-they will be rendered in-line with the current paragraph.
+$$u = 0$$
 
 
 If you want to refer to the equation in text, add a label like so...
@@ -80,11 +69,70 @@ Geometry::~Geometry()
 
 ## Running the Example
 
-### Run 1 (Problem Name)
+### Run 1 (Run GMRES(10) for increasing problem sizes)
 
-Give the command-line to run the example
+```
+ij -gmres -n 20 20 20
+```
 
 #### Expected Behavior/Output
+
+You should get something that looks like this
+```
+Running with these driver parameters:
+  solver ID    = 4
+
+    (nx, ny, nz) = (20, 20, 20)
+    (Px, Py, Pz) = (1, 1, 1)
+    (cx, cy, cz) = (1.000000, 1.000000, 1.000000)
+
+    Problem size = (20 x 20 x 20)
+
+=============================================
+Generate Matrix:
+=============================================
+Spatial Operator:
+  wall clock time = 0.000000 seconds
+  wall MFLOPS     = 0.000000
+  cpu clock time  = 0.000000 seconds
+  cpu MFLOPS      = 0.000000
+
+  RHS vector has unit components
+  Initial guess is 0
+=============================================
+IJ Vector Setup:
+=============================================
+RHS and Initial Guess:
+  wall clock time = 0.000000 seconds
+  wall MFLOPS     = 0.000000
+  cpu clock time  = 0.000000 seconds
+  cpu MFLOPS      = 0.000000
+
+Solver: DS-GMRES
+HYPRE_GMRESGetPrecond got good precond
+=============================================
+Setup phase times:
+=============================================
+GMRES Setup:
+  wall clock time = 0.000000 seconds
+  wall MFLOPS     = 0.000000
+  cpu clock time  = 0.000000 seconds
+  cpu MFLOPS      = 0.000000
+
+=============================================
+Solve phase times:
+=============================================
+GMRES Solve:
+  wall clock time = 0.050000 seconds
+  wall MFLOPS     = 0.000000
+  cpu clock time  = 0.040000 seconds
+  cpu MFLOPS      = 0.000000
+
+
+GMRES Iterations = 186
+Final GMRES Relative Residual Norm = 9.593291e-09
+Total time = 0.050000
+```
 
 Include here what learner should expect to happen
 
