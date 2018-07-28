@@ -1,8 +1,7 @@
 ---
 layout: page-fullwidth
-title: "Krylov Solvers, Algebraic Multigrid and Data Structures"
-subheadline: "Outline of lesson"
-teaser: "Set your teaser here..."
+title: "Krylov Solvers and Algebraic Multigrid"
+subheadline: "Demonstrate utility of multigrid"
 permalink: "lessons/krylov_amg/"
 use_math: true
 lesson: true
@@ -12,22 +11,10 @@ header:
 
 ## At a Glance
 
-* **Questions** are the those things we want learners to know the answers to by the end of the lesson.
-We don't have to list all possible questions here...only the two or three _most_ important.
-* **Objectives** are those things we want learners to actually do or observe during the lesson. Again,
-only list here the ones that are _most_ important.
-* **Key Points** are those things we want learners to take-away from the lesson.
+|Why multigrid over a Krylov<br>solver for large problems?|Understand multigrid concept.|Faster convergence,<br>better scalability.|
+|Why use more aggresive<br>coarsening for AMG?|Understand need for low complexities.|Lower memory use, faster times,<br>but more iterations.|
+|Why a structured solver<br>for a structured problem?|Understand importance of<br>suitable data structures|Higher efficiency,<br>faster solve times.|
 
-```
-Questions                   |Objectives                           |Key Points
-----------------------------|----------- -------------------------|--------------------------
-Why multigrid over a Krylov |Understand multigrid concept         |Faster convergence,
-solver for large problems?  |                                     |better scalability
-Why use more aggressive     |Understand need for low complexities |Lower memory use, faster
-coarsening for AMG?         |                                     |times, but more iterations
-Why a structured solver     |Understand importance of suitable    |Higher efficiency,
-for a structured problem?   |data structures                      |faster solve times
-```
 
 ## The Problem Being Solved
 

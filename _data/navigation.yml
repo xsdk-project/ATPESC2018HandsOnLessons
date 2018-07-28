@@ -12,6 +12,8 @@
     url: "/lessons/superlu_mfem/"
   - title: "Time Integration & Non-Linear Solvers"
     url: "/lessons/time_integrators/"
+  - title: "Krylov Solvers, Algebraic Multigrid and Data Structures"
+    url: "/lessons/krylov_amg/"
 
 - title: Packages
   url: "https://fastmath-scidac.org/software-catalog.html"
