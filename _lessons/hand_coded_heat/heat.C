@@ -108,6 +108,7 @@ int save = 0;
 char const *alg = "ftcs";
 char const *prec = "double";
 char const *ic = "const(1)";
+Double lenx = 1.0;
 Double alpha = 0.2;
 Double dt = 0.004;
 Double dx = 0.1;
@@ -118,8 +119,8 @@ Double maxt = 2.0;
 Double *curr=0, *last=0, *change_history=0, *exact=0, *error_history=0;
 Double *cn_Amat = 0;
 
-int Nx = (int) (1/0.1+1.5);
-int Nt = (int) (1 / 0.004);
+int Nx = (int) (lenx/dx);
+int Nt = (int) (maxt/dt);
 
 /*
  * Utilities 
@@ -268,7 +269,6 @@ initialize(void)
     void *valp = (void*) &VAR; \
     int const len = strlen(#VAR)+1; \
     std::stringstream strmvar; \
-    strmvar << VAR; \
     for (i = 1; i < argc; i++) \
     {\
         int valid_style = style[1]=='d'||style[1]=='g'||style[1]=='s'; \
@@ -285,6 +285,7 @@ initialize(void)
                 *((char**) valp) = (char*) strdup(argv[i]+len); \
         }\
     }\
+    strmvar << VAR; \
     if (help) \
     {\
         char tmp[256]; \
@@ -295,8 +296,8 @@ initialize(void)
             #VAR, q, strmvar.str().c_str(), q, 80-len, tmp);\
     }\
     else \
-        fprintf(stderr, "    %s=%s\n", \
-            #VAR, strmvar.str().c_str());\
+        fprintf(stderr, "    %s=%s%s%s\n", \
+            #VAR, q, strmvar.str().c_str(), q);\
 }
 
 static void
@@ -317,12 +318,13 @@ process_args(int argc, char **argv)
 
     HANDLE_ARG(prec, char*, %s, precision half|float|double|quad);
     HANDLE_ARG(alpha, double, %g, material thermal diffusivity);
-    HANDLE_ARG(dx, double, %g, x-incriment (1/dx->int));
+    HANDLE_ARG(lenx, double, %g, material length);
+    HANDLE_ARG(dx, double, %g, x-incriment (best if lenx/dx->int));
     HANDLE_ARG(dt, double, %g, t-incriment);
     HANDLE_ARG(maxt, double, %g, max. time to run simulation to);
-    HANDLE_ARG(bc0, double, %g, bc @ x=0: u(0,t));
-    HANDLE_ARG(bc1, double, %g, bc @ x=1: u(1,t));
-    HANDLE_ARG(ic, char*, %s, ic @ t=0: u(x,0));
+    HANDLE_ARG(bc0, double, %g, boundary condition @ x=0: u(0,t));
+    HANDLE_ARG(bc1, double, %g, boundary condition @ x=1: u(1,t));
+    HANDLE_ARG(ic, char*, %s, initial condition @ t=0: u(x,0));
     HANDLE_ARG(alg, char*, %s, algorithm ftcs|upwind15|crankn);
     HANDLE_ARG(savi, int, %d, save every i-th solution step);
     HANDLE_ARG(save, int, %d, save error in every saved solution);
@@ -556,9 +558,9 @@ int main(int argc, char **argv)
     process_args(argc, argv);
 
     Double change;
-    Nx = (int) (1/dx+1.5);
-    Nt = (int) (maxt / dt);
-    dx = 1.0/(Nx-1);
+    Nx = (int) (lenx/dx);
+    Nt = (int) (maxt/dt);
+    dx = lenx/(Nx-1);
 
     initialize();
 

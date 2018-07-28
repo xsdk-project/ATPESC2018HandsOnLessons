@@ -2,28 +2,7 @@
   url: "/"
   side: left
 
-- title: ATPESC 2017 Lessons
-  url: "https://xsdk-project.github.io/HandsOnLessons/lessons/lessons.html"
-  side: left
-  dropdown:
-  - title: "Hand Coded Heat"
-    url: "https://xsdk-project.github.io/HandsOnLessons/lessons/hand_coded_heat/lesson.html"
-  - title: "Structured Meshes"
-    url: "https://xsdk-project.github.io/HandsOnLessons/lessons/AMReX/lesson.html"
-  - title: "Finite Elements Convergence"
-    url: "https://xsdk-project.github.io/HandsOnLessons/lessons/mfem_convergence/lesson.html"
-  - title: "Time Integrators"
-    url: "https://xsdk-project.github.io/HandsOnLessons/lessons/time_integrators/lesson.html"
-  - title: "Iterative Solvers"
-    url: "https://xsdk-project.github.io/HandsOnLessons/lessons/iterativesolvers/lesson.html"
-  - title: "Sparse Direct Solvers"
-    url: "https://xsdk-project.github.io/HandsOnLessons/lessons/superlu-mfem/lesson.html"
-  - title: "Algebraic Multigrid"
-    url: "https://xsdk-project.github.io/HandsOnLessons/lessons/AMG/lesson.html"
-  - title: "Adjoint Solvers"
-    url: "https://xsdk-project.github.io/HandsOnLessons/lessons/adjoint/lesson.html"
-
-- title: ATPESC 2018 Lessons
+- title: Lessons
   url: "/lessons/"
   side: left
   dropdown:
@@ -31,6 +10,8 @@
     url: "/lessons/hand_coded_heat/"
   - title: "Sparse Direct Solvers"
     url: "/lessons/superlu_mfem/"
+  - title: "Time Integration & Non-Linear Solvers"
+    url: "/lessons/time_integrators/"
 
 - title: Packages
   url: "https://fastmath-scidac.org/software-catalog.html"

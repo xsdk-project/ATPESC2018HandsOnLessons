@@ -9,7 +9,6 @@ lesson: true
 header:
  image_fullwidth: "xsdk_logo_wide.png"
 ---
-# Hand Coded 1D Heat Equation
 
 ## At a Glance
 <!-- (Expected # minutes to complete) %% temporarily omit -->
