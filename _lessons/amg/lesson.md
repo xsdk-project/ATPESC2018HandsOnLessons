@@ -18,7 +18,7 @@ We don't have to list all possible questions here...only the two or three _most_
 only list here the ones that are _most_ important.
 * **Key Points** are those things we want learners to take-away from the lesson.
 
-
+```
 Questions                 |Objectives                           |Key Points
 --------------------------|----------- -------------------------|--------------------------
 Why multigrid over CG for |Understand multigrid concept         |Faster convergence,
@@ -27,7 +27,7 @@ Why use more aggressive   |Understand need for low complexities |Lower memory us
 coarsening for AMG?       |                                     |times, but more iterations
 Why a structured solver   |Understand importance of suitable    |Higher efficiency,
 for a structured problem? |data structures                      |faster solve times
-
+```
 
 ## The Problem Being Solved
 
