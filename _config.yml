@@ -14,7 +14,7 @@ title: 'ATPESC 2018 Math Library Hands On Exercises'
 slogan: 'So my code will see the future'
 
 # The description is used on homepage and in the footer to quickly describe your website. Use a maximum of 150 characters for SEO-purposes.
-description: 'Sofware Carpentry Style Lessons for Numerical Libraries'
+description: '<a href="https://software-carpentry.org">Sofware Carpentry</a> Style Lessons for Numerical Libraries'
 
 # The credits show up in the includes/_footer.html – It would be nice of you to leave a link to Phlow or Feeling Responsive as a thank you :)
 credits: 'Created by <a href="https://github.com/markcmiller86">Mark C Miller</a> with <a href="http://jekyllrb.com/" target="_blank">Jekyll</a> based on <a href="http://phlow.github.io/feeling-responsive/">Feeling Responsive</a>.</p>'
