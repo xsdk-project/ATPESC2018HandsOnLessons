@@ -1,3 +1,8 @@
+- name: FASTMath
+  url: https://fastmath-scidac.llnl.gov
+  class: icon-home
+  title: "FASTMath"
+
 - name: ATPESC
   url: https://www.youtube.com/playlist?list=PLGj2a3KTwhRZKjI7pRFxQDBORsswJAdJt
   class: icon-youtube
@@ -12,21 +17,6 @@
   url: http://twitter.com/exascaleproject
   class: icon-twitter
   title: "Exascale Project on Twitter"
-
-- name: HPC
-  url: https://twitter.com/hashtag/hpcconnects
-  class: icon-twitter
-  title: "#HPCConnects"
-
-- name: IDEAS-ECP
-  url: https://ideas-productivity.org/ideas-ecp/
-  class: icon-home
-  title: "Ideas Productivity"
-
-- name: FASTMath
-  url: https://fastmath-scidac.llnl.gov
-  class: icon-home
-  title: "FASTMath"
 
 # - name: Facebook
 #   url: http://www.facebook.com/

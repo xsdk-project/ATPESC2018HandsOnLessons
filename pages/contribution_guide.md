@@ -13,14 +13,14 @@ permalink: "/contributing_guide/"
 1. The easiest way to start creating a new lesson is to copy and then start modifying
    modify the [lesson template](/lessons/lesson_template/). Starting from the top-level
    directory, copy the lesson template to a new sub-directory in `_lessons`. **Note:
-   Use underscores instead of dashes in the directory name.**
+   If you need separator chars, use underscores and not dashes in the directory name.**
 ```shell
 mkdir _lessons/my_new_lesson
 cp _lessons/lesson_template/lesson.md _lessons/my_new_lesson
 ```
 1. Update YAML [Front Matter](http://jekyllrb.com/docs/frontmatter/). This is the
-   first few lines of the file between enclosing lines containing `---`. It looks
-   something like
+   first few lines of the `lesson.md` file between enclosing lines containing `---`.
+   It looks something like
 ```yaml
 ---
 layout: page-fullwidth
@@ -37,6 +37,7 @@ header:
    * Keep the `layout: page-fullwidth` line unchanged.
    * Define the lesson `title:` string (required)
    * If desired, define the `subheadline:` (optional)
+     * This sub-headline will appear on the lesson table page
    * If desired, define the `teaser:` (optional)
    * Define the lesson `permalink:` (required)
      * If you copied the lesson as above naming the sub-directory `my_new_lesson`
