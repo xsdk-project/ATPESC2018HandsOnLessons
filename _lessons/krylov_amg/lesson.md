@@ -27,39 +27,55 @@ on a cuboid of size $$n_x \times n_y \times n_z$$ with Dirichlet boundary condit
 $$u = 0$$
 
 
-If you want to refer to the equation in text, add a label like so...
-
-```
-$$\label{foo} \frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$
-```
-
-Now, you can refer to the a labeled equation like so, using `see \ref{foo}`.
-
-Equations are automatically numbered and references are updated when the pages are
-regenerated.
-
 ## The Example Source Code
 
-Describe the application, its command-line arguments, have a link to view the actual source code
-or, if you prefer, include snipits of the source code here in a code-highlighted box as below
+For the first part of the hands-on lessons we will use the executable ij. Various solver, problem and parameter options can be invoked by adding them to the command line.
+A complete set of options will be printed by typing
+```
+ij -help
+```
+Here is an excerpt of the output of this command with all the options relevant for the hands-on lessons.
 
-```c++
-Geometry::~Geometry()
-{
-   for (int i = 0; i < NumGeom; i++)
-   {
-      delete PerfGeomToGeomJac[i];
-      delete GeomVert[i];
-   }
-}
+```
+Usage: ij [<options>]
+
+Choice of Problem:
+  -laplacian [<options>] : build 7pt 3D laplacian problem (default)
+  -difconv [<opts>]      : build convection-diffusion problem
+    -n <nx> <ny> <nz>    : problem size per process
+    -P <Px> <Py> <Pz>    : process topology
+    -c <cx> <cy> <cz>    : diffusion coefficients
+    -a <ax> <ay> <az>    : convection coefficients
+
+Choice of solver:
+   -amg                  : AMG only
+   -amgpcg               : AMG-PCG
+   -pcg                  : diagonally scaled PCG
+   -amggmres             : AMG-GMRES with restart k (default k=10)
+   -gmres                : diagonally scaled GMRES(k) (default k=10)
+   -amgbicgstab          : AMG-BiCGSTAB
+   -bicgstab             : diagonally scaled BiCGSTAB
+   -k  <val>             : dimension Krylov space for GMRES
+
+.....
+
+  -tol  <val>            : set solver convergence tolerance = val
+  -max_iter  <val>       : set max iterations 
+  -agg_nl  <val>         : set number of aggressive coarsening levels (default:0)
+  -iout <val>            : set output flag
+       0=no output    1=matrix stats
+       2=cycle stats  3=matrix & cycle stats
+
+  -print                 : print out the system
 ```
 
 ## Running the Example
 
-### Run 1 (Run GMRES(10) for increasing problem sizes)
+### Run 1 (Run restarted GMRES using increasing Krylov spaces)
 
+Run the first example for a small problem of size 8000 using restarted GMRES with a Krylov space of size 10.
 ```
-ij -gmres -n 20 20 20
+ij -gmres -n 20 20 20 -k 10
 ```
 
 #### Expected Behavior/Output
@@ -120,6 +136,37 @@ GMRES Iterations = 186
 Final GMRES Relative Residual Norm = 9.593291e-09
 Total time = 0.050000
 ```
+
+Note the total time and the number of iterations.
+Now increase the Krylov subspace by changing input to -k to 20, then 30, 40, and finally 50.
+
+{% include qanda question='What do you observe about the number of iterations and times?' answer='Number of iterations and times improve' %}
+
+{% include qanda question='How many restarts were required for the last run using -k 50?'  answer='None, since the number of iterations is 49. Here full GMRES was used.'
+
+### Run 2 (Run GMRES(50) with increasing problem sizes)
+
+Now increase the problem size to -n 30 30 30 and -n 40 40 40 combined with -k 50.
+
+{% include qanda question='What do you observe about the number of iterations and times?' answer='Number of iterations and times increase.' %}
+
+Now solve the last problem with -n 40 40 40 using -pcg and -bicgstab.
+
+{% include qanda question='What do you observe about the number of iterations and times for all three methods? Which method is the fastest and which one has the lowest number of iterations?' answer='Conjugate gradient has the lowest time, but BiCGSTAB has the lowest number of iterations.' %}
+
+{% include qanda question='Why is BiCGSTAB slower than PCG?' answer='It requires two matrix vector operations and additional vector operations per iteration, and thus each iteration takes longer than an iteration of PCG.' %}
+
+
+```
+ij -gmres -k 50 -n 
+```
+
+```
+ij -gmres -n 40 40 40
+```
+
+What happens to the time and the number of iterations?
+
 
 Include here what learner should expect to happen
 
