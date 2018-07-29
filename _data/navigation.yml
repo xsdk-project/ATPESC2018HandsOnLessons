@@ -14,6 +14,8 @@
     url: "/lessons/time_integrators/"
   - title: "Krylov Solvers, Algebraic Multigrid and Data Structures"
     url: "/lessons/krylov_amg/"
+  - title: "Adjoint"
+    url: "/lessons/adjoint/"
 
 - title: Packages
   url: "https://fastmath-scidac.org/software-catalog.html"
