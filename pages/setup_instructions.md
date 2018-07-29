@@ -4,7 +4,7 @@ show_meta: false
 title: "Learner Setup Instructions"
 subheadline: "Things to get working and test prior to morning of August 6th"
 header:
-   image_fullwidth: "ecp_logo5_trans.png"
+   image_fullwidth: "atpesc-1024x2746.jpg"
 permalink: "/setup_instructions/"
 ---
 
