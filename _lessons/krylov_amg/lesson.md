@@ -144,8 +144,6 @@ Now increase the Krylov subspace by changing input to -k to 20, then 30, 40, and
 
 {% include qanda question='How many restarts were required for the last run using -k 50?'  answer='None, since the number of iterations is 49. Here full GMRES was used.'%}
 
-### Run 2 (Run GMRES(50) with increasing problem sizes)
-
 Now increase the problem size to -n 30 30 30 and -n 40 40 40 combined with -k 50.
 
 {% include qanda question='What do you observe about the number of iterations and times?' answer='Number of iterations and times increase.' %}
@@ -158,78 +156,6 @@ Now solve the last problem with -n 40 40 40 using -pcg and -bicgstab.
 
 
 #### Examining Results
-
-Include here examples of either plots or data you expect learners to observe.
-
-![An Image](basic0000.png)
-
-Or, if you need to control the size, or have multiple images next to each other
-use a Markdown table and raw html...
-
-|<img src="basic0000.png" width="200">|<img src="basic0000.png" width="400">|
-
-**Note:** You can create [gif animations](https://www.tjhsst.edu/~dhyatt/supercomp/n401a.html)
-with ImageMagick tool available on most systems as `convert` command as in...
-
-```
-convert -delay 20 -loop 0 image*.<ext> animation.gif
-```
-
-![Gif Animations](animated_basic_heat.gif)
-
-Alternatively, you can upload videos to YouTube and embed them here
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/bsSFYrDXK0k" frameborder="0" allowfullscreen></iframe>
-
-#### Question and Answer Boxes
-
-We use a custom [Liquid](https://shopify.github.io/liquid/) include macro to handle
-question and answer boxes. To use it...
-
-{% raw %}
-```liquid
-{% include qanda question='The question to ask' answer='The _answer_ you want to provide' %}
-```
-{% endraw %}
-
-You may include standard [GitHub Markdown](https://guides.github.com/features/mastering-markdown/)
-styling within the quoted text to both the _question_ and _answer_ parameters of the Liquid
-include macro.
-
-which then renders as...
-{% include qanda question='The question to ask' answer='The answer you want to provide' %}
-
----
-
-### Run 2 (Problem Name)
-
-#### Expected Behavior/Output
-
-#### Examining Results
-
-Include here examples of either plots or data you expect learners to observe.
-
-#### Questions
-
-{% include qanda question='Question #1' answer='The answer to Question #1' %}
-
-{% include qanda question='Question #2' answer='The answer to Question #2' %}
-
----
-
-### Run 3
-
-#### Expected Behavior/Output
-
-#### Examining Results
-
-Include here examples of either plots or data you expect learners to observe.
-
-#### Questions
-
-{% include qanda question='Question #3' answer='The answer to Question #3' %}
-
-{% include qanda question='Question #4' answer='The answer to Question #4' %}
 
 ---
 
