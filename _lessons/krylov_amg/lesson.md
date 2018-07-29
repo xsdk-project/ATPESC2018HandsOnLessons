@@ -71,7 +71,7 @@ Choice of solver:
 
 ## Running the Example
 
-### Run 1 (Run restarted GMRES using increasing Krylov spaces)
+### First Set of Runs (Krylov Solvers)
 
 Run the first example for a small problem of size 8000 using restarted GMRES with a Krylov space of size 10.
 ```
@@ -142,7 +142,7 @@ Now increase the Krylov subspace by changing input to -k to 20, then 30, 40, and
 
 {% include qanda question='What do you observe about the number of iterations and times?' answer='Number of iterations and times improve' %}
 
-{% include qanda question='How many restarts were required for the last run using -k 50?'  answer='None, since the number of iterations is 49. Here full GMRES was used.'
+{% include qanda question='How many restarts were required for the last run using -k 50?'  answer='None, since the number of iterations is 49. Here full GMRES was used.'%}
 
 ### Run 2 (Run GMRES(50) with increasing problem sizes)
 
@@ -156,23 +156,6 @@ Now solve the last problem with -n 40 40 40 using -pcg and -bicgstab.
 
 {% include qanda question='Why is BiCGSTAB slower than PCG?' answer='It requires two matrix vector operations and additional vector operations per iteration, and thus each iteration takes longer than an iteration of PCG.' %}
 
-
-```
-ij -gmres -k 50 -n 
-```
-
-```
-ij -gmres -n 40 40 40
-```
-
-What happens to the time and the number of iterations?
-
-
-Include here what learner should expect to happen
-
-* How long might it take to run
-* How long might they have to wait for resources before it can run
-* What should they seen on their terminal
 
 #### Examining Results
 
