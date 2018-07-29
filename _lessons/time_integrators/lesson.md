@@ -78,16 +78,44 @@ Later in this lesson, we'll show the lines of code that permit the application g
 flexibility in how it employs [PETSc][1] to handle time integration.
 
 ### Getting Help
-```
-PUT NEW COMMAND AND OUTPUT HERE
-```
 
-**Note:** This application may be used to solve the same equation used in
-[Lesson 1](../hand_coded_heat/lesson.md) by using command line options
-`-d 1 -alpha 0`. The role of [Lesson 1's](../hand_coded_heat/lesson.md)
-$$\alpha$$, is played by $$\kappa$$ here.
-For all of the runs here, the application's default behavior is to set
-$$\alpha$$ to 0.2 and $$\kappa$$ to 0.5.
+You can get help on all the command-line options to this application like so...
+
+```
+./advection-ode  --help
+
+Usage: ./advection-ode [options] ...
+Options:
+   -h, --help
+	Print this help message and exit.
+   -m <string>, --mesh <string>, current value: ../../../data/periodic-hexagon.mesh
+	Mesh file to use.
+   -p <int>, --problem <int>, current value: 0
+	Problem setup to use. See options in velocity_function().
+   -rs <int>, --refine-serial <int>, current value: 2
+	Number of times to refine the mesh uniformly in serial.
+   -rp <int>, --refine-parallel <int>, current value: 0
+	Number of times to refine the mesh uniformly in parallel.
+   -o <int>, --order <int>, current value: 3
+	Order (degree) of the finite elements.
+   -s <int>, --ode-solver <int>, current value: 4
+	ODE solver: 1 - Forward Euler,
+	            2 - RK2 SSP, 3 - RK3 SSP, 4 - RK4, 6 - RK6.
+   -tf <double>, --t-final <double>, current value: 10
+	Final time; start time is 0.
+   -dt <double>, --time-step <double>, current value: 0.01
+	Time step.
+   -vis, --visualization, -no-vis, --no-visualization, current option: --visualization
+	Enable or disable GLVis visualization.
+   -visit, --visit-datafiles, -no-visit, --no-visit-datafiles, current option: --visit-datafiles
+	Save data files for VisIt (visit.llnl.gov) visualization.
+   -vs <int>, --visualization-steps <int>, current value: 50
+	Visualize every n-th timestep.
+   -usestep, --usestep, -no-step, --no-step, current option: --usestep
+	Use the Step() or Run() method to solve the ODE system.
+   -implicit, --implicit, -no-implicit, --no-implicit, current option: --no-implicit
+	Use or not an implicit method in PETSc to solve the ODE system.
+```
 
 ### Run 1: Explicit, Fixed $$\Delta t$$ of 0.001
 
