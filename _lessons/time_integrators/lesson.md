@@ -16,81 +16,66 @@ header:
 
 **Note:** To begin this lesson...
 ```
-cd handson/mfem/examples/atpesc/sundials
+cd blah blah blah
 TODO: REVISE THIS INFO
 ```
 
 ## The problem being solved
 
-The example application here,
-[transient-heat.cpp](https://github.com/mfem/mfem/blob/atpesc-dev/examples/atpesc/sundials/transient-heat.cpp),
-uses [MFEM](http://mfem.org) and the ARKode package from SUNDIALS as a vehicle
-to demonstrate the use of the
-[SUNDIALS](https://computation.llnl.gov/projects/sundials) suite
-in both serial and parallel for more robust and flexible control over _time integration_
-(e.g. discretization in time) of PDEs.
+The example application here, [advection-ode.cpp][3] uses [MFEM][2] and the ODE solvers from [PETSc][1]
+to demonstrate the use of [PETSc][1] in both serial and parallel for more robust and flexible control
+over _time integration_ (e.g. discretization in time) of PDEs.
 
 The application has been designed to solve a far more general form of the
-[_Heat Equation_](https://en.wikipedia.org/wiki/Heat_equation) in 1, 2 or
+[_Advection Equation_](https://en.wikipedia.org/wiki/Heat_equation) in 1, 2 or
 3 dimensions as well as to work in a scalable, parallel way.
 
-$$\frac{\partial u}{\partial t} - \nabla \cdot (\kappa + u \alpha) \nabla u = 0$$
+$$\frac{\partial u}{\partial t} + \vec{v} \cdot \nabla u = 0$$
 
+where $$v$$ is a given fluid velocity and $$u0(x)=u(u,x)$$ is a given initial condition.
 
-where the material thermal diffusivity is given by $$(\kappa + \alpha{u})$$
-which includes the same constant term $$\kappa$$
-as in [Lesson 1](../hand_coded_heat/lesson.md) plus a term $$\alpha{u}$$
-which varies with
-temperature, _u_, introducing the option of solving systems involving non-linearity.
+Here, all the runs solve a problem on a periodic, hexagonally bounded mesh with an initial
+rounded step function of amplitude 1.0 slightly off-center as pictured in Figure 1.
 
-Compare this equation with that of the [hand-coded heat equation](../hand_coded_heat/lesson.md)
+|Figure 1|Figure 2|Figure 3|
+|:---:|:---:|:---:|
+|[<img src="advection-ode-initial.png" width="400">](advection-ode-initial.png)|[<img src="advection-ode-2.5D.png" width="400">](advection-ode-2.5D.png)|[<img src="advection-ode-animation.gif" width="400">](advection-ode-animation.gif)|
 
-$$\frac{\partial u}{\partial t} - \nabla \cdot \alpha \nabla u = 0$$
-
-which we simplifed to...
-
-$$\frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$
-
-and we see
-[transient-heat.cpp](https://github.com/mfem/mfem/blob/atpesc-dev/examples/atpesc/sundials/transient-heat.cpp)
-a _much more generalized_ form of the heat equation than [heat.c](../hand_coded_heat/heat.c.numbered.txt)
-
-* It supports 1, 2 and 3 dimensions
-* It supports inhomogeneous materal _thermal diffusivity_
-* It supports thermal diffusivity that varies with temperature
-
-Here, all the runs solve a problem with an initial condition is a _pyramid_ with
-value of _1_ at the apex in the _middle_ of the computational domain and zero on
-the boundaries as pictured in Figure 1.
-
-|Figure 1|Figure 2|
-|:---:|:---:|
-|[<img src="mfem_sundials_explicit0000.png" width="400">](mfem_sundials_explicit0000.png)|[<img src="pyramid_animated.gif" width="400">](pyramid_animated.gif)|
-
-The main loop of
-[transient-heat.cpp](https://github.com/mfem/mfem/blob/atpesc-dev/examples/atpesc/sundials/transient-heat.cpp)
+The main loop of [advection-ode.cpp][3]
 is shown here...
 
 ```c++
-304    // Perform time-integration
-309    ode_solver->Init(oper);
-310    double t = 0.0;
-311    bool last_step = false;
-312    for (int ti = 1; !last_step; ti++)
-313    {
-319       ode_solver->Step(u, t, dt);
-320
-327       u_gf.SetFromTrueDofs(u);
-328
-336       oper.SetParameters(u);
-337       last_step = (t >= t_final - 1e-8*dt);
-338    }
+   // Explicitly perform time-integration (looping over the time iterations, ti,
+   // with a time-step dt), or use the Run method of the ODE solver class.
+   if (use_step)
+   {
+      bool done = false;
+      for (int ti = 0; !done; )
+      {
+         double dt_real = min(dt, t_final - t);
+         ode_solver->Step(*U, t, dt_real);
+         ti++;
+
+         done = (t >= t_final - 1e-8*dt);
+
+         if (done || ti % vis_steps == 0)
+         {
+            if (myid == 0)
+            {
+               cout << "time step: " << ti << ", time: " << t << endl;
+            }
+            // 11. Extract the parallel grid function corresponding to the finite
+            //     element approximation U (the local solution on each processor).
+            *u = *U;
+
+         }
+      }
+   }
+   else { ode_solver->Run(*U, t, dt, t_final); }
 ```
 
-Later in this lesson, we'll show the lines of code that permit the
-application great flexibility in how it employs
-[SUNDIALS](https://computation.llnl.gov/projects/sundials) to handle
-time integration.
+Later in this lesson, we'll show the lines of code that permit the application great
+flexibility in how it employs [PETSc][1] to handle time integration.
 
 ### Getting Help
 ```
@@ -339,3 +324,7 @@ around with various command-line options to affect various scenarios.
 [Users guides for CVODE, ARKode, and IDA](https://computation.llnl.gov/projects/sundials/sundials-software)
 
 [Publications](https://computation.llnl.gov/projects/sundials/publications)
+
+[1]: http://www.mcs.anl.gov/petsc
+[2]: http://mfem.org
+[3]: https://github.com/mfem/mfem/blob/atpesc-dev/examples/atpesc/petsc/advection-ode.cpp
