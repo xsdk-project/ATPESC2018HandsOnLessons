@@ -328,30 +328,29 @@ A comparison of the three, preceding _implicit_, adaptive methods at order 4, 2 
 
 We have used MFEM as a demonstration vehicle for illustrating the value in robust,
 time integration methods in numerical algorithms. In particular, we have used
-the [SUNDIALS](https://computation.llnl.gov/projects/sundials) suite of solvers to
-compare and contrast both the effects of _adaptive_ time stepping as well as the
-role the order of the time integration plays in time to solution and number of time
-steps in the adaptive case.  In addition, we have demonstrated the ability of implicit
-methods to run at higher time steps than explicit and also demonstrated the cost of
-nonlinear solvers in implicit approaches.
+the [PETSc][1] solvers to compare and contrast both the effects of _adaptive_ time
+stepping as well as the role the order of the time integration plays in time to
+solution and number of time steps in the adaptive case.  In addition, we have
+demonstrated the ability of implicit methods to run at higher time steps than
+explicit and also demonstrated the cost of nonlinear solvers in implicit approaches.
 
 The use of _adaptation_ here was confined to _discretzation_ of time. Other lessons
 here demonstrate the advantages _adaptation_ can play in the _discretization_ of
-_space_.
+_space_ (e.g. meshing).
 
-Other lessons will demonstrate some of the options for _nonlinear_ and
-_linear_ solvers needed for implicit integration approaches.
+Other lessons will demonstrate some the use of other packages _[direct](/lessons/superlu_mfem/)_
+and _[iterative](/lessons/krylov_amg/)_ _implicit_ integration approaches.
 
 Finally, it is worth reminding the learner that the application demonstrated here can
-be run on 1, 2 and 3 dimensional meshes and in scalable, parallel settings on on meshes
+be run on 1, 2 and 3 dimensional meshes and in scalable, parallel settings and on meshes
 of extremely high spatial resolution if so desired. The learner is encouraged to play
 around with various command-line options to affect various scenarios.
 
 ### Further Reading
 
-[Users guides for CVODE, ARKode, and IDA](https://computation.llnl.gov/projects/sundials/sundials-software)
+[PETSc Manual](http://www.mcs.anl.gov/petsc/petsc-current/docs/manual.pdf)
 
-[Publications](https://computation.llnl.gov/projects/sundials/publications)
+[Publications](http://www.mcs.anl.gov/petsc/publications/index.html)
 
 [1]: http://www.mcs.anl.gov/petsc
 [2]: http://mfem.org
