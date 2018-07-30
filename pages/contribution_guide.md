@@ -75,7 +75,38 @@ header:
    To go to the top of the GitHub repo for this site, go [here](https://github.com/xsdk-project/ATPESC2018HandsOnLessons)
 1. It is not necessary to submit _pull requests_ to update your lessons. You
    may simply push your changes to the `gh-pages` branch and your changes
-   go live automatically.
+   go live automatically. If your push fails due to changes on the remote (GitHub),
+   do a git pull first as in...
+
+```
+miller86% git push
+To github.com:xsdk-project/ATPESC2018HandsOnLessons.git
+ ! [rejected]        gh-pages -> gh-pages (fetch first)
+error: failed to push some refs to 'git@github.com:xsdk-project/ATPESC2018HandsOnLessons.git'
+```
+Oops, the push failed due to changes on the remote. So, do a `git pull` first
+```
+miller86% git pull
+remote: Counting objects: 24, done.
+remote: Compressing objects: 100% (11/11), done.
+remote: Total 24 (delta 12), reused 24 (delta 12), pack-reused 0
+Unpacking objects: 100% (24/24), done.
+From github.com:xsdk-project/ATPESC2018HandsOnLessons
+   1c958bb..6ad3e3f  gh-pages   -> origin/gh-pages
+Auto-merging _data/navigation.yml
+```
+Ok, no our local copy is up to date with the remote. So, no try the `git push` again.
+```
+miller86% git push
+Counting objects: 14, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (14/14), done.
+Writing objects: 100% (14/14), 307.40 KiB | 21.96 MiB/s, done.
+Total 14 (delta 9), reused 0 (delta 0)
+remote: Resolving deltas: 100% (9/9), completed with 5 local objects.
+To github.com:xsdk-project/ATPESC2018HandsOnLessons.git
+   6ad3e3f..17ee363  gh-pages -> gh-pages
+```
 
 ## More About GitHub Pages and Jekyll
 
