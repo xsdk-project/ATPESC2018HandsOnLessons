@@ -18,13 +18,17 @@ header:
 
 ## The Problem Being Solved
 
-The linear system to be solved is generated using central finite differences applied to the Poisson equation
+We consider the diffusion-convection partial differential equation
 
-$$-{\Delta u} = f$$
+$$-{\Delta u} + a{\Nabla \dot u} = f$$
 
 on a cuboid of size $$n_x \times n_y \times n_z$$ with Dirichlet boundary conditions
 
-$$u = 0$$
+$$u = 0$$.
+
+The diffusion part is discretized using central finite differences, and upwind finite differences are used for the advection term.
+
+We will mostly focus on the case where $$a = 0$$, i.e. the Poisson equation, which leads to a symmetric positive definite system, but we will also consider the case $$a > 0$$, which generates a nonsymmetric linear system. 
 
 
 ## The Example Source Code
@@ -44,8 +48,7 @@ Choice of Problem:
   -difconv [<opts>]      : build convection-diffusion problem
     -n <nx> <ny> <nz>    : problem size per process
     -P <Px> <Py> <Pz>    : process topology
-    -c <cx> <cy> <cz>    : diffusion coefficients
-    -a <ax> <ay> <az>    : convection coefficients
+    -a <ax>              : convection coefficient
 
 Choice of solver:
    -amg                  : AMG only
@@ -154,8 +157,19 @@ Now solve the last problem with -n 40 40 40 using -pcg and -bicgstab.
 
 {% include qanda question='Why is BiCGSTAB slower than PCG?' answer='It requires two matrix vector operations and additional vector operations per iteration, and thus each iteration takes longer than an iteration of PCG.' %}
 
+Now let us apply Krylov solvers to the convection-diffusion equation with $$a=10$$, starting with conjugate gradient.
 
-#### Examining Results
+```
+ij -n 40 40 40 -difconv -a 10 -pcg
+```
+Try also BiCGSTAB and GMRES(100).
+
+{% include qanda question='What do you observe? Which solver does not solve the problem and why?' answer='PCG fails, because the linear system is nonsymmetric. Both BiCGSTAB and GMRES solve the problem.' %}
+
+### Second Set of Runs (Algebraic Multigrid)
+
+
+### Third Set of Runs (Comparing Structured and Unstructured Multigrid Solvers)
 
 ---
 

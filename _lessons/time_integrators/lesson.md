@@ -16,93 +16,106 @@ header:
 
 **Note:** To begin this lesson...
 ```
-cd handson/mfem/examples/atpesc/sundials
+cd blah blah blah
 TODO: REVISE THIS INFO
 ```
 
 ## The problem being solved
 
-The example application here,
-[transient-heat.cpp](https://github.com/mfem/mfem/blob/atpesc-dev/examples/atpesc/sundials/transient-heat.cpp),
-uses [MFEM](http://mfem.org) and the ARKode package from SUNDIALS as a vehicle
-to demonstrate the use of the
-[SUNDIALS](https://computation.llnl.gov/projects/sundials) suite
-in both serial and parallel for more robust and flexible control over _time integration_
-(e.g. discretization in time) of PDEs.
+The example application here, [advection-ode.cpp][3] uses [MFEM][2] and the ODE solvers from [PETSc][1]
+to demonstrate the use of [PETSc][1] in both serial and parallel for more robust and flexible control
+over _time integration_ (e.g. discretization in time) of PDEs.
 
 The application has been designed to solve a far more general form of the
-[_Heat Equation_](https://en.wikipedia.org/wiki/Heat_equation) in 1, 2 or
+[_Advection Equation_](https://en.wikipedia.org/wiki/Heat_equation) in 1, 2 or
 3 dimensions as well as to work in a scalable, parallel way.
 
-$$\frac{\partial u}{\partial t} - \nabla \cdot (\kappa + u \alpha) \nabla u = 0$$
+$$\frac{\partial u}{\partial t} + \vec{v} \cdot \nabla u = 0$$
 
+where $$v$$ is a given fluid velocity and $$u0(x)=u(u,x)$$ is a given initial condition.
 
-where the material thermal diffusivity is given by $$(\kappa + \alpha{u})$$
-which includes the same constant term $$\kappa$$
-as in [Lesson 1](../hand_coded_heat/lesson.md) plus a term $$\alpha{u}$$
-which varies with
-temperature, _u_, introducing the option of solving systems involving non-linearity.
+Here, all the runs solve a problem on a periodic, hexagonally bounded mesh with an initial
+rounded step function of amplitude 1.0 slightly off-center as pictured in Figure 1.
 
-Compare this equation with that of the [hand-coded heat equation](../hand_coded_heat/lesson.md)
+|Figure 1|Figure 2|Figure 3|
+|:---:|:---:|:---:|
+|[<img src="advection-ode-initial.png" width="400">](advection-ode-initial.png)|[<img src="advection-ode-2.5D.png" width="400">](advection-ode-2.5D.png)|[<img src="advection-ode-animation.gif" width="400">](advection-ode-animation.gif)|
 
-$$\frac{\partial u}{\partial t} - \nabla \cdot \alpha \nabla u = 0$$
-
-which we simplifed to...
-
-$$\frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$
-
-and we see
-[transient-heat.cpp](https://github.com/mfem/mfem/blob/atpesc-dev/examples/atpesc/sundials/transient-heat.cpp)
-a _much more generalized_ form of the heat equation than [heat.c](../hand_coded_heat/heat.c.numbered.txt)
-
-* It supports 1, 2 and 3 dimensions
-* It supports inhomogeneous materal _thermal diffusivity_
-* It supports thermal diffusivity that varies with temperature
-
-Here, all the runs solve a problem with an initial condition is a _pyramid_ with
-value of _1_ at the apex in the _middle_ of the computational domain and zero on
-the boundaries as pictured in Figure 1.
-
-|Figure 1|Figure 2|
-|:---:|:---:|
-|[<img src="mfem_sundials_explicit0000.png" width="400">](mfem_sundials_explicit0000.png)|[<img src="pyramid_animated.gif" width="400">](pyramid_animated.gif)|
-
-The main loop of
-[transient-heat.cpp](https://github.com/mfem/mfem/blob/atpesc-dev/examples/atpesc/sundials/transient-heat.cpp)
+The main loop of [advection-ode.cpp][3]
 is shown here...
 
 ```c++
-304    // Perform time-integration
-309    ode_solver->Init(oper);
-310    double t = 0.0;
-311    bool last_step = false;
-312    for (int ti = 1; !last_step; ti++)
-313    {
-319       ode_solver->Step(u, t, dt);
-320
-327       u_gf.SetFromTrueDofs(u);
-328
-336       oper.SetParameters(u);
-337       last_step = (t >= t_final - 1e-8*dt);
-338    }
+   // Explicitly perform time-integration (looping over the time iterations, ti,
+   // with a time-step dt), or use the Run method of the ODE solver class.
+   if (use_step)
+   {
+      bool done = false;
+      for (int ti = 0; !done; )
+      {
+         double dt_real = min(dt, t_final - t);
+         ode_solver->Step(*U, t, dt_real);
+         ti++;
+
+         done = (t >= t_final - 1e-8*dt);
+
+         if (done || ti % vis_steps == 0)
+         {
+            if (myid == 0)
+            {
+               cout << "time step: " << ti << ", time: " << t << endl;
+            }
+            // 11. Extract the parallel grid function corresponding to the finite
+            //     element approximation U (the local solution on each processor).
+            *u = *U;
+
+         }
+      }
+   }
+   else { ode_solver->Run(*U, t, dt, t_final); }
 ```
 
-Later in this lesson, we'll show the lines of code that permit the
-application great flexibility in how it employs
-[SUNDIALS](https://computation.llnl.gov/projects/sundials) to handle
-time integration.
+Later in this lesson, we'll show the lines of code that permit the application great
+flexibility in how it employs [PETSc][1] to handle time integration.
 
 ### Getting Help
-```
-PUT NEW COMMAND AND OUTPUT HERE
-```
 
-**Note:** This application may be used to solve the same equation used in
-[Lesson 1](../hand_coded_heat/lesson.md) by using command line options
-`-d 1 -alpha 0`. The role of [Lesson 1's](../hand_coded_heat/lesson.md)
-$$\alpha$$, is played by $$\kappa$$ here.
-For all of the runs here, the application's default behavior is to set
-$$\alpha$$ to 0.2 and $$\kappa$$ to 0.5.
+You can get help on all the command-line options to this application like so...
+
+```
+./advection-ode  --help
+
+Usage: ./advection-ode [options] ...
+Options:
+   -h, --help
+	Print this help message and exit.
+   -m <string>, --mesh <string>, current value: ../../../data/periodic-hexagon.mesh
+	Mesh file to use.
+   -p <int>, --problem <int>, current value: 0
+	Problem setup to use. See options in velocity_function().
+   -rs <int>, --refine-serial <int>, current value: 2
+	Number of times to refine the mesh uniformly in serial.
+   -rp <int>, --refine-parallel <int>, current value: 0
+	Number of times to refine the mesh uniformly in parallel.
+   -o <int>, --order <int>, current value: 3
+	Order (degree) of the finite elements.
+   -s <int>, --ode-solver <int>, current value: 4
+	ODE solver: 1 - Forward Euler,
+	            2 - RK2 SSP, 3 - RK3 SSP, 4 - RK4, 6 - RK6.
+   -tf <double>, --t-final <double>, current value: 10
+	Final time; start time is 0.
+   -dt <double>, --time-step <double>, current value: 0.01
+	Time step.
+   -vis, --visualization, -no-vis, --no-visualization, current option: --visualization
+	Enable or disable GLVis visualization.
+   -visit, --visit-datafiles, -no-visit, --no-visit-datafiles, current option: --visit-datafiles
+	Save data files for VisIt (visit.llnl.gov) visualization.
+   -vs <int>, --visualization-steps <int>, current value: 50
+	Visualize every n-th timestep.
+   -usestep, --usestep, -no-step, --no-step, current option: --usestep
+	Use the Step() or Run() method to solve the ODE system.
+   -implicit, --implicit, -no-implicit, --no-implicit, current option: --no-implicit
+	Use or not an implicit method in PETSc to solve the ODE system.
+```
 
 ### Run 1: Explicit, Fixed $$\Delta t$$ of 0.001
 
@@ -315,27 +328,30 @@ A comparison of the three, preceding _implicit_, adaptive methods at order 4, 2 
 
 We have used MFEM as a demonstration vehicle for illustrating the value in robust,
 time integration methods in numerical algorithms. In particular, we have used
-the [SUNDIALS](https://computation.llnl.gov/projects/sundials) suite of solvers to
-compare and contrast both the effects of _adaptive_ time stepping as well as the
-role the order of the time integration plays in time to solution and number of time
-steps in the adaptive case.  In addition, we have demonstrated the ability of implicit
-methods to run at higher time steps than explicit and also demonstrated the cost of
-nonlinear solvers in implicit approaches.
+the [PETSc][1] solvers to compare and contrast both the effects of _adaptive_ time
+stepping as well as the role the order of the time integration plays in time to
+solution and number of time steps in the adaptive case.  In addition, we have
+demonstrated the ability of implicit methods to run at higher time steps than
+explicit and also demonstrated the cost of nonlinear solvers in implicit approaches.
 
 The use of _adaptation_ here was confined to _discretzation_ of time. Other lessons
 here demonstrate the advantages _adaptation_ can play in the _discretization_ of
-_space_.
+_space_ (e.g. meshing).
 
-Other lessons will demonstrate some of the options for _nonlinear_ and
-_linear_ solvers needed for implicit integration approaches.
+Other lessons will demonstrate some the use of other packages _[direct](/lessons/superlu_mfem/)_
+and _[iterative](/lessons/krylov_amg/)_ _implicit_ integration approaches.
 
 Finally, it is worth reminding the learner that the application demonstrated here can
-be run on 1, 2 and 3 dimensional meshes and in scalable, parallel settings on on meshes
+be run on 1, 2 and 3 dimensional meshes and in scalable, parallel settings and on meshes
 of extremely high spatial resolution if so desired. The learner is encouraged to play
 around with various command-line options to affect various scenarios.
 
 ### Further Reading
 
-[Users guides for CVODE, ARKode, and IDA](https://computation.llnl.gov/projects/sundials/sundials-software)
+[PETSc Manual](http://www.mcs.anl.gov/petsc/petsc-current/docs/manual.pdf)
 
-[Publications](https://computation.llnl.gov/projects/sundials/publications)
+[Publications](http://www.mcs.anl.gov/petsc/publications/index.html)
+
+[1]: http://www.mcs.anl.gov/petsc
+[2]: http://mfem.org
+[3]: https://github.com/mfem/mfem/blob/atpesc-dev/examples/atpesc/petsc/advection-ode.cpp
