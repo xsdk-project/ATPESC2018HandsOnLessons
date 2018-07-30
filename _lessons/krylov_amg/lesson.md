@@ -20,7 +20,7 @@ header:
 
 We consider the diffusion-convection partial differential equation
 
-$$-{\Delta u} + a{\Nabla \dot u} = f$$
+$$-{\Delta u} + a{\nabla \dot u} = f$$
 
 on a cuboid of size $$n_x \times n_y \times n_z$$ with Dirichlet boundary conditions
 
