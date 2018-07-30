@@ -249,10 +249,13 @@ Lets now use our `heatapp` application to solve our simple science question.
 |Adobe Brick|$$2.7 \times 10^{-7}$$|
 |Common (red) Brick|$$5.2 \times 10^{-7}$$|
 
-* Outside temp has been same as inside temp for a long time
-* Night/Storm will last 15.5 hours
+* Outside temp has been same as inside temp for a long time, 70 degrees F
+* Night/Storm will last 15.5 hours @ -40 degrees F
 * Walls are 0.25 meters thick wood
 * Pipe will freeze if center point drops below freezing.
+
+**Note:** An all too common issue in simulation applications is being sure data is
+input in the correct units. Take care!
 
 {% include qanda
    question='Will the pipes freeze?'
@@ -263,7 +266,7 @@ Lets now use our `heatapp` application to solve our simple science question.
 What are the minimium thicknesses of walls of Wood, Adobe and Common brick
 to prevent the pipes from freezing?
 
-### A note about the `ic` argument for specifying the initial condition
+### A note about the `ic=` argument to `heatapp` 
 
 The initial condition argument, `ic`, handles a few interesting cases
 

@@ -13,6 +13,7 @@ currently, just notes to self
 
 * confirm cooley login
 * confirm display via x back to laptop
+* confirm editor(s) available (vi, nano, ...)
 * confirm run apps in /projects/ATPESC2018
 * confirm run VisIt
   * install instructs for local VisIt
