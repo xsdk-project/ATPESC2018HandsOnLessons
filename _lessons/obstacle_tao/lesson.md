@@ -16,7 +16,7 @@ header:
 |Questions|Objectives|Key Points|
 |1. What is optimization?|Understand the basic principles|Optimization seeks to minimize or maximize a cost function with respect to its inputs|
 |2. How to use TAO for derivative-based optimization?|Understand the basic TAO interfaces|TAO is a PETSc subpackage for numerical optimization|
-|3. What is the effect of second-order information in derivative-based optimization?|Understand how to analyze convergence of optimization algorithms|Hessian information helps the optimization converge to a local optimum rapidly|
+|3. What is the effect of second-order information in derivative-based optimization?|Understand how second-derivatives improve performance of optimization algorithms|Hessian information helps the optimization converge to a local optimum rapidly|
 
 **Note:** To run the application in this lesson
 ```
@@ -27,13 +27,13 @@ make obstacle
 
 ## Brief Introduction to Optimization
 
-Numerical optimization is a methodology that seeks to find the input variables (referred to as "control" or "design" variables) that minimize (or maximize) the value of a cost or objective function, subject to given constraints. In the most general formulation, optimization problems are stated as
+Numerical optimization methods seek to find the input variables (referred to as "control" or "design" variables) that minimize (or maximize) a quantity of interest (such as cost or performance) subject to constraints (such as bounds on resrouces). A general numerical optimization problems is stated as
 
 $$
 \begin{split}
-\underset{x}{\text{minimize}} \quad &f(x) \\
-\text{subject to} \quad             & c(x) \leq 0\\
-                                    & h(x) = 0
+\min_{x} & f(x) \\
+\text{subject to} & c(x) \leq 0 \\
+                  & h(x) = 0
 \end{split}
 $$
 
