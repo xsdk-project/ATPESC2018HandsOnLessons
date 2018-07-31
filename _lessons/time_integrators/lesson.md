@@ -13,11 +13,12 @@ header:
 |How does the choice of<br>explicit vs. implicit impact step size.|Compare performance of explicit<br>and implicit methods at step<br>sizes near the stability limit.|Time integration considerations<br>play a role in time to solution.|
 |What is the impact of an<br>adaptive time integrator?|Compare fixed and adaptive time<br>integrator techniques.|The PETSc package has robust<br>and flexible methods for time integration.|
 |How does time integration<br>order impact cost?|Observe impact of order<br>on time to solution/flop<br>and number of steps.|In well-designed packages, changing<br>between methods does not require a lot of effort.|
+|Observe quadratic convergence <br> of Newton's method| Observe mesh independent convergence <br> of Newton's method |||
 
 **Note:** To begin this lesson...
+
 ```
-cd blah blah blah
-TODO: REVISE THIS INFO
+cd handson/mfem/examples/atpesc/petsc
 ```
 
 ## The problem being solved
@@ -26,7 +27,7 @@ The example application here, [advection-ode.cpp][3] uses [MFEM][2] and the ODE 
 to demonstrate the use of [PETSc][1] in both serial and parallel for more robust and flexible control
 over _time integration_ (e.g. discretization in time) of PDEs.
 
-The application has been designed to solve a far more general form of the
+The first application has been designed to solve  the
 [_Advection Equation_](https://en.wikipedia.org/wiki/Heat_equation) in 1, 2 or
 3 dimensions as well as to work in a scalable, parallel way.
 
@@ -324,11 +325,25 @@ A comparison of the three, preceding _implicit_, adaptive methods at order 4, 2 
 
 ---
 
+### Run 20: Quadratic convergence of Newton's method
+
+
+```
+make elasticity-snes
+./elasticity-snes
+```
+### Run 21: Mesh independent convergence of Newton's method
+
+```
+./elasticity-snes -rs 2
+./elasticity-snes -rs 4
+```
+
 ## Out-Brief
 
-We have used MFEM as a demonstration vehicle for illustrating the value in robust,
+We have used MFEM and PETSc as a demonstration vehicle for illustrating the value in robust,
 time integration methods in numerical algorithms. In particular, we have used
-the [PETSc][1] solvers to compare and contrast both the effects of _adaptive_ time
+the [PETSc][1] integrators to compare and contrast both the effects of _adaptive_ time
 stepping as well as the role the order of the time integration plays in time to
 solution and number of time steps in the adaptive case.  In addition, we have
 demonstrated the ability of implicit methods to run at higher time steps than
@@ -343,8 +358,7 @@ and _[iterative](/lessons/krylov_amg/)_ _implicit_ integration approaches.
 
 Finally, it is worth reminding the learner that the application demonstrated here can
 be run on 1, 2 and 3 dimensional meshes and in scalable, parallel settings and on meshes
-of extremely high spatial resolution if so desired. The learner is encouraged to play
-around with various command-line options to affect various scenarios.
+of extremely high spatial resolution if so desired. 
 
 ### Further Reading
 
