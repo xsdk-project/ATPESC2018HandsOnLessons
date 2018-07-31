@@ -13,10 +13,12 @@ header:
 |How does the choice of<br>explicit vs. implicit impact step size.|Compare performance of explicit<br>and implicit methods at step<br>sizes near the stability limit.|Time integration considerations<br>play a role in time to solution.|
 |What is the impact of an<br>adaptive time integrator?|Compare fixed and adaptive time<br>integrator techniques.|The PETSc package has robust<br>and flexible methods for time integration.|
 |How does time integration<br>order impact cost?|Observe impact of order<br>on time to solution/flop<br>and number of steps.|In well-designed packages, changing<br>between methods does not require a lot of effort.|Observe quadratic convergence <br> of Newton's method| Observe mesh independent convergence <br> of Newton's method |
+|Observe quadratic convergence <br> of Newton's method| Observe mesh independent convergence <br> of Newton's method |||
 
 **Note:** To begin this lesson...
-```
-cd blah blah blah
+
+cd examples/atpesc/petsc
+
 TODO: REVISE THIS INFO
 ```
 
