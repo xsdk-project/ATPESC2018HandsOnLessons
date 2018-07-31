@@ -326,6 +326,20 @@ A comparison of the three, preceding _implicit_, adaptive methods at order 4, 2 
 
 ---
 
+### Run 20: Quadratic convergence of Newton's method
+
+
+```
+make elasticity-snes
+./elasticity-snes
+```
+### Run 21: Mesh independent convergence of Newton's method
+
+```
+./elasticity-snes -rs 2
+./elasticity-snes -rs 4
+```
+
 ## Out-Brief
 
 We have used MFEM as a demonstration vehicle for illustrating the value in robust,
