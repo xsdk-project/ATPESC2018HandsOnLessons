@@ -1,3 +1,5 @@
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <unistd.h>
 
 #include <cassert>
@@ -26,7 +28,7 @@ int noout        = 0;
 int savi         = 0;
 int outi         = 100;
 int save         = 0;
-char const *probnm = "heat";
+char const *probnm = "heat_results";
 char const *alg  = "ftcs";
 char const *prec = "double";
 char const *ic   = "const(1)";
@@ -52,136 +54,47 @@ int Nx = (int) (lenx/dx);
 int Nt = (int) (maxt/dt);
 
 // Utilities
-static Double
-l2_norm(int n, Double const *a, Double const *b)
-{
-    int i;
-    Double sum = 0;
-    for (i = 0; i < n; i++)
-    {
-        Double diff = a[i] - b[i];
-        sum += diff * diff;
-    }
-    return sum / n;
-}
+extern Double
+l2_norm(int n, Double const *a, Double const *b);
 
-static void
-copy(int n, Double *dst, Double const *src)
-{
-    int i;
-    for (i = 0; i < n; i++)
-        dst[i] = src[i];
-}
+extern void
+copy(int n, Double *dst, Double const *src);
 
-#define TSTART -1
-#define TFINAL -2
-#define RESIDUAL -3
-#define ERROR -4
-static void
-write_array(int t, int n, Double dx, Double const *a)
-{
-    int i;
-    char fname[32];
-    FILE *outf;
+extern void
+write_array(int t, int n, Double dx, Double const *a);
 
-    if (noout) return;
-
-    if (t == TSTART)
-        snprintf(fname, sizeof(fname), "heat_soln_00000.curve");
-    else if (t == TFINAL)
-        snprintf(fname, sizeof(fname), "heat_soln_final.curve");
-    else if (t == RESIDUAL)
-        snprintf(fname, sizeof(fname), "change.curve");
-    else if (t == ERROR)
-        snprintf(fname, sizeof(fname), "error.curve");
-    else
-    {
-        if (a == exact)
-            snprintf(fname, sizeof(fname), "heat_exact_%05d.curve", t);
-        else
-            snprintf(fname, sizeof(fname), "heat_soln_%05d.curve", t);
-    }
-    
-    outf = fopen(fname,"w");
-    for (i = 0; i < n; i++)
-        fprintf(outf, "%8.4g %8.4g\n", i*((double)dx), (double) a[i]);
-    fclose(outf);
-}
-
-static void
-set_initial_condition(int n, Double *a, Double dx, char const *ic)
-{
-    int i;
-    Double x;
-
-    if (!strncmp(ic, "const(", 6)) /* const(val) */
-    {
-        double cval = strtod(ic+6, 0);
-        for (i = 0; i < n; i++)
-            a[i] = cval;
-    }
-    else if (!strncmp(ic, "step(", 5)) /* step(left,xmid,right) */
-    {
-        char *p;
-        double left = strtod(ic+5, &p);
-        double xmid = strtod(p+1, &p);
-        double right = strtod(p+1, 0);
-        for (i = 0, x = 0; i < n; i++, x+=dx)
-        {
-            if (x < xmid) a[i] = left;
-            else          a[i] = right;
-        }
-    }
-    else if (!strncmp(ic, "ramp(", 5)) /* ramp(left,right) */
-    {
-        char *p;
-        double left = strtod(ic+5, &p);
-        double right = strtod(p+1, 0);
-        double dv = (right-left)/(n-1);
-        for (i = 0, x = left; i < n; i++, x+=dv)
-            a[i] = x;
-    }
-    else if (!strncmp(ic, "rand(", 5)) /* rand(seed,amp) */
-    {
-        char *p;
-        int seed = (int) strtol(ic+5,&p,10);
-        double amp = strtod(p+1, 0);
-        const double maxr = ((long long)1<<31)-1;
-        srandom(seed);
-        for (i = 0; i < n; i++)
-            a[i] = amp * random()/maxr;
-    }
-    else if (!strncmp(ic, "sin(Pi*x)", 9)) /* rand(seed,amp) */
-    {
-        for (i = 0, x = 0; i < n; i++, x+=dx)
-            a[i] = sin(M_PI*x);
-    }
-    else if (!strncmp(ic, "spikes(", 7)) /* spikes(Const,Amp,Loc,Amp,Loc,...) */
-    {
-        char *next;
-        double cval = strtod(ic+7, &next);
-        char const *p = next;
-        for (i = 0, x = 0; i < n; i++)
-            a[i] = cval;
-        while (*p != ')')
-        {
-            char *ep_amp, *ep_idx;
-            double amp = strtod(p+1, &ep_amp);
-            int idx = (int) strtod(ep_amp+1, &ep_idx);
-            assert(idx<n);
-            a[idx] = amp;
-            p = ep_idx;
-        }
-
-    }
-
-    write_array(TSTART, Nx, dx, a);
-}
+extern void
+set_initial_condition(int n, Double *a, Double dx, char const *ic);
 
 extern void
 initialize_crankn(int n,
     Double alpha, Double dx, Double dt,
     Double **_cn_Amat);
+
+extern void
+process_args(int argc, char **argv);
+
+extern void 
+compute_exact_solution(int n, Double *a, Double dx, char const *ic,
+    Double alpha, Double t, Double bc0, Double bc1);
+
+extern void
+update_solution_ftcs(int n,
+    Double *curr, Double const *last,
+    Double alpha, Double dx, Double dt,
+    Double bc_0, Double bc_1);
+
+extern void
+update_solution_upwind15(int n,
+    Double *curr, Double const *last,
+    Double alpha, Double dx, Double dt,
+    Double bc_0, Double bc_1);
+
+extern void
+update_solution_crankn(int n,
+    Double *curr, Double const *last,
+    Double const *cn_Amat,
+    Double bc_0, Double bc_1);
 
 static void
 initialize(void)
@@ -213,64 +126,6 @@ initialize(void)
     /* Initial condition */
     set_initial_condition(Nx, last, dx, ic);
 }
-
-extern void
-process_args(int argc, char **argv);
-
-static void 
-compute_exact_solution(int n, Double *a, Double dx, char const *ic,
-    Double alpha, Double t, Double bc0, Double bc1)
-{
-    int i;
-    Double x;
-    
-    if (bc0 == 0 && bc1 == 0 && !strncmp(ic, "sin(Pi*x)", 9))
-    {
-        for (i = 0, x = 0; i < n; i++, x+=dx)
-            a[i] = sin(M_PI*x)*exp(-alpha*M_PI*M_PI*t);
-    }
-    else if (bc0 == 0 && bc1 == 0 && !strncmp(ic, "const(", 6))
-    {
-        Double cval = strtod(ic+6, 0);
-        for (i = 0, x = 0; i < n; i++, x+=dx)
-        {
-            int n;
-            Double fsum = 0;
-
-            // sum first 200 terms of Fourier series
-            for (n = 1; n < 200; n++)
-            {
-                Double coeff = 2*cval*(1-pow(-1.0,(double)n))/(n*M_PI);
-                Double func = sin(n*M_PI*x)*exp(((double)-alpha)*n*n*M_PI*M_PI*((double)t));
-                fsum += coeff * func;
-            }
-            a[i] = fsum;
-        }
-    }
-    else // can only compute final steady state solution
-    {
-        for (i = 0, x = 0; i < n; i++, x+=dx)
-            a[i] = bc0 + (bc1-bc0)*x;
-    }
-}
-
-extern void
-update_solution_ftcs(int n,
-    Double *curr, Double const *last,
-    Double alpha, Double dx, Double dt,
-    Double bc_0, Double bc_1);
-
-extern void
-update_solution_upwind15(int n,
-    Double *curr, Double const *last,
-    Double alpha, Double dx, Double dt,
-    Double bc_0, Double bc_1);
-
-extern void
-update_solution_crankn(int n,
-    Double *curr, Double const *last,
-    Double const *cn_Amat,
-    Double bc_0, Double bc_1);
 
 int finalize(int ti, Double maxt, Double change)
 {

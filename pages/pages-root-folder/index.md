@@ -18,7 +18,7 @@ widget2:
 widget3:
   title: "Enhanced</br>Productivity"
   url: 'https://bssw.io'
-  text: '<ul><li>Development Resources.</li><li>Shared Know-How.</li><li>Common Tools.</li><li>Training.</li></ul>'
+  text: '<a href="https://ideas-productivity.org"><ul><li>Development Resources.</li><li>Shared Know-How.</li><li>Common Tools.</li><li>Training.</li></ul></a>'
   video: '<a href="#" data-reveal-id="videoModal3"><img src="images/bssw_wide_trans.png" width="302" height="182" alt=""/></a>'
 #
 # Use the call for action to show a button on the frontpage
@@ -42,7 +42,16 @@ permalink: /index.html
 homepage: true
 ---
 
-# Placeholder for Lois' Content
+# Various Projects with Shared Values
+
+The projects highlighted here represent some [DOE](https://science.energy.gov)
+funded projects with shared values all of which are aimed at producing high quality, well-vetted,
+easy to use and maintain, sustainable and scalable numerical packages for developing PDE-based simulations.
+Each project highlited on this page focuses on a different facet software development and use.
+For example, [FASTMath](https://fastmath-scidac.llnl.gov) focuses on the numerical underpinnings
+of various packages, [xSDK](https://xsdk.info) and [Spack](https://spack.io) focus on ease of use
+and [IDEAS](https://ideas-productivity.org) focuses on software engineering and interoperability
+know-how and training.
 
 [//]: # (The stuff below is defining div elements that match the video links above)
 [//]: # (Because div elements themselves don't render, this stuff produces no output)

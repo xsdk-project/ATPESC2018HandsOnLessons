@@ -1,8 +1,8 @@
 ---
 layout: page
 show_meta: false
-title: "Learner Setup Instructions"
-subheadline: "Things to get working and test prior to morning of August 6th"
+title: "Setup Instructions"
+subheadline: "Instructions to complete prior to August 6th."
 header:
    image_fullwidth: "atpesc-1024x2746.jpg"
 permalink: "/setup_instructions/"
@@ -13,6 +13,7 @@ currently, just notes to self
 
 * confirm cooley login
 * confirm display via x back to laptop
+* confirm editor(s) available (vi, nano, ...)
 * confirm run apps in /projects/ATPESC2018
 * confirm run VisIt
   * install instructs for local VisIt

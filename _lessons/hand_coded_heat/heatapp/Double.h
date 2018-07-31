@@ -81,3 +81,8 @@ class Double {
     friend bool operator!=(const Double& lhs, const double& rhs){ return !(lhs == rhs); }
     friend std::ostream& operator<<(std::ostream& os, const Double& rhs)  { os << rhs.x; return os; }
 };
+
+#define TSTART -1
+#define TFINAL -2
+#define RESIDUAL -3
+#define ERROR -4
