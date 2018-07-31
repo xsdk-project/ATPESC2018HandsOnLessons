@@ -30,11 +30,7 @@ make obstacle
 Numerical optimization methods seek to find the input variables (referred to as "control" or "design" variables) that minimize (or maximize) a quantity of interest (such as cost or performance) subject to constraints (such as bounds on resrouces). A general numerical optimization problems is stated as
 
 $$
-\begin{split}
-\min_{x} & f(x) \\
-\text{subject to} & c(x) \leq 0 \\
-                  & h(x) = 0
-\end{split}
+\min_{x} \quad f(x) \quad \text{subject to} \quad c(x) \leq 0, \quad h(x) = 0
 $$
 
 In this lesson, we will focus on derivative-based optimization methods -- i.e.: methods that utilize information about the sensitivity of the objective function $$f(x): \in \mathbb{R}^n \rightarrow \mathbb{R}$$ to its inputs $$x \in \mathbb{R}^n$$$. In the simplest unconstrained case, we accomplish this by recognizing that the derivative of a function, $$df/dx$$, is zero at the minimum of $$f(x)$$, and applying the Newton root-finding method to this derivative. Consequently, we solve the system $$Hp=-g$$ at every Newton iteration for the step direction $$p$$, where $$H = d^2f/dx^2$$ is the Hessian, and $$g = df/dx$$ is the gradient of the objective function. When the Hessian is not available directly, it can be approximated from the gradient information through forward differencing or [quasi-Newton methods][1]. This approach is further augmented with globalization techniques such as line searches in order to avoid getting stuck at undesirable stationary points.
