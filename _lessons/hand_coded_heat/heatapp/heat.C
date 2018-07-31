@@ -1,3 +1,5 @@
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <unistd.h>
 
 #include <cassert>
@@ -82,27 +84,49 @@ write_array(int t, int n, Double dx, Double const *a)
 {
     int i;
     char fname[32];
+    char vname[64];
     FILE *outf;
 
     if (noout) return;
 
     if (t == TSTART)
-        snprintf(fname, sizeof(fname), "heat_soln_00000.curve");
+    {
+        snprintf(fname, sizeof(fname), "%s/%s_soln_00000.curve", probnm, probnm);
+        snprintf(vname, sizeof(vname), "temperature");
+    }
     else if (t == TFINAL)
-        snprintf(fname, sizeof(fname), "heat_soln_final.curve");
+    {
+        snprintf(fname, sizeof(fname), "%s/%s_soln_final.curve", probnm, probnm);
+        snprintf(vname, sizeof(vname), "temperature");
+    }
     else if (t == RESIDUAL)
-        snprintf(fname, sizeof(fname), "change.curve");
+    {
+        snprintf(fname, sizeof(fname), "%s/%s_change.curve", probnm, probnm);
+        snprintf(vname, sizeof(vname), "%s/%s_l2_change", probnm, probnm);
+    }
     else if (t == ERROR)
-        snprintf(fname, sizeof(fname), "error.curve");
+    {
+        snprintf(fname, sizeof(fname), "%s/%s_error.curve", probnm, probnm);
+        snprintf(vname, sizeof(vname), "%s/%s_l2", probnm, probnm);
+    }
     else
     {
         if (a == exact)
-            snprintf(fname, sizeof(fname), "heat_exact_%05d.curve", t);
+        {
+            snprintf(fname, sizeof(fname), "%s/%s_exact_%05d.curve", probnm, probnm, t);
+            snprintf(vname, sizeof(vname), "exact_temperature");
+        } 
         else
-            snprintf(fname, sizeof(fname), "heat_soln_%05d.curve", t);
+        {
+            snprintf(fname, sizeof(fname), "%s/%s_soln_%05d.curve", probnm, probnm, t);
+            snprintf(vname, sizeof(vname), "temperature");
+        }
     }
-    
+
+
+    mkdir(probnm, S_IRWXU|S_IRWXG|S_IROTH|S_IXOTH);
     outf = fopen(fname,"w");
+    fprintf(outf, "# %s\n", vname);
     for (i = 0; i < n; i++)
         fprintf(outf, "%8.4g %8.4g\n", i*((double)dx), (double) a[i]);
     fclose(outf);

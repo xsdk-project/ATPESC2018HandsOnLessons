@@ -1,8 +1,8 @@
 ---
 layout: page
 show_meta: false
-title: "Learner Setup Instructions"
-subheadline: "Things to get working and test prior to morning of August 6th"
+title: "Setup Instructions"
+subheadline: "Instructions to complete prior to August 6th."
 header:
    image_fullwidth: "atpesc-1024x2746.jpg"
 permalink: "/setup_instructions/"
