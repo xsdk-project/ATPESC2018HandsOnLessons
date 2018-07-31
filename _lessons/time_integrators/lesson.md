@@ -17,9 +17,8 @@ header:
 
 **Note:** To begin this lesson...
 
-cd examples/atpesc/petsc
+cd handson/mfem/examples/atpesc/petsc
 
-TODO: REVISE THIS INFO
 ```
 
 ## The problem being solved
@@ -28,7 +27,7 @@ The example application here, [advection-ode.cpp][3] uses [MFEM][2] and the ODE 
 to demonstrate the use of [PETSc][1] in both serial and parallel for more robust and flexible control
 over _time integration_ (e.g. discretization in time) of PDEs.
 
-The application has been designed to solve a far more general form of the
+The first application has been designed to solve  the
 [_Advection Equation_](https://en.wikipedia.org/wiki/Heat_equation) in 1, 2 or
 3 dimensions as well as to work in a scalable, parallel way.
 
@@ -342,9 +341,9 @@ make elasticity-snes
 
 ## Out-Brief
 
-We have used MFEM as a demonstration vehicle for illustrating the value in robust,
+We have used MFEM and PETSc as a demonstration vehicle for illustrating the value in robust,
 time integration methods in numerical algorithms. In particular, we have used
-the [PETSc][1] solvers to compare and contrast both the effects of _adaptive_ time
+the [PETSc][1] integrators to compare and contrast both the effects of _adaptive_ time
 stepping as well as the role the order of the time integration plays in time to
 solution and number of time steps in the adaptive case.  In addition, we have
 demonstrated the ability of implicit methods to run at higher time steps than
@@ -359,8 +358,7 @@ and _[iterative](/lessons/krylov_amg/)_ _implicit_ integration approaches.
 
 Finally, it is worth reminding the learner that the application demonstrated here can
 be run on 1, 2 and 3 dimensional meshes and in scalable, parallel settings and on meshes
-of extremely high spatial resolution if so desired. The learner is encouraged to play
-around with various command-line options to affect various scenarios.
+of extremely high spatial resolution if so desired. 
 
 ### Further Reading
 
