@@ -78,7 +78,7 @@ Choice of solver:
 
 Run the first example for a small problem of size 8000 using restarted GMRES with a Krylov space of size 10.
 ```
-ij -gmres -n 20 20 20 -k 10
+ij -n 30 30 30 -k 10 -gmres
 ```
 
 #### Expected Behavior/Output
@@ -88,11 +88,11 @@ You should get something that looks like this
 Running with these driver parameters:
   solver ID    = 4
 
-    (nx, ny, nz) = (20, 20, 20)
+    (nx, ny, nz) = (30, 30, 30)
     (Px, Py, Pz) = (1, 1, 1)
     (cx, cy, cz) = (1.000000, 1.000000, 1.000000)
 
-    Problem size = (20 x 20 x 20)
+    Problem size = (30 x 30 x 30)
 
 =============================================
 Generate Matrix:
@@ -129,29 +129,25 @@ GMRES Setup:
 Solve phase times:
 =============================================
 GMRES Solve:
-  wall clock time = 0.050000 seconds
+  wall clock time = 0.270000 seconds
   wall MFLOPS     = 0.000000
-  cpu clock time  = 0.040000 seconds
+  cpu clock time  = 0.270000 seconds
   cpu MFLOPS      = 0.000000
 
 
-GMRES Iterations = 186
-Final GMRES Relative Residual Norm = 9.593291e-09
-Total time = 0.050000
+GMRES Iterations = 392
+Final GMRES Relative Residual Norm = 9.915663e-09
+Total time = 0.270000
 ```
 
 Note the total time and the number of iterations.
-Now increase the Krylov subspace by changing input to -k to 20, then 30, 40, and finally 50.
+Now increase the Krylov subspace by changing input to -k to 20, then 40, and finally 75.
 
 {% include qanda question='What do you observe about the number of iterations and times?' answer='Number of iterations and times improve' %}
 
-{% include qanda question='How many restarts were required for the last run using -k 50?'  answer='None, since the number of iterations is 49. Here full GMRES was used.'%}
+{% include qanda question='How many restarts were required for the last run using -k 75?'  answer='None, since the number of iterations is 73. Here full GMRES was used.'%}
 
-Now increase the problem size to -n 30 30 30 and -n 40 40 40 combined with -k 50.
-
-{% include qanda question='What do you observe about the number of iterations and times?' answer='Number of iterations and times increase.' %}
-
-Now solve the last problem with -n 40 40 40 using -pcg and -bicgstab.
+Now solve this problem using -pcg and -bicgstab.
 
 {% include qanda question='What do you observe about the number of iterations and times for all three methods? Which method is the fastest and which one has the lowest number of iterations?' answer='Conjugate gradient has the lowest time, but BiCGSTAB has the lowest number of iterations.' %}
 
@@ -160,11 +156,30 @@ Now solve the last problem with -n 40 40 40 using -pcg and -bicgstab.
 Now let us apply Krylov solvers to the convection-diffusion equation with $$a=10$$, starting with conjugate gradient.
 
 ```
-ij -n 40 40 40 -difconv -a 10 -pcg
+ij -n 30 20 30 -difconv -a 10 -pcg
 ```
-Try also BiCGSTAB and GMRES(100).
+{% include qanda question='What do you observe? Why?' answer='PCG fails, because the linear system is nonsymmetric.' %}
 
-{% include qanda question='What do you observe? Which solver does not solve the problem and why?' answer='PCG fails, because the linear system is nonsymmetric. Both BiCGSTAB and GMRES solve the problem.' %}
+Now try -gmres and -bicgstab.
+{% include qanda question='What do you observe?' answer='Both BiCGSTAB and GMRES solve the problem.' %}
+
+Let us investigate what happens for larger linear systems. We will do so using weak scaling, i.e. increasing the number of processes and with it the problem size for the Poisson equation using the Krylov method that does so in the least amount of time.
+```
+mpiexec -n 1 ij -n 50 50 50 -pcg -P 1 1 1
+```
+Now gradually increase the problem size, updating the numbers for -n and -P with
+
+-n 2 -P 2 1 1
+
+-n 4 -P 2 2 1
+
+-n 8 -P 2 2 2
+
+{% include qanda question='What happens to convergence and solve time?' answer='They increase with increasing problem size. 
+Number of iterations: 124, 198, 233, 249.
+Total time: 0.55, 0.61, 0.88, 1.46 seconds.' %}
+
+
 
 ### Second Set of Runs (Algebraic Multigrid)
 
