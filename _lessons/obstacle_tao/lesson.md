@@ -1,7 +1,7 @@
 ---
 layout: page-fullwidth
-title: "Numerical Optimization"
-subheadline: "The Obstacle Problem"
+title: "The Obstacle Problem"
+subheadline: "Numerical Optimization"
 teaser: "Leveraging interoperability between PETSc/TAO and MFEM"
 permalink: "lessons/obstacle_tao/"
 use_math: true
@@ -15,8 +15,8 @@ header:
 
 |Questions|Objectives|Key Points|
 |1. What is optimization?|Understand the basic principles|Optimization seeks to minimize or maximize a cost function with respect to its inputs|
-|2. What is ?|Understand algorithmic trade-offs|Robust software requires significant<br>software quality engineering (SQE).|
-|3. What is stability?|Understand value of software packages|Numerical packages simplify application development,<br>offer efficient & scalable performance,<br>and enable app-specific customization.|
+|2. How to use TAO for derivative-based optimization?|Understand the basic TAO interfaces|TAO is a PETSc subpackage for numerical optimization|
+|3. What is the effect of second-order information in derivative-based optimization?|Understand how to analyze convergence of optimization algorithms|Hessian information helps the optimization converge to a local optimum rapidly|
 
 **Note:** To run the application in this lesson
 ```
@@ -97,6 +97,29 @@ lb.ProjectBdrCoefficient(zero, ess_tdof_list); // project the zero Dirichlet bou
 ```
 
 In this lesson, you can define a new obstacle function of your choice and re-run the problem to see how the obstacle changes the solution and the convergence of the optimization.
+
+## Using TAO
+
+Creating, setting up and using a TAO optimization algorithm is similar to using SNES solvers in PETSc. 
+
+First, the user must implement a `FormFunctionGradient()` function that, given a design vector `X`, computes the cost function value and its gradient vector. This is sufficient for quasi-Newton methods that require only the gradient. However, for Newton methods that require the Hessian, an additional `FormHessian()` function must be provided that provides a Hessian matrix to TAO as a PETSc `Mat` object. For matrix-free Hessian implementations, this `Mat` object can be a `MATSHELL` type that contains the matrix-free `MatMult` operation. Examples of these functions are available in [obstacle.cpp](./obstacle.cpp).
+
+With these functions defined, we can now create the TAO solver, configure it, and trigger the solution.
+
+```c
+ierr = TaoCreate(PETSC_COMM_WORLD, &tao);CHKERRQ(ierr);
+ierr = TaoSetType(tao, TAOBNLS);CHKERRQ(ierr);
+ierr = TaoSetInitialVector(tao, X);CHKERRQ(ierr);
+ierr = TaoSetObjectiveAndGradientRoutine(tao, FormFunctionGradient, (void*) &user);CHKERRQ(ierr);
+ierr = TaoSetHessianRoutine(tao, user.H, user.H, FormHessian, (void*) &user);CHKERRQ(ierr);
+ierr = TaoSetVariableBounds(tao, XL, XU);CHKERRQ(ierr);
+ierr = TaoSetMonitor(tao, Monitor, &user, NULL);CHKERRQ(ierr);
+ierr = TaoSetFromOptions(tao);CHKERRQ(ierr);
+ierr = TaoSolve(tao);CHKERRQ(ierr);
+```
+
+Note that these operations must be preceded by `PetscInitialize()` and a `PetscFinalize()` must also be called after the solution is over and all PETSc objects are destroyed.
+
 
 ## Compiling and Running
 
