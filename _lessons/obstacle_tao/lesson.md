@@ -30,11 +30,11 @@ make obstacle
 Numerical optimization methods seek to find the input variables (referred to as "control" or "design" variables) that minimize (or maximize) a quantity of interest (such as cost or performance) subject to constraints (such as bounds on resrouces). A general numerical optimization problems is stated as
 
 $$
-\begin{align*}
-  \underset{x}{\text{min}} \quad &f(x) \\
-  \text{s. t.} \quad             &c(x) \leq 0 \\
+\begin{align}
+  \underset{x}{\text{min}} \quad &f(x) \\\\
+  \text{s. t.} \quad             &c(x) \leq 0 \\\\
                                  &h(x) = 0
-\end{align*}
+\end{align}
 $$
 
 In this lesson, we will focus on derivative-based optimization methods -- i.e.: methods that utilize information about the sensitivity of the objective function $$f(x): \in \mathbb{R}^n \rightarrow \mathbb{R}$$ to its inputs $$x \in \mathbb{R}^n$$$. In the simplest unconstrained case, we accomplish this by recognizing that the derivative of a function, $$df/dx$$, is zero at the minimum of $$f(x)$$, and applying the Newton root-finding method to this derivative. Consequently, we solve the system $$Hp=-g$$ at every Newton iteration for the step direction $$p$$, where $$H = d^2f/dx^2$$ is the Hessian, and $$g = df/dx$$ is the gradient of the objective function. When the Hessian is not available directly, it can be approximated from the gradient information through forward differencing or [quasi-Newton methods][1]. This approach is further augmented with globalization techniques such as line searches in order to avoid getting stuck at undesirable stationary points.
@@ -47,11 +47,11 @@ and [_Numerical Optimization_ by Jorge Nocedal and Stephen Wright][3].
 The obstacle problem aims to find the equilibrium of an elastic membrane with a fixed boundary that is stretched over a given obstacle. The mathematical formulation seeks to minimize the Dirichlet energy functional subject to constraints associated with the Dirichlet boundary and the obstacle, 
 
 $$
-\begin{align*}
-  \underset{u}{\text{min}} \quad &J(u) = \int_\Omega |\nabla u|^2 dx \\
-  \text{s. t.} \quad             &u(x) = 0 \; \text{on} \; d\Omega \\
+\begin{align}
+  \underset{u}{\text{min}} \quad &J(u) = \int_\Omega |\nabla u|^2 dx \\\\
+  \text{s. t.} \quad             &u(x) = 0 \; \text{on} \; d\Omega \\\\
                                  &u(x) \geq \phi(x) \; \text{elsewhere}
-\end{align*}
+\end{align}
 $$
 
 where $$u$$ represents the control variables, $$x$$ represents the discrete nodal coordinates in the domain $$\Omega$$, and $$\phi(x)$$ is the obstacle function. In the variational formulation, this is equivalent to solving the Laplace equation $$\nabla^2 u = 0$$ with the boundary conditions corresponding to the obstacle.
