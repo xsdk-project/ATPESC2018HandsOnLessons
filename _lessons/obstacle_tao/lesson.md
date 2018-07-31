@@ -43,11 +43,11 @@ and [_Numerical Optimization_ by Jorge Nocedal and Stephen Wright][3].
 The obstacle problem aims to find the equilibrium of an elastic membrane with a fixed boundary that is stretched over a given obstacle. The mathematical formulation seeks to minimize the Dirichlet energy functional subject to constraints associated with the Dirichlet boundary and the obstacle, 
 
 $$
-\begin{align*}
-  \underset{u}{\text{min}} \quad &J(u) = \int_\Omega |\nabla u|^2 dx \\
-  \text{s. t.} \quad             &u(x) = 0 \; \text{on} \; d\Omega \\
+\begin{align}
+  \underset{u}{\text{min}} \quad &J(u) = \int_\Omega |\nabla u|^2 dx \\\\
+  \text{s. t.} \quad             &u(x) = 0 \; \text{on} \; d\Omega \\\\
                                  &u(x) \geq \phi(x) \; \text{elsewhere}
-\end{align*}
+\end{align}
 $$
 
 where $$u$$ represents the control variables, $$x$$ represents the discrete nodal coordinates in the domain $$\Omega$$, and $$\phi(x)$$ is the obstacle function. In the variational formulation, this is equivalent to solving the Laplace equation $$\Delta u = 0$$ with the boundary conditions corresponding to the obstacle.
