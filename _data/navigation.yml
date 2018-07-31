@@ -18,6 +18,8 @@
     url: "/lessons/krylov_amg/"
   - title: "Adjoint"
     url: "/lessons/adjoint/"
+  - title: "Numerical Optimization"
+    url: "/lessons/obstacle_tao"
 
 - title: Packages
   url: "https://fastmath-scidac.org/software-catalog.html"
