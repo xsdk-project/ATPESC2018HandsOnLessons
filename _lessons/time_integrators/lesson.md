@@ -17,8 +17,8 @@ header:
 
 **Note:** To begin this lesson...
 
+```
 cd handson/mfem/examples/atpesc/petsc
-
 ```
 
 ## The problem being solved
