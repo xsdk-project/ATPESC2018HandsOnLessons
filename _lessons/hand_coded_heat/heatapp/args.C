@@ -1,7 +1,13 @@
+#include <sys/stat.h>
+#include <unistd.h>
+
 #include <cassert>
 #include <cstring>
 #include <sstream>
+
 #include "Double.h"
+
+static char clargs[2048];
 
 #define HANDLE_ARG(VAR, TYPE, STYLE, HELP) \
 { \
@@ -37,8 +43,14 @@
             #VAR, q, strmvar.str().c_str(), q, 80-len, tmp);\
     }\
     else \
+    { \
+        char tmp[64]; \
         fprintf(stderr, "    %s=%s%s%s\n", \
             #VAR, q, strmvar.str().c_str(), q);\
+        snprintf(tmp, sizeof(tmp), "    %s=%s%s%s\n", \
+            #VAR, q, strmvar.str().c_str(), q);\
+        strcat(clargs, tmp); \
+    } \
 }
 
 extern Double alpha;
@@ -65,6 +77,7 @@ process_args(int argc, char **argv)
     int help = 0;
 
     // quick pass for 'help' anywhere on command line
+    clargs[0] ='\0';
     for (i = 0; i < argc && !help; i++)
         help = 0!=strcasestr(argv[i], "help");
     
@@ -101,4 +114,19 @@ process_args(int argc, char **argv)
         min_change = -maxt * -maxt;
         maxt = INT_MAX;
     }
+
+    // Handle output results dir creation and save of command-line
+    if (access(probnm, F_OK) == 0)
+    {
+        fprintf(stderr, "An entry \"%s\" already exists\n", probnm);
+        exit(1);
+    } 
+
+    // Make the output dir and save clargs there too
+    mkdir(probnm, S_IRWXU|S_IRWXG|S_IROTH|S_IXOTH);
+    char fname[128];
+    sprintf(fname, "%s/clargs.out", probnm);
+    FILE *outf = fopen(fname, "w");
+    fprintf(outf, "%s", clargs);
+    fclose(outf);
 }

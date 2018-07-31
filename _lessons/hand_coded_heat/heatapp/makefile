@@ -1,6 +1,6 @@
 RM ?= rm -rf
 
-SRC = heat.C args.C ftcs.C upwind15.C crankn.C
+SRC = heat.C utils.C args.C exact.C ftcs.C upwind15.C crankn.C
 OBJ = $(SRC:.C=.o)
 EXE = heat
 
@@ -33,3 +33,6 @@ dataclean:
 	$(RM) $$datafiles
 
 allclean: clean objclean
+
+analysis:
+	
