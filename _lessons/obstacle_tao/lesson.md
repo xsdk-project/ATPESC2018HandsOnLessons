@@ -30,14 +30,10 @@ make obstacle
 Numerical optimization methods seek to find the input variables (referred to as "control" or "design" variables) that minimize (or maximize) a quantity of interest (such as cost or performance) subject to constraints (such as bounds on resrouces). A general numerical optimization problems is stated as
 
 $$
-\begin{align*}
-  \underset{x}{\text{min}} \quad &f(x) \\
-  \text{s. t.} \quad             &c(x) \leq 0 \\
-                                 &h(x) = 0
-\end{align*}
+\min_x \quad f(x) \quad \test{subject to} \quad &c(x) \leq 0, \quad h(x) = 0
 $$
 
-In this lesson, we will focus on derivative-based optimization methods -- methods that utilize information about the sensitivity of the objective function $$f(x): \in \mathbb{R}^n \rightarrow \mathbb{R}$$ to its inputs $$x \in \mathbb{R}^n$$. In the convex unconstrained case, the derivative of the objective function with respect to the parameters, $$\nabla f(x)}$$, is zero at the every minimum of $$f(x)$$.  Therefore, we can apply a Newton to solve the system of equations $\nabla f(x) = 0$. Consequently, we solve the system $$\nabla^2 f(x^k) p=-\nabla f(x^k)$$ at every Newton iteration for the step direction $$p$$, where $$\nabla^2 f(x^k)$$ is the Hessian at $$x^k$ and $$\nabla f(x^k) $$ is the gradient of the objective function. When the Hessian is not available directly, it can be approximated from the gradient information by using finite difference or by using [quasi-Newton methods][1]. The Newton method is augmented with a globalization technique (such as a line search or a trust region) to ensure that the method converges.
+In this lesson, we will focus on derivative-based optimization methods -- methods that utilize information about the sensitivity of the objective function $$f(x): \in \mathbb{R}^n \rightarrow \mathbb{R}$$ to its inputs $$x \in \mathbb{R}^n$$. In the convex unconstrained case, the derivative of the objective function with respect to the parameters, $$\nabla f(x)$$, is zero at the every minimum of $$f(x)$$.  Therefore, we can apply a Newton to solve the system of equations $\nabla f(x) = 0$. Consequently, we solve the system $$\nabla^2 f(x^k) p=-\nabla f(x^k)$$ at every Newton iteration for the step direction $$p$$, where $$\nabla^2 f(x^k)$$ is the Hessian at $$x^k$ and $$\nabla f(x^k) $$ is the gradient of the objective function. When the Hessian is not available directly, it can be approximated from the gradient information by using finite difference or by using [quasi-Newton methods][1]. The Newton method is augmented with a globalization technique (such as a line search or a trust region) to ensure that the method converges.
 
 For more information on the subject, we refer the reader to [_Linear and Nonlinear Optimization_ by Igor Griva, Stephen G. Nash and Ariela Sofer][2] 
 and [_Numerical Optimization_ by Jorge Nocedal and Stephen Wright][3]. 
@@ -54,7 +50,7 @@ $$
 \end{align*}
 $$
 
-where $$u$$ represents the control variables, $$x$$ represents the discrete nodal coordinates in the domain $$\Omega$$, and $$\phi(x)$$ is the obstacle function. In the variational formulation, this is equivalent to solving the Laplace equation $$\nabla^2 u = 0$$ with the boundary conditions corresponding to the obstacle.
+where $$u$$ represents the control variables, $$x$$ represents the discrete nodal coordinates in the domain $$\Omega$$, and $$\phi(x)$$ is the obstacle function. In the variational formulation, this is equivalent to solving the Laplace equation $$\Delta u = 0$$ with the boundary conditions corresponding to the obstacle.
 
 In this lesson, we will solve the obstacle problem in the optimization formulation using algorithms in [PETSc/TAO][4], while the calculation of the objective (the Dirichlet energy function), its gradient and Hessian, will be performed using [MFEM][5]. We will be using two gradient-based methods available in TAO, one requiring only the gradient information, and the other both the gradient and the Hessian. We will be examining the improvement in convergence achieved by injecting second-order information into the problem.
 
