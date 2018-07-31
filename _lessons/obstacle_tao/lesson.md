@@ -30,10 +30,10 @@ make obstacle
 Numerical optimization methods seek to find the input variables (referred to as "control" or "design" variables) that minimize (or maximize) a quantity of interest (such as cost or performance) subject to constraints (such as bounds on resrouces). A general numerical optimization problems is stated as
 
 $$
-\min_x \quad f(x) \quad \text{subject to} \quad c(x) \leq 0, \quad h(x) = 0
+\min_u \quad f(u) \quad \text{subject to} \quad c(u) \leq 0, \quad h(u) = 0
 $$
 
-In this lesson, we will focus on derivative-based optimization methods -- methods that utilize information about the sensitivity of the objective function $$f(x): \in \mathbb{R}^n \rightarrow \mathbb{R}$$ to its inputs $$x \in \mathbb{R}^n$$. In the convex unconstrained case, the derivative of the objective function with respect to the parameters, $$\nabla f(x)$$, is zero at the every minimum of $$f(x)$$.  Therefore, we can apply a Newton to solve the system of equations $\nabla f(x) = 0$. Consequently, we solve the system $$\nabla^2 f(x^k) p=-\nabla f(x^k)$$ at every Newton iteration for the step direction $$p$$, where $$\nabla^2 f(x^k)$$ is the Hessian at $$x^k$ and $$\nabla f(x^k) $$ is the gradient of the objective function. When the Hessian is not available directly, it can be approximated from the gradient information by using finite difference or by using [quasi-Newton methods][1]. The Newton method is augmented with a globalization technique (such as a line search or a trust region) to ensure that the method converges.
+In this lesson, we will focus on derivative-based optimization methods -- methods that utilize information about the sensitivity of the objective function $$f(u): \in \mathbb{R}^n \rightarrow \mathbb{R}$$ to its inputs $$x \in \mathbb{R}^n$$. In the convex unconstrained case, the derivative of the objective function with respect to the parameters, $$\nabla f(u)$$, is zero at the every minimum of $$f(u)$$.  Therefore, we can apply a Newton to solve the system of equations $\nabla f(u) = 0$. Consequently, we solve the system $$\nabla^2 f(u^k) p=-\nabla f(u^k)$$ at every Newton iteration for the step direction $$p$$, where $$\nabla^2 f(u^k)$$ is the Hessian at $$x^k$ and $$\nabla f(u^k) $$ is the gradient of the objective function. When the Hessian is not available directly, it can be approximated from the gradient information by using finite difference or by using [quasi-Newton methods][1]. The Newton method is augmented with a globalization technique (such as a line search or a trust region) to ensure that the method converges.
 
 For more information on the subject, we refer the reader to [_Linear and Nonlinear Optimization_ by Igor Griva, Stephen G. Nash and Ariela Sofer][2] and [_Numerical Optimization_ by Jorge Nocedal and Stephen Wright][3]. 
 
@@ -41,13 +41,11 @@ For more information on the subject, we refer the reader to [_Linear and Nonline
 
 The obstacle problem aims to find the equilibrium of an elastic membrane with a fixed boundary that is stretched over a given obstacle. The mathematical formulation seeks to minimize the Dirichlet energy functional subject to constraints associated with the Dirichlet boundary and the obstacle, 
 
-\begin{align}
-  \underset{u}{\text{min}} \quad &J(u) = \int_\Omega |\nabla u|^2 dx \\\\
-  \text{s. t.} \quad             &u(x) = 0 \; \text{on} \; d\Omega \\\\
-                                 &u(x) \geq \phi(x) \; \text{elsewhere}
-\end{align}
+$$
+\min_u \quad J(u) = \int_\Omega |\nabla u|^2 dx \quad \text{subject to} \quad u(x) = 0 \; \text{on} \; \partial\Omega \quad u(x) \geq \phi(x) \; \text{elsewhere}
+$$
 
-where $$u$$ represents the control variables, $$x$$ represents the discrete nodal coordinates in the domain $$\Omega$$, and $$\phi(x)$$ is the obstacle function. In the variational formulation, this is equivalent to solving the Laplace equation $$\Delta u = 0$$ with the boundary conditions corresponding to the obstacle.
+where $$u$$ represents the control variables, $$x$$ represents the discrete nodal coordinates in the domain $$\Omega$$, and $$\phi(x)$$ is the obstacle function. In the variational formulation, this problem is equivalent to solving the Laplace equation $$\Delta u = 0$$ with the boundary conditions corresponding to the obstacle.
 
 In this lesson, we will solve the obstacle problem in the optimization formulation using algorithms in [PETSc/TAO][4], while the calculation of the objective (the Dirichlet energy function), its gradient and Hessian, will be performed using [MFEM][5]. We will be using two gradient-based methods available in TAO, one requiring only the gradient information, and the other both the gradient and the Hessian. We will be examining the improvement in convergence achieved by injecting second-order information into the problem.
 
