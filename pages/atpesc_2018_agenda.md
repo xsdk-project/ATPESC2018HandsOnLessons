@@ -48,8 +48,8 @@ permalink: "/atpesc_2018_agenda/"
 [18]: <mailto:hongzh@mcs.anl.gov>
 [19]: http://www.mcs.anl.gov/research/projects/tao/tao-deprecated/index.html
 [20]: <mailto:miller86@llnl.gov>
-[21]: mfem_convergence.md
-[22]: time_integrators.md
-[23]: kyrolv_amg.md
-[24]: superlu_mfem.md
-[25]: adjoint.md
+[21]: ../lessons/mfem_convergence.md
+[22]: ../lessons/time_integrators/
+[23]: ../lessons/kyrolv_amg/
+[24]: ../lessons/superlu_mfem/
+[25]: ../lessons/adjoint/
