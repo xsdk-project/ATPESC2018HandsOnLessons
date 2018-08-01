@@ -10,6 +10,16 @@ permalink: "/setup_instructions/"
 
 ## Seting Up Soft Enviornment on Cooley
 
+## Allocating an Interactive session on Cooley
+
+The following command allocates a single Cooley node (`-n 1`) for 30 minutes (`-t 30`) using the ATPESC2018 allocation (`-A ATPESC2018`) and the training reservation (`-q training`):
+
+```
+qsub -I -n 1 -t 30 -A ATPESC2018
+```
+
+The command blocks until the node is ready.  Until the allocation expires (30mins in this example), all commands executed in the returned session will run on the allocated compute node; `mpirun` can be used directly instead of going through `qsub`.
+
 ## Visualization Tools
 
 There are three options
