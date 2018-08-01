@@ -1,6 +1,6 @@
 ---
 layout: page-fullwidth
-title: "Unstructure Mesh Discretizations with MFEM"
+title: "Unstructured Meshing & Discretization with MFEM"
 subheadline: "Finite Elements and Convergence"
 permalink: "lessons/mfem_convergence/"
 use_math: true
@@ -15,15 +15,23 @@ header:
 |What is _convergence_?|Understand how convergence and<br>convergence rate are calculated.|High order methods converge<br>faster for smooth solutions.|
 
 **Note:** To begin this lesson...
-- Add `/projects/ATPESC2018/FASTMath/spack/bin/spack` to your `PATH`.
-- Copy the mfem install directory locally
+- Add the
+```sh
+/projects/ATPESC2018/FASTMath/spack/bin/spack
 ```
+directory to your `PATH`.
+
+- Copy the MFEM install directory locally
+```sh
 cp -a `spack location -i mfem` mfem
 ```
+
 - Go into the ATPESC examples directory
+```sh
+cd mfem/examples/atpesc
 ```
-cd mfem/examples/atpesc/mfem
-```
+
+- The MFEM `convergence` example described below is in the `mfem/` directory.
 
 ## A Widely Applicable Equation
 
@@ -59,7 +67,11 @@ $$u \approx \sum_{j=1}^n c_j \phi_j$$
 
 where $$c_j$$ are scalar unknown coefficients and $$\phi_j$$ are known _basis functions_.
 They are typically piecewise-polynomial functions which are only non-zero on small portions of the
-computational mesh. With finite elements, the mesh can be totally unstructured, curved and
+computational mesh.
+
+|[<img src="phi.png" width="400">](phi.png)|
+
+With finite elements, the mesh can be totally unstructured, curved and
 non-conforming.
 
 |[<img src="mesh.png" width="400">](mesh.png)|
@@ -85,8 +97,8 @@ $$b_i = \int_\Omega f \phi_i dV$$
 $$x_j = c_j$$
 
 
-This is a $$n \times n$$ linear system that can be solved [directly](../superlu-mfem/lesson.md) or
-[iterarively](../iterativesolvers/lesson.md) for the unknown coefficients. Note that we are free
+This is a $$n \times n$$ linear system that can be solved [directly](../superlu-mfem/) or
+[iteratively](../iterativesolvers/) for the unknown coefficients. Note that we are free
 to choose the basis functions $$\phi_i$$ as we see fit.
 
 ---
@@ -126,7 +138,7 @@ and Equation (6)
 ```
 
 This defines the matrix A and the vector b. We then solve the linear
-system for our solution vector x using [AMG-preconditioned](../AMG/lesson.md) PCG iteration.
+system for our solution vector x using [AMG-preconditioned](../krylov_amg/) PCG iteration.
 
 ```c++
    // FEM -> Linear System
@@ -186,7 +198,7 @@ In code this is implemented in a refinement loop as follows:
 
 ## Running the Convergence Study
 
-The convergence study in `handson/mfem/examples/atpesc/mfem` has the following options
+The convergence study in `mfem/examples/atpesc/mfem` has the following options
 
 ```
 ./convergence --help
@@ -270,7 +282,7 @@ approximate it better.
 
 {% include qanda
     question='How many unknowns do we need in runs 1 and 2 to get 4 digits of accuracy?'
-    answer='It needs only 3001 unknowns compared to 82561 unknowns for the low-order method!' %}
+    answer='We need only 3001 unknowns compared to 82561 unknowns for the low-order method!' %}
 
 {% include qanda
     question='Which method is more efficient: low-order or high-order?'
@@ -304,7 +316,7 @@ Experiment with different orders in 2D and 3D.
 {% include qanda
     question='What convergence rate will you expect in L2 and H1 for a given basis order _p_?'
     answer='For a smooth exact solution, the convergence rate in energy norm (H1) is _p_.
-    Using the so-called Nitsches Trick, one can prove that we pick an additional order in L2,
+    Using the so-called _Nitsche Trick_, one can prove that we pick an additional order in L2,
     so the convergence rate there is _p+1_' %}
 
 ---
@@ -317,7 +329,7 @@ the effect of the polynomial order of the basis functions on convergence rates.
 
 ### Further Reading
 
-To learn more about MFEM, including example codes and miniapps visit [mfem.org](http://mfem.org).
+To learn more about MFEM, including many more [example codes](http://mfem.org/examples) and miniapps visit [mfem.org](http://mfem.org).
 
 <!-- Insert space, horizontal line, and link to HandsOnLesson table -->
 
