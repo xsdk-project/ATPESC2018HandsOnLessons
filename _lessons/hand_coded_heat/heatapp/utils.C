@@ -11,7 +11,7 @@
 
 extern int Nx;
 extern Double *exact;
-extern char const *probnm;
+extern char const *runame;
 extern int noout;
 
 // Utilities
@@ -40,7 +40,7 @@ void
 write_array(int t, int n, Double dx, Double const *a)
 {
     int i;
-    char fname[32];
+    char fname[128];
     char vname[64];
     FILE *outf;
 
@@ -48,35 +48,35 @@ write_array(int t, int n, Double dx, Double const *a)
 
     if (t == TSTART)
     {
-        snprintf(fname, sizeof(fname), "%s/%s_soln_00000.curve", probnm, probnm);
-        snprintf(vname, sizeof(vname), "temperature");
+        snprintf(fname, sizeof(fname), "%s/%s_soln_00000.curve", runame, runame);
+        snprintf(vname, sizeof(vname), "Temperature");
     }
     else if (t == TFINAL)
     {
-        snprintf(fname, sizeof(fname), "%s/%s_soln_final.curve", probnm, probnm);
-        snprintf(vname, sizeof(vname), "temperature");
+        snprintf(fname, sizeof(fname), "%s/%s_soln_final.curve", runame, runame);
+        snprintf(vname, sizeof(vname), "Temperature");
     }
     else if (t == RESIDUAL)
     {
-        snprintf(fname, sizeof(fname), "%s/%s_change.curve", probnm, probnm);
-        snprintf(vname, sizeof(vname), "%s/%s_l2_change", probnm, probnm);
+        snprintf(fname, sizeof(fname), "%s/%s_change.curve", runame, runame);
+        snprintf(vname, sizeof(vname), "%s/%s_l2_change", runame, runame);
     }
     else if (t == ERROR)
     {
-        snprintf(fname, sizeof(fname), "%s/%s_error.curve", probnm, probnm);
-        snprintf(vname, sizeof(vname), "%s/%s_l2", probnm, probnm);
+        snprintf(fname, sizeof(fname), "%s/%s_error.curve", runame, runame);
+        snprintf(vname, sizeof(vname), "%s/%s_l2", runame, runame);
     }
     else
     {
         if (a == exact)
         {
-            snprintf(fname, sizeof(fname), "%s/%s_exact_%05d.curve", probnm, probnm, t);
+            snprintf(fname, sizeof(fname), "%s/%s_exact_%05d.curve", runame, runame, t);
             snprintf(vname, sizeof(vname), "exact_temperature");
         } 
         else
         {
-            snprintf(fname, sizeof(fname), "%s/%s_soln_%05d.curve", probnm, probnm, t);
-            snprintf(vname, sizeof(vname), "temperature");
+            snprintf(fname, sizeof(fname), "%s/%s_soln_%05d.curve", runame, runame, t);
+            snprintf(vname, sizeof(vname), "Temperature");
         }
     }
 

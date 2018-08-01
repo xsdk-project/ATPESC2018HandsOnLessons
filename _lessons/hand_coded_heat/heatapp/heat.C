@@ -28,7 +28,7 @@ int noout        = 0;
 int savi         = 0;
 int outi         = 100;
 int save         = 0;
-char const *probnm = "heat_results";
+char const *runame = "heat_results";
 char const *alg  = "ftcs";
 char const *prec = "double";
 char const *ic   = "const(1)";
@@ -78,19 +78,19 @@ extern void
 compute_exact_solution(int n, Double *a, Double dx, char const *ic,
     Double alpha, Double t, Double bc0, Double bc1);
 
-extern void
+extern bool
 update_solution_ftcs(int n,
     Double *curr, Double const *last,
     Double alpha, Double dx, Double dt,
     Double bc_0, Double bc_1);
 
-extern void
+extern bool
 update_solution_upwind15(int n,
     Double *curr, Double const *last,
     Double alpha, Double dx, Double dt,
     Double bc_0, Double bc_1);
 
-extern void
+extern bool
 update_solution_crankn(int n,
     Double *curr, Double const *last,
     Double const *cn_Amat,
@@ -157,15 +157,16 @@ int finalize(int ti, Double maxt, Double change)
     return retval;
 }
 
-static void
+static bool
 update_solution()
 {
     if (!strcmp(alg, "ftcs"))
-        update_solution_ftcs(Nx, curr, last, alpha, dx, dt, bc0, bc1);
+        return update_solution_ftcs(Nx, curr, last, alpha, dx, dt, bc0, bc1);
     else if (!strcmp(alg, "upwind15"))
-        update_solution_upwind15(Nx, curr, last, alpha, dx, dt, bc0, bc1);
+        return update_solution_upwind15(Nx, curr, last, alpha, dx, dt, bc0, bc1);
     else if (!strcmp(alg, "crankn"))
-        update_solution_crankn(Nx, curr, last, cn_Amat, bc0, bc1);
+        return update_solution_crankn(Nx, curr, last, cn_Amat, bc0, bc1);
+    return false;
 }
 
 static Double
@@ -208,7 +209,11 @@ int main(int argc, char **argv)
     for (ti = 0; ti*dt < maxt; ti++)
     {
         // compute the next solution step
-        update_solution();
+        if (!update_solution())
+        {
+            fprintf(stderr, "Solution criteria violated. Make better choices\n");
+            exit(1);
+        }
 
         // compute amount of change in solution
         change = update_output_files(ti);

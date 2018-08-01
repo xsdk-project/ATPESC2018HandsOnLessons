@@ -61,7 +61,7 @@ extern Double maxt;
 extern Double bc0;
 extern Double bc1;
 extern Double min_change;
-extern char const *probnm;
+extern char const *runame;
 extern char const *prec;
 extern char const *ic;
 extern char const *alg;
@@ -84,7 +84,7 @@ process_args(int argc, char **argv)
     if (help)
         fprintf(stderr, "Usage: ./heat <arg>=<value> <arg>=<value>...\n");
 
-    HANDLE_ARG(probnm, char*, %s, problem name and name of results dir);
+    HANDLE_ARG(runame, char*, %s, name to give run and results dir);
     HANDLE_ARG(prec, char*, %s, precision half|float|double|quad);
     HANDLE_ARG(alpha, double, %g, material thermal diffusivity (sq-meters/second));
     HANDLE_ARG(lenx, double, %g, material length (meters));
@@ -116,16 +116,16 @@ process_args(int argc, char **argv)
     }
 
     // Handle output results dir creation and save of command-line
-    if (access(probnm, F_OK) == 0)
+    if (access(runame, F_OK) == 0)
     {
-        fprintf(stderr, "An entry \"%s\" already exists\n", probnm);
+        fprintf(stderr, "An entry \"%s\" already exists\n", runame);
         exit(1);
     } 
 
     // Make the output dir and save clargs there too
-    mkdir(probnm, S_IRWXU|S_IRWXG|S_IROTH|S_IXOTH);
+    mkdir(runame, S_IRWXU|S_IRWXG|S_IROTH|S_IXOTH);
     char fname[128];
-    sprintf(fname, "%s/clargs.out", probnm);
+    sprintf(fname, "%s/clargs.out", runame);
     FILE *outf = fopen(fname, "w");
     fprintf(outf, "%s", clargs);
     fclose(outf);

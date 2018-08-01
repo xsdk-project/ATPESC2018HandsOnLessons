@@ -1,6 +1,6 @@
 #include "Double.h"
 
-void
+bool
 update_solution_upwind15(int n, Double *curr, Double const *last,
     Double alpha, Double dx, Double dt,
     Double bc_0, Double bc_1)
@@ -22,4 +22,6 @@ update_solution_upwind15(int n, Double *curr, Double const *last,
                   -f1*(12*k2  -8*k    )*last[i-1]
                   -f1*(12*k2  -8*k    )*last[i+1]
                   +f0*(12*k2 -10*k  +4)*last[i  ];
+
+    return true;
 }

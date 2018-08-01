@@ -80,7 +80,7 @@ r83_np_sl ( int n, Double const *a_lu, Double const *b, Double *x)
     }
 }
 
-void
+bool
 update_solution_crankn(int n,
     Double *curr, Double const *last,
     Double const *cn_Amat,
@@ -90,4 +90,6 @@ update_solution_crankn(int n,
     r83_np_sl (n, cn_Amat, last, curr);
     curr[0] = bc_0;
     curr[n-1] = bc_1;
+
+    return true;
 }

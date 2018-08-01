@@ -1,3 +1,5 @@
+PTOOL ?= visit
+RUNAME ?= heat_results
 RM ?= rm -rf
 
 SRC = heat.C utils.C args.C exact.C ftcs.C upwind15.C crankn.C
@@ -13,8 +15,8 @@ heat: $(OBJ)
 	$(CXX) -o heat $(OBJ) -lm
 
 check: $(EXE)
-	@./heat 1>/dev/null 2>&1
-	@diff heat_soln_final.curve heat_soln_check.curve; \
+	@./heat runame=check maxt=50 1>/dev/null 2>&1
+	@diff check/check_soln_final.curve heat_check.curve; \
 	if [[ $$? -eq 0 ]]; then \
 	    echo "PASSED"; \
 	else \
@@ -34,5 +36,22 @@ dataclean:
 
 allclean: clean objclean
 
-analysis:
-	
+plot:
+	@./tools/run_$(PTOOL).sh $(RUNAME)
+
+foo:
+	[[ -d $(RUNAME) ]] || exit 1
+	@if [[ "$(PTOOL)" = "visit" ]]; then \
+	    which visit; \
+	    [[ $? -eq 0 ]] || exit 1;\
+	    ./tools/run_visit.sh $(RUNAME)
+	elif [[ "$(PTOOL)" == "gnuplot" ]]; then \
+	    echo "got gnuplot"; \
+	    which gnuplot; \
+	    [[ $? -eq 0 ]] || exit 1;\
+	elif [[ "$(PTOOL)" == "pyplot" ]]; then \
+	    echo "got pyplot"; \
+	else \
+	    echo "plot tool \"$(PTOOL)\" not recognized"; \
+	    exit 1; \
+	fi

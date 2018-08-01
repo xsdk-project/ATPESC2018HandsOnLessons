@@ -1,6 +1,6 @@
 #include "Double.h"
 
-void
+bool
 update_solution_ftcs(
     int n,                    // number of samples
     Double *curr,             // new array of samples to compute/return
@@ -11,9 +11,13 @@ update_solution_ftcs(
 {
     Double r = alpha * dt / (dx * dx);
 
+    if (r >= 0.5) return false;
+
     for (int i = 1; i < n-1; i++)
-        curr[i] = r*last[i+1] + (1 - 2*r)*last[i] + r*last[i-1];
+        curr[i] = r*last[i+1] + (1-2*r)*last[i] + r*last[i-1];
 
     curr[0] = bc_0;
     curr[n-1] = bc_1;
+
+    return true;
 }
