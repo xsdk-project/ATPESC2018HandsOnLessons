@@ -1,6 +1,6 @@
 PTOOL ?= visit
 RUNAME ?= heat_results
-RM ?= rm -rf
+RM = rm -rf
 
 SRC = heat.C utils.C args.C exact.C ftcs.C upwind15.C crankn.C
 OBJ = $(SRC:.C=.o)
@@ -14,8 +14,10 @@ EXE = heat
 heat: $(OBJ)
 	$(CXX) -o heat $(OBJ) -lm
 
-check: $(EXE)
+check/check_soln_final.curve: $(EXE) checkclean
 	@./heat runame=check maxt=50 1>/dev/null 2>&1
+
+check: check/check_soln_final.curve
 	@diff check/check_soln_final.curve heat_check.curve; \
 	if [[ $$? -eq 0 ]]; then \
 	    echo "PASSED"; \
@@ -30,9 +32,8 @@ objclean:
 clean: objclean
 	$(RM) $(EXE)
 
-dataclean:
-	@datafiles=$$(ls heat_*.curve | grep -v heat_soln_check.curve); \
-	$(RM) $$datafiles
+checkclean:
+	$(RM) check
 
 allclean: clean objclean
 

@@ -8,6 +8,45 @@ header:
 permalink: "/setup_instructions/"
 ---
 
+## Seting Up Soft Enviornment on Cooley
+
+## Visualization Tools
+
+There are three options
+
+
+
+**Note**: Client-Server is Best Option
+
+#### Installing and Setting up VisIt for Client-Server to Cooley
+
+#### Installing and Setting up ParaView for Client-Server to Cooley
+
+**Can Cameron write this section?**
+
+
+### Running Remotely via X-Windows
+
+**Note**: Requires X-Server with indirect GLX enabled.
+
+### VisIt
+
+#### Client-Server vs. All Local
+
+**Note**: requires `soft add +visit` in `.login/.cshrc` on Cooley
+
+### ParaView
+
+### GlVis
+
+## Transferring Data
+
+### Secure Shell Control Master
+
+### Secure File Transfer Protocol (sftp)
+
+
+
 
 currently, just notes to self
 

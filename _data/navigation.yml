@@ -1,13 +1,16 @@
 - title: Intro
   url: "/"
   side: left
+  dropdown:
+  - title: "Agenda"
+    url: "/atpesc_2018_agenda/"
+  - title: "Setup Instructions"
+    url: "/setup_instructions/"
 
 - title: Lessons
   url: "/lessons/"
   side: left
   dropdown:
-  - title: "Setup Instructions"
-    url: "/setup_instructions/"
   - title: "Hand Coded Heat"
     url: "/lessons/hand_coded_heat/"
   - title: "Meshing and Discretization (MFEM)"
