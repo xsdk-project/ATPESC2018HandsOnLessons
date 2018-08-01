@@ -171,24 +171,47 @@ We can also monitor the timestepping for the adjoint calculation by doing
 The example `ex1fwd.c` in the same folder illustrates the forward sensitivity approach for the same problem.
 
 
-## Example 3: Diffusion-Reaction Problem
+## Example 3: An Inverse Initial Value Problem
 
-This code demonstrates parallel adjoint calculation for a system of time-dependent PDEs on a 2D rectangular grid.
-The adjoint solution corresponds to the sensitivities of one component in the final solution w.r.t. the initial conditions.
+This code demonstrates how to solve an inverse initial value problem for a system of time-dependent PDEs on a 2D rectangular grid.
+The goal is to determine an optimal  initial condition that can minimizes the difference between the simulated result and the reference solution.
 We will use this example to illustrate the performance considerations for realistic large-scale applications. In particular, we will show how to play with checkpointing and how to profile/tune the performance.
 
 ### Compile the code
-This example is in `src/ts/examples/advection-diffusion-reaction`. The source code is included in [ex5adj.c](./ex5adj.c)
+This example is in `src/ts/examples/advection-diffusion-reaction`. The source code is included in [ex5opt_ic.c](./ex5opt_ic.c)
 
 ```
-make ex5adj
+make ex5opt_ic
 ```
+
+### Problem being solved
+
+The underlying PDE models reaction and diffusion of two chemical species that can procude a variety of patterns. It is widely used to describe pattern-formation phenomena in biological, chemical and physical systems. The concentrations of the two spieces are calcuated according to the equation
+
+$$
+\frac{d\mathbf{u}}{dt} = D_1 \nabla^2 \mathbf{u} - \mathbf{u} \mathbf{v}^2 + 
+\gamma(1 -\mathbf{u}) \\
+\frac{d\mathbf{v}}{dt} = D_2 \nabla^2 \mathbf{v} + \mathbf{u} \mathbf{v}^2 - 
+(\gamma + \kappa)\mathbf{v}
+$$
+
+The spatial pattern for the time interval [0,200] seconds is showin in the following figure.
+
+|Figure 1|
+|:---:|
+|<img src="pde.gif" width="400">|
+
+Given the pattern (observation) at the final time of the simulation, we want to determine the initial pattern that can minimize the difference between the simulated result and the observation.
+
+$$
+\text{minimize}_{X_0} \| X - X^{ref}\|
+$$
 
 ### Run 1: Monitor solution graphically
 
 ```
-mpiexec -n 4 ./ex5adj -forwardonly -implicitform 0 -ts_type rk \
-                     -ts_monitor -ts_monitor_draw_solution
+mpiexec -n 4 ./ex5opt_ic -forwardonly -implicitform 0 -ts_type rk \
+                     -ts_monitor -ts_monitor_draw_solution -forwardonly
 ```
 
 * `-forwardonly` perform the forward simulation without doing adjoint
@@ -200,7 +223,7 @@ mpiexec -n 4 ./ex5adj -forwardonly -implicitform 0 -ts_type rk \
 By default, the checkpoints are stored in binary files on disk. Of course, this may not be a good choice for large-scale applications running on high-performance machines where I/O cost is significant. We can make the solver use RAM for checkpointing and specify the maximum allowable checkpoints so that an optimal adjoint checkpointing schedule that minimizes the number of recomputations will be generated.
 
 ```
-mpiexec -n 4 ./ex5adj -implicitform 0 -ts_type rk -ts_adapt_type none \
+mpiexec -n 4 ./ex5opt_ic -implicitform 0 -ts_type rk -ts_adapt_type none \
                      -ts_max_steps 10 -ts_monitor -ts_adjoint_monitor \
                      -ts_trajectory_type memory -ts_trajectory_max_cps_ram 3 \
                      -ts_trajectory_monitor -ts_trajectory_view
@@ -217,7 +240,7 @@ The output corresponds to the schedule depicted by the following diagram:
 ### Run 3: Implicit time integration method
 Now we switch to an implicit method ([Crank-Nicolson](https://en.wikipedia.org/wiki/Crank–Nicolson_method)) using fixed stepsize, which is the default setting in the code. At each time step, a nonlinear system is solved by the PETSc nonlinear solver `SNES`.
 ```
-mpiexec -n 12 ./ex5adj -da_grid_x 1024 -da_grid_y 1024 -ts_max_steps 10 -snes_monitor -log_view -ts_monitor
+mpiexec -n 12 ./ex5opt_ic -da_grid_x 1024 -da_grid_y 1024 -ts_max_steps 10 -snes_monitor -log_view -ts_monitor
 ```
 * `-snes_monitor` shows the progress of `SNES`
 * `-log_view` prints a summary of the logging
