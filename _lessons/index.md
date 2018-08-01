@@ -12,6 +12,9 @@ permalink: /lessons/
     {% if item.title == "ATPESC 2018 Hands On Lessons" %}
         {% continue %}
     {% endif %}
+    {% if item.title == "Lesson Template" %}
+        {% continue %}
+    {% endif %}
     <tr>
     <td><a href="{{ site.url }}{{ site.baseurl }}{{ item.url }}">{{ item.title }}</a></td>
     <td>{{ item.subheadline }}</td>
