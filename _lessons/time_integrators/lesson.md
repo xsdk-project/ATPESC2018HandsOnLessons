@@ -33,7 +33,7 @@ The first application has been designed to solve  the
 
 $$\frac{\partial u}{\partial t} + \vec{v} \cdot \nabla u = 0$$
 
-where $$v$$ is a given fluid velocity and $$u0(x)=u(u,x)$$ is a given initial condition.
+where $$v$$ is a given fluid velocity and $$u(t=0,x)=u_0(x)$$ is a given initial condition.
 
 Here, all the runs solve a problem on a periodic, hexagonally bounded mesh with an initial
 rounded step function of amplitude 1.0 slightly off-center as pictured in Figure 1.
@@ -42,41 +42,7 @@ rounded step function of amplitude 1.0 slightly off-center as pictured in Figure
 |:---:|:---:|:---:|
 |[<img src="advection-ode-initial.png" width="400">](advection-ode-initial.png)|[<img src="advection-ode-2.5D.png" width="400">](advection-ode-2.5D.png)|[<img src="advection-ode-animation.gif" width="400">](advection-ode-animation.gif)|
 
-The main loop of [advection-ode.cpp][3]
-is shown here...
 
-```c++
-   // Explicitly perform time-integration (looping over the time iterations, ti,
-   // with a time-step dt), or use the Run method of the ODE solver class.
-   if (use_step)
-   {
-      bool done = false;
-      for (int ti = 0; !done; )
-      {
-         double dt_real = min(dt, t_final - t);
-         ode_solver->Step(*U, t, dt_real);
-         ti++;
-
-         done = (t >= t_final - 1e-8*dt);
-
-         if (done || ti % vis_steps == 0)
-         {
-            if (myid == 0)
-            {
-               cout << "time step: " << ti << ", time: " << t << endl;
-            }
-            // 11. Extract the parallel grid function corresponding to the finite
-            //     element approximation U (the local solution on each processor).
-            *u = *U;
-
-         }
-      }
-   }
-   else { ode_solver->Run(*U, t, dt, t_final); }
-```
-
-Later in this lesson, we'll show the lines of code that permit the application great
-flexibility in how it employs [PETSc][1] to handle time integration.
 
 ### Getting Help
 
@@ -353,8 +319,6 @@ The use of _adaptation_ here was confined to _discretzation_ of time. Other less
 here demonstrate the advantages _adaptation_ can play in the _discretization_ of
 _space_ (e.g. meshing).
 
-Other lessons will demonstrate some the use of other packages _[direct](/lessons/superlu_mfem/)_
-and _[iterative](/lessons/krylov_amg/)_ _implicit_ integration approaches.
 
 Finally, it is worth reminding the learner that the application demonstrated here can
 be run on 1, 2 and 3 dimensional meshes and in scalable, parallel settings and on meshes
