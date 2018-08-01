@@ -11,7 +11,6 @@ header:
 ---
 
 ## At a Glance
-<!-- (Expected # minutes to complete) %% temporarily omit -->
 
 |Questions|Objectives|Key Points|
 |1. What is a numerical algorithm?|Understand performance metrics|HPC numerical software involves complex<br>algorithms and data structures|
@@ -22,6 +21,13 @@ header:
 ```
 cd handson/heatapp
 ```
+
+[Submit Answers to Questions Here](https://docs.google.com/forms/d/e/1FAIpQLSdoyXOL4UCe4_p0SheNidqY_ErKcrRS2qqqomIHQMZi5eVM2g/viewform?usp=sf_link)
+
+
+# Embedded Form here
+
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdoyXOL4UCe4_p0SheNidqY_ErKcrRS2qqqomIHQMZi5eVM2g/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
 
 ## A Simple Science Question
 
