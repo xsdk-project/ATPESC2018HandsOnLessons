@@ -20,11 +20,9 @@ header:
 
 We consider the diffusion-convection partial differential equation
 
-$$-{\Delta u} + a{\nabla \dot u} = f$$
+$$-\Delta u + a \nabla \cdot u = f$$
 
-on a cuboid of size $$n_x \times n_y \times n_z$$ with Dirichlet boundary conditions
-
-$$u = 0$$.
+on a cuboid of size $$n_x \times n_y \times n_z$$ with Dirichlet boundary conditions $$u = 0$$.
 
 The diffusion part is discretized using central finite differences, and upwind finite differences are used for the advection term.
 
@@ -36,7 +34,7 @@ We will mostly focus on the case where $$a = 0$$, i.e. the Poisson equation, whi
 For the first part of the hands-on lessons we will use the executable ij. Various solver, problem and parameter options can be invoked by adding them to the command line.
 A complete set of options will be printed by typing
 ```
-ij -help
+./ij -help
 ```
 Here is an excerpt of the output of this command with all the options relevant for the hands-on lessons.
 
@@ -78,7 +76,7 @@ Choice of solver:
 
 Run the first example for a small problem of size 8000 using restarted GMRES with a Krylov space of size 10.
 ```
-ij -gmres -n 20 20 20 -k 10
+./ij -n 30 30 30 -k 10 -gmres
 ```
 
 #### Expected Behavior/Output
@@ -88,11 +86,11 @@ You should get something that looks like this
 Running with these driver parameters:
   solver ID    = 4
 
-    (nx, ny, nz) = (20, 20, 20)
+    (nx, ny, nz) = (30, 30, 30)
     (Px, Py, Pz) = (1, 1, 1)
     (cx, cy, cz) = (1.000000, 1.000000, 1.000000)
 
-    Problem size = (20 x 20 x 20)
+    Problem size = (30 x 30 x 30)
 
 =============================================
 Generate Matrix:
@@ -129,29 +127,25 @@ GMRES Setup:
 Solve phase times:
 =============================================
 GMRES Solve:
-  wall clock time = 0.050000 seconds
+  wall clock time = 0.270000 seconds
   wall MFLOPS     = 0.000000
-  cpu clock time  = 0.040000 seconds
+  cpu clock time  = 0.270000 seconds
   cpu MFLOPS      = 0.000000
 
 
-GMRES Iterations = 186
-Final GMRES Relative Residual Norm = 9.593291e-09
-Total time = 0.050000
+GMRES Iterations = 392
+Final GMRES Relative Residual Norm = 9.915663e-09
+Total time = 0.270000
 ```
 
 Note the total time and the number of iterations.
-Now increase the Krylov subspace by changing input to -k to 20, then 30, 40, and finally 50.
+Now increase the Krylov subspace by changing input to -k to 20, then 40, and finally 75.
 
 {% include qanda question='What do you observe about the number of iterations and times?' answer='Number of iterations and times improve' %}
 
-{% include qanda question='How many restarts were required for the last run using -k 50?'  answer='None, since the number of iterations is 49. Here full GMRES was used.'%}
+{% include qanda question='How many restarts were required for the last run using -k 75?'  answer='None, since the number of iterations is 73. Here full GMRES was used.'%}
 
-Now increase the problem size to -n 30 30 30 and -n 40 40 40 combined with -k 50.
-
-{% include qanda question='What do you observe about the number of iterations and times?' answer='Number of iterations and times increase.' %}
-
-Now solve the last problem with -n 40 40 40 using -pcg and -bicgstab.
+Now solve this problem using -pcg and -bicgstab.
 
 {% include qanda question='What do you observe about the number of iterations and times for all three methods? Which method is the fastest and which one has the lowest number of iterations?' answer='Conjugate gradient has the lowest time, but BiCGSTAB has the lowest number of iterations.' %}
 
@@ -160,26 +154,228 @@ Now solve the last problem with -n 40 40 40 using -pcg and -bicgstab.
 Now let us apply Krylov solvers to the convection-diffusion equation with $$a=10$$, starting with conjugate gradient.
 
 ```
-ij -n 40 40 40 -difconv -a 10 -pcg
+./ij -n 30 20 30 -difconv -a 10 -pcg
 ```
-Try also BiCGSTAB and GMRES(100).
+{% include qanda question='What do you observe? Why?' answer='PCG fails, because the linear system is nonsymmetric.' %}
 
-{% include qanda question='What do you observe? Which solver does not solve the problem and why?' answer='PCG fails, because the linear system is nonsymmetric. Both BiCGSTAB and GMRES solve the problem.' %}
+Now try -gmres and -bicgstab.
+{% include qanda question='What do you observe?' answer='Both BiCGSTAB and GMRES solve the problem.' %}
+
+Let us investigate what happens for larger linear systems. We will do so using weak scaling, i.e. increasing the number of processes and with it the problem size for the Poisson equation using the Krylov method that does so in the least amount of time.
+```
+mpiexec -n 1 ./ij -n 50 50 50 -pcg -P 1 1 1
+```
+Now gradually increase the problem size, updating the numbers for -n and -P with
+
+-n 2 -P 2 1 1
+
+-n 4 -P 2 2 1
+
+-n 8 -P 2 2 2
+
+{% include qanda question='What happens to convergence and solve time?' answer='They increase with increasing problem size. 
+Number of iterations: 124, 198, 233, 249.
+Total time: 0.55, 0.61, 0.88, 1.46 seconds.' %}
+
+
 
 ### Second Set of Runs (Algebraic Multigrid)
 
+Now perform the weak scaling study using algebraic multigrid starting with
+```
+mpiexec -n 1 ./ij -n 50 50 50 -amg -P 1 1 1
+```
+{% include qanda question='What happens to convergence and solve time now?' answer='AMG solves the problem using significantly less iterations, and time increases somewhat slower.
+Number of iterations: 12, 15, 17, 23.
+Total time: 0.51, 0.66, 0.85, 1.18 seconds.' %}
 
-### Third Set of Runs (Comparing Structured and Unstructured Multigrid Solvers)
+Now repeat the scaling study using AMG as a preconditioner for CG:
+```
+mpiexec -n 1 ./ij -n 50 50 50 -amgpcg -P 1 1 1
+```
+{% include qanda question='What happens to convergence and solve time now?' answer='Using PCG preconditioned with AMG further decreases the number of iterations and solve times.
+Number of iterations: 8, 9, 9, 11.
+Total time: 0.47, 0.57, 0.69, 0.89 seconds.' %}
 
----
+Now let us take a look at the complexities of the last run by printing some setup statistics:
+```
+mpiexec -n 8 ./ij -n 50 50 50 -amgpcg -P 2 2 2 -iout 1
+```
+You should now see the following statistics:
+```
+HYPRE_ParCSRPCGGetPrecond got good precond
+
+
+ Num MPI tasks = 8
+
+ Num OpenMP threads = 1
+
+
+BoomerAMG SETUP PARAMETERS:
+
+ Max levels = 25
+ Num levels = 8
+
+ Strength Threshold = 0.250000
+ Interpolation Truncation Factor = 0.000000
+ Maximum Row Sum Threshold for Dependency Weakening = 1.000000
+
+ Coarsening Type = HMIS 
+ measures are determined locally
+
+
+ No global partition option chosen.
+
+ Interpolation = extended+i interpolation
+
+Operator Matrix Information:
+
+            nonzero         entries per row        row sums
+lev   rows  entries  sparse  min  max   avg       min         max
+===================================================================
+ 0 1000000  6940000  0.000     4    7   6.9   0.000e+00   3.000e+00
+ 1  499594  8430438  0.000     7   42  16.9  -2.581e-15   4.000e+00
+ 2  113588  5267884  0.000    18   83  46.4  -9.556e-15   5.515e+00
+ 3   14088  1099948  0.006    16  126  78.1  -2.339e-14   8.187e+00
+ 4    2585   235511  0.035    11  183  91.1  -9.932e-14   1.622e+01
+ 5     366    25888  0.193    11  181  70.7   2.032e-01   4.293e+01
+ 6      44     1228  0.634    14   44  27.9   9.754e+00   1.501e+02
+ 7       9       77  0.951     7    9   8.6   1.198e+01   3.267e+02
+
+
+Interpolation Matrix Information:
+                 entries/row    min     max         row sums
+lev  rows cols    min max     weight   weight     min       max 
+=================================================================
+ 0 1000000 x 499594   1   4   1.429e-01 4.545e-01 5.000e-01 1.000e+00
+ 1 499594 x 113588   1   4   1.330e-02 5.971e-01 2.164e-01 1.000e+00
+ 2 113588 x 14088   1   4  -1.414e-02 5.907e-01 5.709e-02 1.000e+00
+ 3 14088 x 2585    1   4  -4.890e-01 6.377e-01 2.236e-02 1.000e+00
+ 4  2585 x 366     1   4  -1.185e+01 5.049e+00 8.739e-03 1.000e+00
+ 5   366 x 44      1   4  -2.597e+00 3.480e+00 6.453e-03 1.000e+00
+ 6    44 x 9       1   4  -2.160e-01 8.605e-01 -6.059e-02 1.000e+00
+
+
+     Complexity:    grid = 1.630274
+                operator = 3.170169
+                memory = 3.837342
+
+
+
+
+BoomerAMG SOLVER PARAMETERS:
+
+  Maximum number of cycles:         1 
+  Stopping Tolerance:               0.000000e+00 
+  Cycle type (1 = V, 2 = W, etc.):  1
+
+  Relaxation Parameters:
+   Visiting Grid:                     down   up  coarse
+            Number of sweeps:            1    1     1 
+   Type 0=Jac, 3=hGS, 6=hSGS, 9=GE:     13   14     9 
+   Point types, partial sweeps (1=C, -1=F):
+                  Pre-CG relaxation (down):   0
+                   Post-CG relaxation (up):   0
+                             Coarsest grid:   0
+
+```
+This output contains some statistics for the AMG preconditioner. It shows the number of levels, the average number of nonzeros in total and per row for each matrix $$A_i$$ as well as each interpolation operator $$P_i$$.
+It also shows the operator complexity, which is defined as the sum of the number of nonzeroes of all operators $$A_i$$
+divided by the number of nonzeroes of the original matrix $$A$$:
+$$\frac{\sum_i^L {A_i}}{nnz(A)}$$.
+It also gives the memory complexity, which is defined by
+$$\frac{\sum_i^L {A_i + P_i}}{nnz(A)}$$.
+
+{% include qanda question='What do you notice about the average number of nonzeroes per row across increasing levels?' answer='It increases significantly  through level 4 and decreases after that. It is much larger than the original level.'
+ %}
+
+{% include qanda question='What causes this growth?' answer='It is caused by the Galerkin product, i.e. the product of the three matrices R, A, and P.'
+ %}
+{% include qanda question='Is the operator complexity acceptable?' answer='No, we would prefer a number that is closer to 1.'  %}
+
+Now, let us see what happens if we coarsen more aggressively on the finest level:
+
+```
+mpiexec -n 8 ./ij -n 50 50 50 -amgpcg -P 2 2 2 -iout 1 -agg_nl 1
+```
+We now receive the following output for average number of nonzeroes and complexities:
+```
+Operator Matrix Information:
+
+            nonzero         entries per row        row sums
+lev   rows  entries  sparse  min  max   avg       min         max
+===================================================================
+ 0 1000000  6940000  0.000     4    7   6.9   0.000e+00   3.000e+00
+ 1   79110  1427282  0.000     6   33  18.0  -1.779e-14   8.805e+00
+ 2   16777   817577  0.003    12   91  48.7  -2.059e-14   1.589e+01
+ 3    2235   153557  0.031    19  132  68.7   6.580e-14   3.505e+01
+ 4     309    18445  0.193    17  160  59.7   1.255e+00   8.454e+01
+ 5      50     1530  0.612    13   50  30.6   1.521e+01   3.237e+02
+ 6       5       25  1.000     5    5   5.0   6.338e+01   3.572e+02
+
+
+Interpolation Matrix Information:
+                 entries/row    min     max         row sums
+lev  rows cols    min max     weight   weight     min       max 
+=================================================================
+ 0 1000000 x 79110   1   9   2.646e-02 9.722e-01 2.778e-01 1.000e+00
+ 1 79110 x 16777   1   4   7.709e-03 1.000e+00 2.709e-01 1.000e+00
+ 2 16777 x 2235    1   4   2.289e-03 7.928e-01 5.909e-02 1.000e+00
+ 3  2235 x 309     1   4  -6.673e-02 5.759e-01 4.594e-02 1.000e+00
+ 4   309 x 50      1   4  -6.269e-01 3.959e-01 2.948e-02 1.000e+00
+ 5    50 x 5       1   4  -1.443e-01 1.083e-01 -4.496e-02 1.000e+00
+
+
+     Complexity:    grid = 1.098486
+                operator = 1.348475
+                memory = 1.700654
+```
+As you can see, the number of levels, the number of nonzeroes per rows and the complexities have decreased.
+{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations increases (17 vs. 11), but total time is less (0.69 vs 0.89)'  %}
+
+Now let us use aggressive coarsening in the first two levels.
+```
+mpiexec -n 8 ./ij -n 50 50 50 -amgpcg -P 2 2 2 -iout 1 -agg_nl 2
+```
+{% include qanda question='What happens to complexities, number of nonzeroes per row, the number of iterations and the total time?' answer='Complexities and number of nonzeroes per row decrease further, but the number of iterations as well as total time is increasing. Choosing to aggressively coarsen on the second level does not lead to further time savings, but gives further memory savings. If achieving the shortest time is the objective, coarsen aggressively on the second level is not adviced.'  %}
+
+So far, we achieved the best overall time to solve a Poisson problem on a cube of size $$100 \times 100 \times$$ using conjugate gradient preconditioned with AMG with one level of aggressive coarsening.
+
+How would a structured solver perform on this problem?
+To run the structured solver for this problem type
+```
+mpiexec -n 8 ./struct -n 50 50 50 -pfmg -P 2 2 2
+```
+Now run it as a preconditioner for conjugate gradient.
+```
+mpiexec -n 8 ./struct -n 50 50 50 -pfmgpcg -P 2 2 2
+```
+To get even better total time, now run the nonGalerkin version.
+
+```
+mpiexec -n 8 ./struct -n 50 50 50 -pfmgpcg -P 2 2 2 -rap 1
+```
+
 
 ## Out-Brief
 
-Here, re-emphasize the lesson objectives and key points.
+We investigated why multigrid methods are preferrable over generic solvers like conjugate gradient for large suitable PDE problems.
+Additional improvements can be achieved when using them as preconditioners for Krylov solvers like conjugate gradient.
+For unstructured multigrid solvers, it is important to keep complexities low, since large complexitites lead to slow solve times and require much memory.
+For structured problems, solvers that take advantage of the structure of the problem are more efficient than unstructured solvers.
 
-Its fine to go into greater detail about questions or objectives this lesson
-did not fully cover.
 
 ### Further Reading
 
-Include links to other online sources you might want to include.
+To learn more about algebraic multigrid, see
+[An Introduction to Algebraic Multigrid](https://computation.llnl.gov/projects/hypre-scalable-linear-solvers-multigrid-methods/CiSE_2006_amg_220851.pdf)
+
+More information on hypre , including documentation and further publications, can be found [here](http://www.llnl.gov/CASC/hypre)
+
+<!-- Insert space, horizontal line, and link to HandsOnLesson table -->
+
+&nbsp;
+
+---
+
+[Back to all HandsOnLessons](../lessons.md)

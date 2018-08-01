@@ -18,8 +18,10 @@
     url: "/lessons/krylov_amg/"
   - title: "Sparse Direct Solvers"
     url: "/lessons/superlu_mfem/"
-  - title: "Numerical Optimzation (Adjoint)"
+  - title: "Numerical Optimization (Adjoint)"
     url: "/lessons/adjoint/"
+  - title: "Numerical Optimization"
+    url: "/lessons/obstacle_tao"
 
 - title: Packages
   url: "https://fastmath-scidac.org/software-catalog.html"
@@ -56,7 +58,6 @@
     url: "/design/"
   - title: "Full Documentation"
     url: "/documentation/"
-  
 
 - title: "Search"
   url: "/search/"
