@@ -97,8 +97,8 @@ $$b_i = \int_\Omega f \phi_i dV$$
 $$x_j = c_j$$
 
 
-This is a $$n \times n$$ linear system that can be solved [directly](../superlu-mfem/) or
-[iteratively](../iterativesolvers/) for the unknown coefficients. Note that we are free
+This is a $$n \times n$$ linear system that can be solved [directly](../superlu_mfem/) or
+[iteratively](../krylov_amg/) for the unknown coefficients. Note that we are free
 to choose the basis functions $$\phi_i$$ as we see fit.
 
 ---
