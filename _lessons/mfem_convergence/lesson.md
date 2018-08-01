@@ -1,6 +1,6 @@
 ---
 layout: page-fullwidth
-title: "Meshing with MFEM"
+title: "Unstructure Mesh Discretizations with MFEM"
 subheadline: "Finite Elements and Convergence"
 permalink: "lessons/mfem_convergence/"
 use_math: true
@@ -11,12 +11,18 @@ header:
 ## At a Glance
 
 |What is a finite element method?|Understand basic finite element machinery.|Basis functions determine<br>the qualify of the solution.|
-|What is a high order method?|Understand how polynomial<br>order effects simulations.|High order methods add more<br>unknowns on the same mush<br>for more precise solutions.|
-|What is _convergence_?|Understand how convergence and<br>convergence-rate is calculated.|High order methods converge<br>faster for smooth solutions.|
+|What is a high order method?|Understand how polynomial<br>order affects simulations.|High order methods add more<br>unknowns on the same mesh<br>for more precise solutions.|
+|What is _convergence_?|Understand how convergence and<br>convergence rate are calculated.|High order methods converge<br>faster for smooth solutions.|
 
 **Note:** To begin this lesson...
+- Add `/projects/ATPESC2018/FASTMath/spack/bin/spack` to your `PATH`.
+- Copy the mfem install directory locally
 ```
-cd handson/mfem/examples/atpesc/mfem
+cp -a `spack location -i mfem` mfem
+```
+- Go into the ATPESC examples directory
+```
+cd mfem/examples/atpesc/mfem
 ```
 
 ## A Widely Applicable Equation
