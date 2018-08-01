@@ -63,6 +63,7 @@ currently, just notes to self
 * windows, osx and linux specific setup
 * vnc setup and/or script?
 * run a script (we still need to write) to set paths, etc.
+* instructions on reserving a node (w/ Cobalt) If request interactive, get it immediately
 
 * As a back up, confirm all above on NERSC/Cori
   * perhaps this is too much to ask?

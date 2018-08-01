@@ -11,4 +11,11 @@ markcmiller86: # replace this with your info
   uri: https://github.com/markcmiller86
   email: "miller86@llnl.gov"
   twitter:
+kolev1:
+  name: "Tzanio Kolev"
+  siterole: "Meshing subject matter expert"
+  uri: https://github.com/tzanio
+  email: "kolev1@llnl.gov"
+  twitter:
+
 # you can add more authors here
