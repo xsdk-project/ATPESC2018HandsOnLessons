@@ -6,7 +6,7 @@ permalink: "lessons/krylov_amg/"
 use_math: true
 lesson: true
 header:
- image_fullwidth: "2012.jpg"
+ image_fullwidth: "AMG-hypre.png"
 ---
 
 ## At a Glance
