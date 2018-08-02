@@ -1,5 +1,5 @@
 - title: Intro
-  url: "/"
+  url: ""
   side: left
   dropdown:
   - title: "Agenda"
@@ -32,8 +32,6 @@
   url: "https://fastmath-scidac.org/software-catalog.html"
   side: left
   dropdown:
-  - title: "Open Chat"
-    url: "https://docs.google.com/document/d/1mLi4wybFnN1VIVSx0KH9SVBSygsgEOhIRilUbklcb6Q/edit?usp=sharing"
   - title: "MFEM"
     url: "http://mfem.org"
   - title: "PUMI"
