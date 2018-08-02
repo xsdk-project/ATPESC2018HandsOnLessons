@@ -330,11 +330,3 @@ course materials:
 [Lecture Notes](http://www.siam.org/students/g2s3/2013/lecturers/XSLi/Lecture-Notes/sherry.pdf),
 [Book Chapter](http://crd-legacy.lbl.gov/~xiaoye/g2s3-summary.pdf), and
 [Video](http://www.siam.org/students/g2s3/2013/course.html)
-
-<!-- Insert space, horizontal line, and link to HandsOnLesson table -->
-
-&nbsp;
-
----
-
-[Back to all HandsOnLessons](../lessons.md)

@@ -19,7 +19,7 @@ header:
 - [Open the Answers Form](https://docs.google.com/forms/d/e/1FAIpQLScs9reOCfuD1CfbQ-m458MDyvwiTCRXEcp1XCQukaf5tP_uSQ/viewform?usp=sf_link){:target="_blank"}
 - Add the
 ```
-/projects/ATPESC2018/FASTMath/spack/bin/spack
+{{site.handson_install_root}}/spack/bin/spack
 ```
 directory to your `PATH`.
 
@@ -332,11 +332,3 @@ the effect of the polynomial order of the basis functions on convergence rates.
 ### Further Reading
 
 To learn more about MFEM, including many more [example codes](http://mfem.org/examples) and miniapps visit [mfem.org](http://mfem.org).
-
-<!-- Insert space, horizontal line, and link to HandsOnLesson table -->
-
-&nbsp;
-
----
-
-[Back to all HandsOnLessons](../lessons.md)

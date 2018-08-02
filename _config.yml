@@ -27,7 +27,8 @@ author: markcmiller86
 #
 url: 'https://xsdk-project.github.io'
 baseurl: '/ATPESC2018HandsOnLessons'
-handson_root: '/projects/ATPESC2018/FASTMath/HandsOnLessons'
+handson_install_root: '/projects/ATPESC2018/FASTMath'
+handson_root: 'HandsOnLessons'
 
 # This is for the editing function in _/includes/improve_content
 # Leave it empty if your site is not on GitHub/GitHub Pages
