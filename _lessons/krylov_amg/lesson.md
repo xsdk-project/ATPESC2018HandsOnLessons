@@ -371,11 +371,3 @@ To learn more about algebraic multigrid, see
 [An Introduction to Algebraic Multigrid](https://computation.llnl.gov/projects/hypre-scalable-linear-solvers-multigrid-methods/CiSE_2006_amg_220851.pdf)
 
 More information on hypre , including documentation and further publications, can be found [here](http://www.llnl.gov/CASC/hypre)
-
-<!-- Insert space, horizontal line, and link to HandsOnLesson table -->
-
-&nbsp;
-
----
-
-[Back to all HandsOnLessons](../lessons.md)
