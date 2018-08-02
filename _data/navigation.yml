@@ -11,8 +11,6 @@
   url: "/lessons/"
   side: left
   dropdown:
-  - title: "Open FooBar Chat"
-    url: "https://docs.google.com/document/d/1mLi4wybFnN1VIVSx0KH9SVBSygsgEOhIRilUbklcb6Q/edit?usp=sharing"
   - title: "Hand Coded Heat"
     url: "/lessons/hand_coded_heat/"
   - title: "Meshing and Discretization (MFEM)"
@@ -32,6 +30,8 @@
   url: "https://fastmath-scidac.org/software-catalog.html"
   side: left
   dropdown:
+  - title: "Open FooBar Chat"
+    url: "https://docs.google.com/document/d/1mLi4wybFnN1VIVSx0KH9SVBSygsgEOhIRilUbklcb6Q/edit?usp=sharing"
   - title: "MFEM"
     url: "http://mfem.org"
   - title: "PUMI"
