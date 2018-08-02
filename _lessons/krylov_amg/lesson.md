@@ -141,13 +141,13 @@ Total time = 0.270000
 Note the total time and the number of iterations.
 Now increase the Krylov subspace by changing input to -k to 20, then 40, and finally 75.
 
-{% include qanda question='What do you observe about the number of iterations and times?' answer='Number of iterations and times improve' %}
+{% include qanda question='What do you observe about the number of iterations and times?' answer='Number of iterations and times generally improve except for the last run, which is somewhat slower because the last iterations are more expensive. Iterations: 392, 229, 116, 73. Times: 0.27, 0.21, 0.16, 0.17.' %}
 
 {% include qanda question='How many restarts were required for the last run using -k 75?'  answer='None, since the number of iterations is 73. Here full GMRES was used.'%}
 
 Now solve this problem using -pcg and -bicgstab.
 
-{% include qanda question='What do you observe about the number of iterations and times for all three methods? Which method is the fastest and which one has the lowest number of iterations?' answer='Conjugate gradient has the lowest time, but BiCGSTAB has the lowest number of iterations.' %}
+{% include qanda question='What do you observe about the number of iterations and times for all three methods? Which method is the fastest and which one has the lowest number of iterations?' answer='Conjugate gradient takes 74 iterations and 0.04 seconds, BiCGSTAB 51 iterations and 0.05 seconds. Conjugate gradient has the lowest time, but BiCGSTAB has the lowest number of iterations.' %}
 
 {% include qanda question='Why is BiCGSTAB slower than PCG?' answer='It requires two matrix vector operations and additional vector operations per iteration, and thus each iteration takes longer than an iteration of PCG.' %}
 
