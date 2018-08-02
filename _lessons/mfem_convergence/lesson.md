@@ -15,7 +15,8 @@ header:
 |What is a high order method?|Understand how polynomial<br>order affects simulations.|High order methods add more<br>unknowns on the same mesh<br>for more precise solutions.|
 |What is _convergence_?|Understand how convergence and<br>convergence rate are calculated.|High order methods converge<br>faster for smooth solutions.|
 
-**Note:** To begin this lesson...
+### To begin this lesson...
+- [Open the Answers Form](https://docs.google.com/forms/d/e/1FAIpQLScs9reOCfuD1CfbQ-m458MDyvwiTCRXEcp1XCQukaf5tP_uSQ/viewform?usp=sf_link)
 - Add the
 ```
 /projects/ATPESC2018/FASTMath/spack/bin/spack
@@ -287,7 +288,7 @@ approximate it better.
 
 {% include qanda
     question='Which method is more efficient: low-order or high-order?'
-    answer='The high-order methods is more efficient.' %}
+    answer='The high-order method is more efficient.' %}
 
 ### Run 3 (3D example)
 The previous two runs used a 2D mesh in serial, but the same code can be used to run a 3D problem in parallel.
