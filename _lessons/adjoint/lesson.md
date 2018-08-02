@@ -233,9 +233,9 @@ The output corresponds to the schedule depicted by the following diagram:
 <img src="chkpt.png" width="800">
 
 #### Questions
-> **What will happen if we add the option `-ts_trajectory_max_cps_disk 2` to specify there are two available slots for disk checkpoints?**
-
-|<font color="white">Looking at the output, we will find that the new schedule uses both RAM and disk for checkpointing and takes two less recomputations.</font>|
+{% include qanda
+    question='What will happen if we add the option `-ts_trajectory_max_cps_disk 2` to specify there are two available slots for disk checkpoints?'
+    answer='Looking at the output, we will find that the new schedule uses both RAM and disk for checkpointing and takes two less recomputations.' %}
 
 ### Run 3: Implicit time integration method
 Now we switch to an implicit method ([Crank-Nicolson](https://en.wikipedia.org/wiki/Crank–Nicolson_method)) using fixed stepsize, which is the default setting in the code. At each time step, a nonlinear system is solved by the PETSc nonlinear solver `SNES`.
@@ -275,17 +275,13 @@ VecNorm              401 1.0 7.1590e-01 1.9 1.40e+08 1.0 0.0e+00 0.0e+00 4.0e+02
 ```
 
 #### Questions
-> **Where is the majority of CPU time spent?**
+{% include qanda
+    question='Where is the majority of CPU time spent?'
+    answer='Of course answer may vary depending on the settings such as number of procs, problem size, and solver options. Typically most of the time should be spent on [VecMDot](http://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/Vec/VecMDot.html) or [MatMult](http://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/Mat/MatMult.html)' %}
 
-|<font color="white">Of course answer may vary depending on the settings such as number of procs, problem size, and solver options. Typically most of the time should be spent on [VecMDot](http://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/Vec/VecMDot.html) or [MatMult](http://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/Mat/MatMult.html) </font>|
-
-> **How expensive is it to do an adjoint step?**
-
-|<font color="white">For this particular run, an adjoint step takes about 60-70% of the running time of a forward step (compare the time between TSAdjointStep and TSStep). </font>|
-
-> **How can we improve performance?**
-
-|<font color="white">1. Use memory instead of disk for checkpointing(`-ts_trajectory_type memory -ts_trajectory_solution_only 0`); 2. Tune the time stepping solver, nonlinear solver, linear solver, preconditioner and so forth. </font>|
+{% include qanda
+    question='How can we improve performance?'
+    answer='1. Use memory instead of disk for checkpointing(`-ts_trajectory_type memory -ts_trajectory_solution_only 0`); 2. Tune the time stepping solver, nonlinear solver, linear solver, preconditioner and so forth.' %}
 
 ### Further information
 Because this example uses `DMDA`, Jacobian can be efficiently approxiated using finite difference with coloring. You can use the option `-snes_fd_color` to enable this feature.
