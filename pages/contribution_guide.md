@@ -108,6 +108,34 @@ To github.com:xsdk-project/ATPESC2018HandsOnLessons.git
    6ad3e3f..17ee363  gh-pages -> gh-pages
 ```
 
+## Adding a Answers Google Form To Your Lesson
+
+
+* Go into the folder named "Marks Test Folder"
+* Begin creating a new Google Form there (New->More->Google Forms->Blank Form)
+* Select the "Create and Share" button
+* Give the Form a Title
+* On the Settings Dial (upper right)...
+  * Check collect email addresses
+  * Check Limit to 1 response
+  * Do not check edit after save or see summary charts
+* In the same settings dialog as above, go to the Quizzes tab
+  * Enable "make this a quiz"
+* Save the form settings
+* Add only multiple choice, check-box, pull-down or short answer questions
+* Give each question a point score
+* Give the correct answers for each question
+* When you are done creating the form, hit the send button (upper right)
+  * Select the 'send via link' option
+  * Hit the copy button to copy the link
+  * Paste the copied link into your lesson like so...
+```
+[Open the Answers Form](<URL to form>){:target="_blank"}
+```
+    near the top of your lesson.
+
+
+
 ## More About GitHub Pages and Jekyll
 
 [Jekyll](https://jekyllrb.com) allows site content developers to build beautiful

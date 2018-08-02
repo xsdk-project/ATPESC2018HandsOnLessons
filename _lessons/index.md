@@ -26,3 +26,7 @@ permalink: /lessons/
 
 [Lessons from ATEPSC 2017](https://xsdk-project.github.io/HandsOnLessons/lessons/lessons.html)
 
+# 2018 Lesson Template
+
+[Lesson Template](/lessons/lesson_template/)
+
