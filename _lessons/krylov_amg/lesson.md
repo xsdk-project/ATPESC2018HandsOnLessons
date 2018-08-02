@@ -12,7 +12,7 @@ header:
 ## At a Glance
 
 |Why multigrid over a Krylov<br>solver for large problems?|Understand multigrid concept.|Faster convergence,<br>better scalability.|
-|Why use more aggresive<br>coarsening for AMG?|Understand need for low complexities.|Lower memory use, faster times,<br>but more iterations.|
+|Why use more aggressive<br>coarsening for AMG?|Understand need for low complexities.|Lower memory use, faster times,<br>but more iterations.|
 |Why a structured solver<br>for a structured problem?|Understand importance of<br>suitable data structures|Higher efficiency,<br>faster solve times.|
 
 
@@ -359,7 +359,7 @@ mpiexec -n 8 ./struct -n 50 50 50 -pfmgpcg -P 2 2 2 -rap 1
 
 ## Out-Brief
 
-We investigated why multigrid methods are preferrable over generic solvers like conjugate gradient for large suitable PDE problems.
+We experimented with several Krylov solvers, GMRES, conjugate gradient and BiCGSTAB, and observed the effect of increasing the size of the Krylov space for restarted GMRES. We investigated why multigrid methods are preferrable over generic solvers like conjugate gradient for large suitable PDE problems.
 Additional improvements can be achieved when using them as preconditioners for Krylov solvers like conjugate gradient.
 For unstructured multigrid solvers, it is important to keep complexities low, since large complexitites lead to slow solve times and require much memory.
 For structured problems, solvers that take advantage of the structure of the problem are more efficient than unstructured solvers.
