@@ -50,6 +50,6 @@ permalink: "/atpesc_2018_agenda/"
 [20]: <mailto:miller86@llnl.gov>
 [21]: ../lessons/mfem_convergence/
 [22]: ../lessons/time_integrators/
-[23]: ../lessons/kyrolv_amg/
+[23]: ../lessons/krylov_amg/
 [24]: ../lessons/superlu_mfem/
 [25]: ../lessons/adjoint/

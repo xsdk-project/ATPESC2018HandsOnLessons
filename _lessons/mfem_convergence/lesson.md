@@ -8,9 +8,10 @@ lesson: true
 header:
  image_fullwidth: "WSC_top4.jpg"
 ---
-## At a Glance
+## At A Glance
 
-|What is a finite element method?|Understand basic finite element machinery.|Basis functions determine<br>the qualify of the solution.|
+|Questions|Objectives|Key Points|
+|What is a finite element method?|Understand basic finite element machinery.|Basis functions determine<br>the quality of the solution.|
 |What is a high order method?|Understand how polynomial<br>order affects simulations.|High order methods add more<br>unknowns on the same mesh<br>for more precise solutions.|
 |What is _convergence_?|Understand how convergence and<br>convergence rate are calculated.|High order methods converge<br>faster for smooth solutions.|
 
@@ -37,8 +38,8 @@ cd mfem/examples/atpesc
 
 In this lesson, we demonstrate the discretization of a simple Poisson problem using
 the [MFEM library](http://mfem.org) and examine the finite element approximation error
-under uniform refinement. An example of this equation is steady-state [heat](../hand_coded_heat/lesson.md)
-[conduction](../time_integrators/lesson.md).
+under uniform refinement. An example of this equation is steady-state [heat](../hand_coded_heat/)
+[conduction](../time_integrators/).
 
 |[<img src="ex8.png">](ex8.png)| [<img src="diffusion.png">](diffusion.png)|
 
@@ -53,7 +54,7 @@ $$-\nabla^2u = f$$
 where _u_ is the potential field and _f_ is the source function. This PDE is a generalization
 of the [_Laplace Equation_](https://en.wikipedia.org/wiki/Laplace%27s_equation).
 
-### Finite element basics
+### Finite Element Basics
 
 To solve the above continuous equation using computers we need to
 [discretize](https://en.wikipedia.org/wiki/Discretization) it by introducing a finite
@@ -81,8 +82,8 @@ basis function $$\phi_i$$ and integrate by parts to obtain
 
 $$\sum_{j=1}^n\int_\Omega c_j \nabla \phi_j \cdot \nabla \phi_i dV = \int_\Omega f \phi_i$$
 
-for every basis function $$\phi_i$$ (Here we are assuming homogeneous Dirichlet boundary
-conditions, corresponding e.g. to zero temperature on the whole boundary.)
+for every basis function $$\phi_i$$. (Here we are assuming homogeneous Dirichlet boundary
+conditions corresponding, for example, to zero temperature on the whole boundary.)
 
 Since the basis functions are known, we can rewrite (3) as
 
