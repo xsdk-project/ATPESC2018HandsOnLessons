@@ -108,7 +108,7 @@ To github.com:xsdk-project/ATPESC2018HandsOnLessons.git
    6ad3e3f..17ee363  gh-pages -> gh-pages
 ```
 
-## Adding a Answers Google Form To Your Lesson
+### Adding a Answers Google Form To Your Lesson
 
 
 * Go into the folder named "Marks Test Folder"
@@ -134,7 +134,29 @@ To github.com:xsdk-project/ATPESC2018HandsOnLessons.git
 ```
     near the top of your lesson.
 
+### Better Control of Images
 
+In Markdown/Kramdown, you add images like so...
+```
+![Alt Image Text](path or url to image)
+```
+Since we are using Kramdown, you have some additional features
+
+#### Center, Left or Right Images
+You can end the image alternate text with `:-` for an image to float
+right, `-:` for it to float left or `::` for it to center.
+
+```
+![Float right image :-](path or url to image)
+![Float left image -:](path or url to image)
+![center image -:](path or url to image)
+```
+
+You can also control image size, as well as other attributes,
+by adding `{:width="100"}`
+```
+![Float left image -:](path or url to image){:width="356"}
+```
 
 ## More About GitHub Pages and Jekyll
 
@@ -142,7 +164,8 @@ To github.com:xsdk-project/ATPESC2018HandsOnLessons.git
 mostly static sites by composing ASCII files involving a combination of three
 technologies...
 
-* [Markdown](https://guides.github.com/features/mastering-markdown/)
+* [Kramdown](https://kramdown.gettalong.org/syntax.html)
+  * A variation on Markdown
 (or [Textile](https://www.promptworks.com/textile)),
 * YAML [Front Matter](http://jekyllrb.com/docs/frontmatter/) page configuration code
 * [Liquid](https://shopify.github.io/liquid/) content filtering and page construction code

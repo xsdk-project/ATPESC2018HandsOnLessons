@@ -42,6 +42,7 @@ sitemap:
 @import "foundation-components/grid";
 @import "09_elements.scss";
 @import "expandable.scss";
+@import "image_alignment.scss";
 
 {% if site.asciidoctor-enabled == true %}
 @import "10_asciidoc.scss";

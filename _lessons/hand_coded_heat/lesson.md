@@ -34,7 +34,7 @@ cd {{ site.handson_root }}/hand_coded_heat
 Lets say you live in a house with exterior walls made of a single material of thickness, $$L_x$$.
 Inside the walls are some water pipes as pictured below.
 
-|[<img src="wall_and_pipe.png" width="400">](wall_and_pipe.png)|
+![Wall and Pipe::](wall_and_pipe.png)
 
 You keep the inside temperature of the house always at 70 degrees F. But, there is an
 overnight storm coming. The temperature is expected to drop to -40 degrees F. Will your
@@ -107,7 +107,7 @@ where \\( r=\alpha\frac{\Delta t}{\Delta x^2} \\)
 In the process of discretizing the [PDE][PDE], we have defined a fixed spacing in x
 and a fixed spacing in t as shown in the figure here
 
-![](heat_mesh.png){:height="320px" align="center" width="320px"}
+|[<img src="heat_mesh.png" width="320">](heat_mesh.png)|
 
 This is essentially a uniform mesh. Later lessons
 here address more sophisticated discretizations in space and in time which
@@ -317,7 +317,7 @@ memory usage and operation counts (printed at the end).
 
 ### Use The Application to Solve The Pipeline Problem
 
-|[<img src="pipeline.png" width="400">](pipeline.png)|
+![Pipeline Problem::](pipeline.png){:width="500"}
 
 An pipeline carrying Ethenol-85 (E85) runs between a manuer processing
 facility and a kerosene production factory. In the unlikely event that
