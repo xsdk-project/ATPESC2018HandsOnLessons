@@ -1,5 +1,5 @@
 - title: Intro
-  url: "https://xsdk-project.github.io/ATPESC2018HandsOnLessons"
+  url: "/"
   side: left
   dropdown:
   - title: "Agenda"
@@ -7,6 +7,8 @@
   - title: "Setup Instructions"
     url: "/setup_instructions/"
   - title: "Open Chat"
+    url: "https://www.mcs.anl.gov/petsc/"
+  - title: "Foo"
     url: "https://docs.google.com/document/d/1mLi4wybFnN1VIVSx0KH9SVBSygsgEOhIRilUbklcb6Q/edit?usp=sharing"
 
 - title: Lessons
