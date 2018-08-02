@@ -74,7 +74,7 @@ Choice of solver:
 
 ### First Set of Runs (Krylov Solvers)
 
-Run the first example for a small problem of size 8000 using restarted GMRES with a Krylov space of size 10.
+Run the first example for a small problem of size 27000 using restarted GMRES with a Krylov space of size 10.
 ```
 ./ij -n 30 30 30 -k 10 -gmres
 ```
@@ -154,7 +154,7 @@ Now solve this problem using -pcg and -bicgstab.
 Now let us apply Krylov solvers to the convection-diffusion equation with $$a=10$$, starting with conjugate gradient.
 
 ```
-./ij -n 30 20 30 -difconv -a 10 -pcg
+./ij -n 30 30 30 -difconv -a 10 -pcg
 ```
 {% include qanda question='What do you observe? Why?' answer='PCG fails, because the linear system is nonsymmetric.' %}
 
