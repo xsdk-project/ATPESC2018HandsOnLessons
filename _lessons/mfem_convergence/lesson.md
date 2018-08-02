@@ -70,7 +70,7 @@ where $$c_j$$ are scalar unknown coefficients and $$\phi_j$$ are known _basis fu
 They are typically piecewise-polynomial functions which are only non-zero on small portions of the
 computational mesh.
 
-|[<img src="phi.png" width="400">](phi.png)|
+|[<img src="phi.png" width="300">](phi.png)|
 
 With finite elements, the mesh can be totally unstructured, curved and
 non-conforming.
