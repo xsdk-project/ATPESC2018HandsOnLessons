@@ -1,7 +1,7 @@
 ---
 layout: page-fullwidth
 title: "Hand Coded Heat"
-subheadline: "Simple, 1D Numerical Method"
+subheadline: "Hello World for Numerical Packages"
 teaser: "Why use numerical packages..."
 permalink: "lessons/hand_coded_heat/"
 use_math: true
@@ -13,21 +13,21 @@ header:
 ## At a Glance
 
 |Questions|Objectives|Key Points|
-|1. What is a numerical algorithm?|Understand performance metrics|HPC numerical software involves complex<br>algorithms and data structures|
-|2. What is discretization?|Understand algorithmic trade-offs|Robust software requires significant<br>software quality engineering (SQE).|
-|What is stability?|Understand value of software packages|Numerical packages simplify application development,<br>offer efficient & scalable performance,<br>and enable app-specific customization.|
+|:--------|:---------|:---------|
+|What is a numerical algorithm?|Implement a simple numerical algorithm.<br>Use it to solve a simple science poblem.|Numerical Packages are used<br>to solve scientific problems<br>involving [PDEs.][PDE]|
+|What is [discretization][DISC]?|Introduce basic concepts in solving continous<br>[PDEs][PDE] using discrete computations.|_Meshing_ (or [discretization][DISC]) is an<br>important first step.|
+|How can numerical packages<br>help me with my software?|Understand the value numerical packages<br>offer in developing science applications|Numerical packages offer many advantages<br>including: rigorous/vetted numerics<br>increased generality, extreme scalability,<br>performance portability, enhanced reproducibility<br>and many others...|
 
-**Note:** To run the application in this lesson
+### To begin this lesson...
+
+* [Open the Answers Form](https://docs.google.com/forms/d/e/1FAIpQLSdoyXOL4UCe4_p0SheNidqY_ErKcrRS2qqqomIHQMZi5eVM2g/viewform?usp=sf_link){:target="_blank"}
+* Go to the directory for the hand-coded `heat` application
 ```
-cd handson/heatapp
+cd handson/hand_coded_heat
 ```
 
-[Submit Answers to Questions Here](https://docs.google.com/forms/d/e/1FAIpQLSdoyXOL4UCe4_p0SheNidqY_ErKcrRS2qqqomIHQMZi5eVM2g/viewform?usp=sf_link)
-
-
-# Embedded Form here
-
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdoyXOL4UCe4_p0SheNidqY_ErKcrRS2qqqomIHQMZi5eVM2g/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+[//]: # (Example below, commented out of the kramdown, is embedded form)
+[//]: # (<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdoyXOL4UCe4_p0SheNidqY_ErKcrRS2qqqomIHQMZi5eVM2g/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>)
 
 ## A Simple Science Question
 
@@ -48,7 +48,7 @@ model the one dimensional _heat_ condution equation through a wall as
 pictured here ...
 
 In general, heat [conduction](https://en.wikipedia.org/wiki/Thermal_conduction) is governed
-by the partial differential (PDE)...
+by the partial differential ([PDE][PDE])...
 
 $$\frac{\partial u}{\partial t} - \nabla \cdot \alpha \nabla u = 0$$
 
@@ -67,18 +67,18 @@ To make the problem tractable for this short lesson, we make some simplifying as
    is constant for all _space_ and _time_.
 1. The only heat _source_ is from the initial and/or boundary conditions.
 1. We will deal only with the _one dimensional_ problem in _Cartesian coordinates_.
-1. We will _discretize_ with constant spacing in both space, $$\Delta x$$ and time, $$\Delta t$$.
+1. We will _[discretize][DISC]_ with constant spacing in both space, $$\Delta x$$ and time, $$\Delta t$$.
 
-In this case, the PDE we need to develop an application to solve simplifies to...
+In this case, the [PDE][PDE] we need to develop an application to solve simplifies to...
 
 $$\frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$
 
-## Discretization
+## [Discretization][DISC]
 
 The equation above is a _continous_,
-[partial differential equation (PDE)](https://en.wikipedia.org/wiki/Partial_differential_equation).
+[partial differential equation (PDE)][PDE]
 In order to write a computer program to solve this equation, numerically, the first thing
-we need to consider is how to _[discretize](https://en.wikipedia.org/wiki/Discretization)_
+we need to consider is how to _[discretize][DISC]_
 the equation into a form suitable for numerical computation.
 
 Consider discretizing, independently, the left- and right-hand sides of
@@ -104,7 +104,7 @@ where \\( r=\alpha\frac{\Delta t}{\Delta x^2} \\)
 {% include qanda
     question='Is there anything here that looks like a _mesh_?'
     answer='
-In the process of discretizing the PDE, we have defined a fixed spacing in x
+In the process of discretizing the [PDE][PDE], we have defined a fixed spacing in x
 and a fixed spacing in t as shown in the figure here
 
 ![](heat_mesh.png){:height="320px" align="center" width="320px"}
@@ -112,11 +112,6 @@ and a fixed spacing in t as shown in the figure here
 This is essentially a uniform mesh. Later lessons
 here address more sophisticated discretizations in space and in time which
 depart from these all too inflexible fixed spacings.
-                                                                          
-                                                                          
-                                                                          
-                                                                          
-                                                                          
                                                                           
                                                                           
                                                                           
@@ -159,6 +154,9 @@ solution_update_ftcs(
 ```
     Double const r = alpha * dt / (dx * dx);
 
+    // Sanity check for stability
+    if (r > 0.5) return false;
+
     // Update the solution using FTCS algorithm
     for (int i = 1; i < n-1; i++)
         curr[i] = r*last[i+1] + (1-2*r)*last[i] + r*last[i-1];
@@ -166,7 +164,15 @@ solution_update_ftcs(
     // Impose boundary conditions for solution indices i==0 and i==n-1
     curr[0  ] = bc_0;
     curr[n-1] = bc_1;
-```' %}
+
+    return true;
+```
+                                                                      
+                                                                      
+                                                                      
+                                                                      
+' %}
+
 ```
 }
 ```
@@ -175,7 +181,7 @@ Open ftcs.C and implement the FTCS numerical algorithm by coding the body of thi
 
 ## Exercise #2: Build and Test the Application (1 min)
 
-### Compiling heatapp.c
+### Compiling heat.c
 
 To compile the code you have just written...
 
@@ -183,7 +189,7 @@ To compile the code you have just written...
 make
 ```
 
-### Testing heatapp.c
+### Testing The `heat` Application
 
 Before we use our new application to solve our simple science question, how can we assure
 ourselves that the code we have written is correct?
@@ -218,11 +224,10 @@ Another common practice in developing numerical packages is to provide a means f
 users to obtain help by simply running the application with `--help` command-line
 argument.
 
-At any point, you can get help regarding various options `heatapp` like so...
+At any point, you can get help regarding various options `heat` like so...
 ```
 Usage: ./heat <arg>=<value> <arg>=<value>...
-    probnm="heat"                       name to give run and results dir (char*)
-    prec="double"                       precision half|float|double|quad (char*)
+    runame="heat"                       name to give run and results dir (char*)
     alpha=0.2           material thermal diffusivity (sq-meters/second) (double)
     lenx=1                                     material length (meters) (double)
     dx=0.1                  x-incriment. Best if lenx/dx==int. (meters) (double)
@@ -236,6 +241,7 @@ Usage: ./heat <arg>=<value> <arg>=<value>...
     save=0                              save error in every saved solution (int)
     outi=100                      output progress every i-th solution step (int)
     noout=0                                       disable all file outputs (int)
+    prec="double"                       precision half|float|double|quad (char*)
 Examples...
     ./heat dx=0.01 dt=0.0002 alg=ftcs
     ./heat dx=0.1 bc0=273 bc1=273 ic="spikes(273,5,373)"
@@ -246,7 +252,7 @@ specify an initial condition.
 
 ## Exercise #3 Do Some Simple Science (4 mins)
 
-Lets now use our `heatapp` application to solve our simple science question.
+Lets now use our `heat` application to solve our simple science question.
 
 ### Additional Information / Assumptions
 
@@ -267,12 +273,64 @@ input in the correct units. Take care!
    question='Will the pipes freeze?'
    answer='No' %}
 
-#### Extra Credit
+----
+
+## Evening Hands On Session
+
+### Determine Optimum Wall Thicknesses
 
 What are the minimium thicknesses of walls of Wood, Adobe and Common brick
 to prevent the pipes from freezing?
 
-### A note about the `ic=` argument to `heatapp` 
+### Compare FTCS, Crank-Nicholson and Upwind15 Algorithms
+
+#### [Crank-Nicolson](https://en.wikipedia.org/wiki/Crank–Nicolson_method) Discretization
+
+Using the [Crank-Nicolson](https://en.wikipedia.org/wiki/Crank–Nicolson_method) discretization,
+we arrive at the following discretization of equation 2...
+
+$$-ru_{i+1}^{k+1}+(1+2r)u_i^{k+1}-ru_{i-1}^{k+1} = ru_{i+1}^k+(1-2r)u_i^k+ru_{i-1}^k$$
+
+where
+
+$$r= \alpha \frac{\Delta t}{2 \Delta x^2}$$
+
+In equation 7, the solution at spatial position _i_ and time _k+1_
+now depends not only on values of u at time _k_ but also on other
+values of u at time _k+1_.
+This means each time we advance the solution in time we must
+solve a linear system; in other words we must solve for all of the
+values at time _k+1_ in one step.
+This is an example of an [_implicit_](https://en.wikipedia.org/wiki/Explicit_and_implicit_methods) method.
+In this case, the system of equations is [_tri-diagonal_](https://en.wikipedia.org/wiki/Tridiagonal_matrix_algorithm) --
+since each update for u at _i_ only uses u at _i-1_ , _i_ and _i+1_ --
+so it is easier to implement than a general matrix solve but is still more complicated
+than an explicit update.
+
+The code to implement this method is more involved because it involves
+doing a tri-diagonal solve. It is in `crankn.C`. It involves code that
+sets up and LU factors the initial matrix. Then, the LU factored matrix
+is used on each solution timestep to solve for the new temperatures.
+
+Run the same problems using each of these algorithms and observe total
+memory usage and operation counts (printed at the end).
+
+### Use The Application to Solve The Pipeline Problem
+
+|[<img src="pipeline.png" width="400">](pipeline.png)|
+
+An pipeline carrying Ethenol-85 (E85) runs between a manuer processing
+facility and a kerosene production factory. In the unlikely event that
+both facilities experience catastrophic explosion (burning methane at
+the manuer facility and burning kerosene at the kerosene facility),
+that _briefly_ increases the local air temperature on both sides of
+the pipe to the burning temperature of the respective materials, determine
+the minimum thermal diffusivity of the material used to coat/insulate the pipe
+to prevent the E-85 from exploding.
+
+### Modify the Application to Support Two Materials
+
+### A note about the `ic=` argument to `heat` 
 
 The initial condition argument, `ic`, handles a few interesting cases
 
@@ -300,3 +358,5 @@ Spikes, `ic="spikes(C,A0,X0,A1,X1,...)"`
 
 : Set initial condition to a constant value, `C` with any number of _spikes_ where each spike is the pair, `Ai` specifying the spike amplitude and `Xi` specifing its position in, x.
 
+[PDE]: https://en.wikipedia.org/wiki/Partial_differential_equation
+[DISC]:https://en.wikipedia.org/wiki/Discretization
