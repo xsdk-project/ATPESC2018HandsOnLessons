@@ -17,18 +17,18 @@ header:
 
 **Note:** To begin this lesson...
 - Add the
-```sh
+```
 /projects/ATPESC2018/FASTMath/spack/bin/spack
 ```
 directory to your `PATH`.
 
 - Copy the MFEM install directory locally
-```sh
+```
 cp -a `spack location -i mfem` mfem
 ```
 
 - Go into the ATPESC examples directory
-```sh
+```
 cd mfem/examples/atpesc
 ```
 
@@ -70,12 +70,12 @@ where $$c_j$$ are scalar unknown coefficients and $$\phi_j$$ are known _basis fu
 They are typically piecewise-polynomial functions which are only non-zero on small portions of the
 computational mesh.
 
-|[<img src="phi.png" width="300">](phi.png)|
+|[<img src="phi.png" width="400">](phi.png)|
 
 With finite elements, the mesh can be totally unstructured, curved and
 non-conforming.
 
-|[<img src="mesh.png" width="400">](mesh.png)|
+|[<img src="mesh.png" width="300">](mesh.png)|
 
 To solve for the unknown coefficients, we multiply Poisson's equation by another (test)
 basis function $$\phi_i$$ and integrate by parts to obtain
@@ -180,11 +180,11 @@ where $$h$$ is the mesh size, $$C$$ is a mesh-independent constant and $$r$$
 is the [_convergence rate_](https://en.wikipedia.org/wiki/Rate_of_convergence).
 
 Given approximations at two different mesh resolutions, we can  estimate the convergence rate as
-follows ($$C$$) doesn't change when we refine the mesh and compare runs):
+follows ($$C$$ doesn't change when we refine the mesh and compare runs):
 
 $$r \approx \frac{\log\ \frac{ \left \| u_{\mbox{exact}} - u_{h_{\mbox{new}}} \right \|_{L_2}}{\left \| u_{\mbox{exact}} - u_{h_{\mbox{old}}} \right \|_{L_2}}}{ \log \frac{h_{\mbox{new}}}{h_{\mbox{old}}}}$$
 
-In code this is implemented in a refinement loop as follows:
+In code, this is implemented in a refinement loop as follows:
 
 ```c++
    double l2_err = x.ComputeL2Error(u);
@@ -199,7 +199,7 @@ In code this is implemented in a refinement loop as follows:
 
 ## Running the Convergence Study
 
-The convergence study in `mfem/examples/atpesc/mfem` has the following options
+The convergence study in `mfem/examples/atpesc/mfem` has the following options.
 
 ```
 ./convergence --help
@@ -224,7 +224,7 @@ Options:
 
 ### Run 1 (Low order)
 
-In this run, we will examine the error after 7 uniform refinements in both the L2 and H1 norms using
+In this run, we will examine the error after seven uniform refinements in both the L2 and H1 norms using
 first order (linear) basis functions. We use the `star.mesh` 2D mesh file.
 
 ```
@@ -252,7 +252,7 @@ Note that the L2 error is converging at a rate of 2 while the H1 error is only c
 
 ### Run 2 (High order)
 
-Now consider the same run only we are using 3rd order (cubic) basis functions instead.
+Now consider the same run, only we are using 3rd order (cubic) basis functions instead.
 
 ```
 ./convergence -r 7 -o 3
@@ -275,7 +275,7 @@ DOFs            h               L^2 error       L^2 rate        H^1 error       
 739201          0.007619        3.072e-10       4               4.891e-07       3
 ```
 
-The L2 error is now converging at a rate of 4 and the H1 error is converging at a rate of 3.
+The L2 error is now converging at a rate of 4, and the H1 error is converging at a rate of 3.
 This is because the exact solution in these runs is smooth, so higher-order methods
 approximate it better.
 
