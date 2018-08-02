@@ -6,13 +6,13 @@ permalink: "lessons/krylov_amg/"
 use_math: true
 lesson: true
 header:
- image_fullwidth: "2012.jpg"
+ image_fullwidth: "AMG-hypre.png"
 ---
 
 ## At a Glance
 
 |Why multigrid over a Krylov<br>solver for large problems?|Understand multigrid concept.|Faster convergence,<br>better scalability.|
-|Why use more aggresive<br>coarsening for AMG?|Understand need for low complexities.|Lower memory use, faster times,<br>but more iterations.|
+|Why use more aggressive<br>coarsening for AMG?|Understand need for low complexities.|Lower memory use, faster times,<br>but more iterations.|
 |Why a structured solver<br>for a structured problem?|Understand importance of<br>suitable data structures|Higher efficiency,<br>faster solve times.|
 
 
@@ -74,7 +74,7 @@ Choice of solver:
 
 ### First Set of Runs (Krylov Solvers)
 
-Run the first example for a small problem of size 8000 using restarted GMRES with a Krylov space of size 10.
+Run the first example for a small problem of size 27000 using restarted GMRES with a Krylov space of size 10.
 ```
 ./ij -n 30 30 30 -k 10 -gmres
 ```
@@ -141,20 +141,20 @@ Total time = 0.270000
 Note the total time and the number of iterations.
 Now increase the Krylov subspace by changing input to -k to 20, then 40, and finally 75.
 
-{% include qanda question='What do you observe about the number of iterations and times?' answer='Number of iterations and times improve' %}
+{% include qanda question='What do you observe about the number of iterations and times?' answer='Number of iterations and times generally improve except for the last run, which is somewhat slower because the last iterations are more expensive. Iterations: 392, 229, 116, 73. Times: 0.27, 0.21, 0.16, 0.17.' %}
 
 {% include qanda question='How many restarts were required for the last run using -k 75?'  answer='None, since the number of iterations is 73. Here full GMRES was used.'%}
 
 Now solve this problem using -pcg and -bicgstab.
 
-{% include qanda question='What do you observe about the number of iterations and times for all three methods? Which method is the fastest and which one has the lowest number of iterations?' answer='Conjugate gradient has the lowest time, but BiCGSTAB has the lowest number of iterations.' %}
+{% include qanda question='What do you observe about the number of iterations and times for all three methods? Which method is the fastest and which one has the lowest number of iterations?' answer='Conjugate gradient takes 74 iterations and 0.04 seconds, BiCGSTAB 51 iterations and 0.05 seconds. Conjugate gradient has the lowest time, but BiCGSTAB has the lowest number of iterations.' %}
 
 {% include qanda question='Why is BiCGSTAB slower than PCG?' answer='It requires two matrix vector operations and additional vector operations per iteration, and thus each iteration takes longer than an iteration of PCG.' %}
 
 Now let us apply Krylov solvers to the convection-diffusion equation with $$a=10$$, starting with conjugate gradient.
 
 ```
-./ij -n 30 20 30 -difconv -a 10 -pcg
+./ij -n 30 30 30 -difconv -a 10 -pcg
 ```
 {% include qanda question='What do you observe? Why?' answer='PCG fails, because the linear system is nonsymmetric.' %}
 
@@ -359,7 +359,7 @@ mpiexec -n 8 ./struct -n 50 50 50 -pfmgpcg -P 2 2 2 -rap 1
 
 ## Out-Brief
 
-We investigated why multigrid methods are preferrable over generic solvers like conjugate gradient for large suitable PDE problems.
+We experimented with several Krylov solvers, GMRES, conjugate gradient and BiCGSTAB, and observed the effect of increasing the size of the Krylov space for restarted GMRES. We investigated why multigrid methods are preferrable over generic solvers like conjugate gradient for large suitable PDE problems.
 Additional improvements can be achieved when using them as preconditioners for Krylov solvers like conjugate gradient.
 For unstructured multigrid solvers, it is important to keep complexities low, since large complexitites lead to slow solve times and require much memory.
 For structured problems, solvers that take advantage of the structure of the problem are more efficient than unstructured solvers.
@@ -371,11 +371,3 @@ To learn more about algebraic multigrid, see
 [An Introduction to Algebraic Multigrid](https://computation.llnl.gov/projects/hypre-scalable-linear-solvers-multigrid-methods/CiSE_2006_amg_220851.pdf)
 
 More information on hypre , including documentation and further publications, can be found [here](http://www.llnl.gov/CASC/hypre)
-
-<!-- Insert space, horizontal line, and link to HandsOnLesson table -->
-
-&nbsp;
-
----
-
-[Back to all HandsOnLessons](../lessons.md)

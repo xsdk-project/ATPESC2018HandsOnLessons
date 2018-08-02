@@ -30,7 +30,7 @@ use the adjoint method?   |for adjoint calculation        |
 
 **Note:** To begin this lesson...
 ```
-cd handson/adjoint
+cd {{site.handson_root}}/adjoint
 ```
 
 ## Example 1: Generator Stability Analysis:

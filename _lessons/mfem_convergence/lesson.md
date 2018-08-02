@@ -8,26 +8,28 @@ lesson: true
 header:
  image_fullwidth: "WSC_top4.jpg"
 ---
-## At a Glance
+## At A Glance
 
-|What is a finite element method?|Understand basic finite element machinery.|Basis functions determine<br>the qualify of the solution.|
+|Questions|Objectives|Key Points|
+|What is a finite element method?|Understand basic finite element machinery.|Basis functions determine<br>the quality of the solution.|
 |What is a high order method?|Understand how polynomial<br>order affects simulations.|High order methods add more<br>unknowns on the same mesh<br>for more precise solutions.|
 |What is _convergence_?|Understand how convergence and<br>convergence rate are calculated.|High order methods converge<br>faster for smooth solutions.|
 
-**Note:** To begin this lesson...
+### To begin this lesson...
+- [Open the Answers Form](https://docs.google.com/forms/d/e/1FAIpQLScs9reOCfuD1CfbQ-m458MDyvwiTCRXEcp1XCQukaf5tP_uSQ/viewform?usp=sf_link){:target="_blank"}
 - Add the
-```sh
-/projects/ATPESC2018/FASTMath/spack/bin/spack
+```
+{{site.handson_install_root}}/spack/bin/spack
 ```
 directory to your `PATH`.
 
 - Copy the MFEM install directory locally
-```sh
+```
 cp -a `spack location -i mfem` mfem
 ```
 
 - Go into the ATPESC examples directory
-```sh
+```
 cd mfem/examples/atpesc
 ```
 
@@ -37,8 +39,8 @@ cd mfem/examples/atpesc
 
 In this lesson, we demonstrate the discretization of a simple Poisson problem using
 the [MFEM library](http://mfem.org) and examine the finite element approximation error
-under uniform refinement. An example of this equation is steady-state [heat](../hand_coded_heat/lesson.md)
-[conduction](../time_integrators/lesson.md).
+under uniform refinement. An example of this equation is steady-state [heat](../hand_coded_heat/)
+[conduction](../time_integrators/).
 
 |[<img src="ex8.png">](ex8.png)| [<img src="diffusion.png">](diffusion.png)|
 
@@ -53,7 +55,7 @@ $$-\nabla^2u = f$$
 where _u_ is the potential field and _f_ is the source function. This PDE is a generalization
 of the [_Laplace Equation_](https://en.wikipedia.org/wiki/Laplace%27s_equation).
 
-### Finite element basics
+### Finite Element Basics
 
 To solve the above continuous equation using computers we need to
 [discretize](https://en.wikipedia.org/wiki/Discretization) it by introducing a finite
@@ -74,15 +76,15 @@ computational mesh.
 With finite elements, the mesh can be totally unstructured, curved and
 non-conforming.
 
-|[<img src="mesh.png" width="400">](mesh.png)|
+|[<img src="mesh.png" width="300">](mesh.png)|
 
 To solve for the unknown coefficients, we multiply Poisson's equation by another (test)
 basis function $$\phi_i$$ and integrate by parts to obtain
 
 $$\sum_{j=1}^n\int_\Omega c_j \nabla \phi_j \cdot \nabla \phi_i dV = \int_\Omega f \phi_i$$
 
-for every basis function $$\phi_i$$ (Here we are assuming homogeneous Dirichlet boundary
-conditions, corresponding e.g. to zero temperature on the whole boundary.)
+for every basis function $$\phi_i$$. (Here we are assuming homogeneous Dirichlet boundary
+conditions corresponding, for example, to zero temperature on the whole boundary.)
 
 Since the basis functions are known, we can rewrite (3) as
 
@@ -179,11 +181,11 @@ where $$h$$ is the mesh size, $$C$$ is a mesh-independent constant and $$r$$
 is the [_convergence rate_](https://en.wikipedia.org/wiki/Rate_of_convergence).
 
 Given approximations at two different mesh resolutions, we can  estimate the convergence rate as
-follows ($$C$$) doesn't change when we refine the mesh and compare runs):
+follows ($$C$$ doesn't change when we refine the mesh and compare runs):
 
 $$r \approx \frac{\log\ \frac{ \left \| u_{\mbox{exact}} - u_{h_{\mbox{new}}} \right \|_{L_2}}{\left \| u_{\mbox{exact}} - u_{h_{\mbox{old}}} \right \|_{L_2}}}{ \log \frac{h_{\mbox{new}}}{h_{\mbox{old}}}}$$
 
-In code this is implemented in a refinement loop as follows:
+In code, this is implemented in a refinement loop as follows:
 
 ```c++
    double l2_err = x.ComputeL2Error(u);
@@ -198,7 +200,7 @@ In code this is implemented in a refinement loop as follows:
 
 ## Running the Convergence Study
 
-The convergence study in `mfem/examples/atpesc/mfem` has the following options
+The convergence study in `mfem/examples/atpesc/mfem` has the following options.
 
 ```
 ./convergence --help
@@ -223,7 +225,7 @@ Options:
 
 ### Run 1 (Low order)
 
-In this run, we will examine the error after 7 uniform refinements in both the L2 and H1 norms using
+In this run, we will examine the error after seven uniform refinements in both the L2 and H1 norms using
 first order (linear) basis functions. We use the `star.mesh` 2D mesh file.
 
 ```
@@ -251,7 +253,7 @@ Note that the L2 error is converging at a rate of 2 while the H1 error is only c
 
 ### Run 2 (High order)
 
-Now consider the same run only we are using 3rd order (cubic) basis functions instead.
+Now consider the same run, only we are using 3rd order (cubic) basis functions instead.
 
 ```
 ./convergence -r 7 -o 3
@@ -274,7 +276,7 @@ DOFs            h               L^2 error       L^2 rate        H^1 error       
 739201          0.007619        3.072e-10       4               4.891e-07       3
 ```
 
-The L2 error is now converging at a rate of 4 and the H1 error is converging at a rate of 3.
+The L2 error is now converging at a rate of 4, and the H1 error is converging at a rate of 3.
 This is because the exact solution in these runs is smooth, so higher-order methods
 approximate it better.
 
@@ -286,7 +288,7 @@ approximate it better.
 
 {% include qanda
     question='Which method is more efficient: low-order or high-order?'
-    answer='The high-order methods is more efficient.' %}
+    answer='The high-order method is more efficient.' %}
 
 ### Run 3 (3D example)
 The previous two runs used a 2D mesh in serial, but the same code can be used to run a 3D problem in parallel.
@@ -330,11 +332,3 @@ the effect of the polynomial order of the basis functions on convergence rates.
 ### Further Reading
 
 To learn more about MFEM, including many more [example codes](http://mfem.org/examples) and miniapps visit [mfem.org](http://mfem.org).
-
-<!-- Insert space, horizontal line, and link to HandsOnLesson table -->
-
-&nbsp;
-
----
-
-[Back to all HandsOnLessons](../lessons.md)

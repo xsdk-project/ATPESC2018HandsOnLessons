@@ -108,13 +108,64 @@ To github.com:xsdk-project/ATPESC2018HandsOnLessons.git
    6ad3e3f..17ee363  gh-pages -> gh-pages
 ```
 
+### Adding a Answers Google Form To Your Lesson
+
+
+* Go into the folder named "Marks Test Folder"
+* Begin creating a new Google Form there (New->More->Google Forms->Blank Form)
+* Select the "Create and Share" button
+* Give the Form a Title
+* On the Settings Dial (upper right)...
+  * Check collect email addresses
+  * Check Limit to 1 response
+  * Do not check edit after save or see summary charts
+* In the same settings dialog as above, go to the Quizzes tab
+  * Enable "make this a quiz"
+* Save the form settings
+* Add only multiple choice, check-box, pull-down or short answer questions
+* Give each question a point score
+* Give the correct answers for each question
+* When you are done creating the form, hit the send button (upper right)
+  * Select the 'send via link' option
+  * Hit the copy button to copy the link
+  * Paste the copied link into your lesson like so...
+```
+[Open the Answers Form](<URL to form>){:target="_blank"}
+```
+    near the top of your lesson.
+
+### Better Control of Images
+
+In Markdown/Kramdown, you add images like so...
+```
+![Alt Image Text](path or url to image)
+```
+Since we are using Kramdown, you have some additional features
+
+#### Center, Left or Right Images
+You can end the image alternate text with `:-` for an image to float
+right, `-:` for it to float left or `::` for it to center.
+
+```
+![Float right image :-](path or url to image)
+![Float left image -:](path or url to image)
+![center image -:](path or url to image)
+```
+
+You can also control image size, as well as other attributes,
+by adding `{:width="100"}`
+```
+![Float left image -:](path or url to image){:width="356"}
+```
+
 ## More About GitHub Pages and Jekyll
 
 [Jekyll](https://jekyllrb.com) allows site content developers to build beautiful
 mostly static sites by composing ASCII files involving a combination of three
 technologies...
 
-* [Markdown](https://guides.github.com/features/mastering-markdown/)
+* [Kramdown](https://kramdown.gettalong.org/syntax.html)
+  * A variation on Markdown
 (or [Textile](https://www.promptworks.com/textile)),
 * YAML [Front Matter](http://jekyllrb.com/docs/frontmatter/) page configuration code
 * [Liquid](https://shopify.github.io/liquid/) content filtering and page construction code

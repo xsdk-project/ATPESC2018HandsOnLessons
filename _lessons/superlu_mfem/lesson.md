@@ -14,9 +14,12 @@ header:
 |1. Why use a direct solver?|Understand accuracy|Direct solvers are robust<br>for difficult problems|
 |2. What effects direct solve performance ?|Understand ordering options|Time & space performance<br>can vary a lot.|
 
-**Note:** To begin this lesson
+## T begin this lesson
+
+- [Open the Answers Form](https://docs.google.com/forms/d/e/1FAIpQLSfxlKXG74hffseYxc52l7p7DALHk-WTiZXQmdT6WGMVBRw7Sg/viewform?usp=sf_link){:target="_blank"}
+- Get into the correct directory
 ```
-cd handson/mfem/examples/atpesc/superlu
+cd {{site.handson_root}}/mfem/examples/atpesc/superlu
 ```
 ## The problem being solved
 
@@ -327,11 +330,3 @@ course materials:
 [Lecture Notes](http://www.siam.org/students/g2s3/2013/lecturers/XSLi/Lecture-Notes/sherry.pdf),
 [Book Chapter](http://crd-legacy.lbl.gov/~xiaoye/g2s3-summary.pdf), and
 [Video](http://www.siam.org/students/g2s3/2013/course.html)
-
-<!-- Insert space, horizontal line, and link to HandsOnLesson table -->
-
-&nbsp;
-
----
-
-[Back to all HandsOnLessons](../lessons.md)

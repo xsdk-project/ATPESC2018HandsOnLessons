@@ -99,7 +99,7 @@ update_solution_crankn(int n,
 static void
 initialize(void)
 {
-    Nx = (int) (lenx/dx);
+    Nx = (int) (lenx/dx)+1;
     Nt = (int) (maxt/dt);
     dx = lenx/(Nx-1);
 
