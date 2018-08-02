@@ -19,9 +19,9 @@ header:
 - [Open the Answers Form](https://docs.google.com/forms/d/e/1FAIpQLScs9reOCfuD1CfbQ-m458MDyvwiTCRXEcp1XCQukaf5tP_uSQ/viewform?usp=sf_link){:target="_blank"}
 - Add the
 ```
-{{site.handson_install_root}}/spack/bin/spack
+{{site.handson_install_root}}/spack/bin
 ```
-directory to your `PATH`.
+directory to your `PATH`. For example: `setenv PATH "/projects/ATPESC2018/FASTMath/spack/bin:$PATH"`. You can test with `spack find`.
 
 - Copy the MFEM install directory locally
 ```
