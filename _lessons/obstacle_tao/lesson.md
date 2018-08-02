@@ -20,7 +20,7 @@ header:
 
 **Note:** To run the application in this lesson
 ```
-cd handson/obstacle
+cd {{site.handson_root}}/petsc/examples/obstacle
 make obstacle
 ./obstacle -tao_monitor -tao_view
 ```

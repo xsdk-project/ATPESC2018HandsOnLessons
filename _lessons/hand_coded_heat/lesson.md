@@ -23,7 +23,7 @@ header:
 * [Open the Answers Form](https://docs.google.com/forms/d/e/1FAIpQLSdoyXOL4UCe4_p0SheNidqY_ErKcrRS2qqqomIHQMZi5eVM2g/viewform?usp=sf_link){:target="_blank"}
 * Go to the directory for the hand-coded `heat` application
 ```
-cd handson/hand_coded_heat
+cd {{ site.handson_root }}/hand_coded_heat
 ```
 
 [//]: # (Example below, commented out of the kramdown, is embedded form)
