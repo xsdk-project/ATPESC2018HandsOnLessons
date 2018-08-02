@@ -341,24 +341,24 @@ Review discretization methods for additional physics.
 
 Specifically, MFEM includes a number of well-documented [example codes](http://mfem.org/examples) that can be used as tutorials, as well as simple starting points for user applications. Some of the included example codes are:
 
- - [Example 1](http://mfem.github.io/doxygen/html/ex1_8cpp_source.html): nodal H1 FEM for the Laplace problem,
- - [Example 2](http://mfem.github.io/doxygen/html/ex2_8cpp_source.html): vector FEM for linear elasticity,
- - [Example 3](http://mfem.github.io/doxygen/html/ex3_8cpp_source.html): Nedelec H(curl) FEM for the definite Maxwell problem,
- - [Example 4](http://mfem.github.io/doxygen/html/ex4_8cpp_source.html): Raviart-Thomas H(div) FEM for the grad-div problem,
- - [Example 5](http://mfem.github.io/doxygen/html/ex5_8cpp_source.html): mixed pressure-velocity FEM for the Darcy problem,
- - [Example 6](http://mfem.github.io/doxygen/html/ex6_8cpp_source.html): non-conforming adaptive mesh refinement (AMR) for the Laplace problem,
- - [Example 7](http://mfem.github.io/doxygen/html/ex7_8cpp_source.html): Laplace problem on a surface (the unit sphere),
- - [Example 8](http://mfem.github.io/doxygen/html/ex8_8cpp_source.html): Discontinuous Petrov-Galerkin (DPG) for the Laplace problem,
- - [Example 9](http://mfem.github.io/doxygen/html/ex9_8cpp_source.html): Discontinuous Galerkin (DG) time-dependent advection,
- - [Example 10](http://mfem.github.io/doxygen/html/ex10_8cpp_source.html): time-dependent implicit nonlinear elasticity,
- - [Example 11](http://mfem.github.io/doxygen/html/ex11p_8cpp_source.html): parallel Laplace eigensolver,
- - [Example 12](http://mfem.github.io/doxygen/html/ex12p_8cpp_source.html): parallel linear elasticity eigensolver,
- - [Example 13](http://mfem.github.io/doxygen/html/ex13p_8cpp_source.html): parallel Maxwell eigensolver,
- - [Example 14](http://mfem.github.io/doxygen/html/ex14_8cpp_source.html): Discontinuous Galerkin (DG) for the Laplace problem,
- - [Example 15](http://mfem.github.io/doxygen/html/ex15_8cpp_source.html): dynamic AMR for Laplace with prescribed time-dependent source,
- - [Example 16](http://mfem.github.io/doxygen/html/ex16_8cpp_source.html): time-dependent nonlinear heat equation,
- - [Example 17](http://mfem.github.io/doxygen/html/ex17_8cpp_source.html): Discontinuous Galerkin (DG) for linear elasticity,
- - [Example 18](http://mfem.github.io/doxygen/html/ex18_8cpp_source.html): Discontinuous Galerkin (DG) for the Euler equations,
+ - [Example 1](http://mfem.github.io/doxygen/html/ex1_8cpp_source.html): nodal H1 FEM for the Laplace problem. ⭐
+ - [Example 2](http://mfem.github.io/doxygen/html/ex2_8cpp_source.html): vector FEM for linear elasticity. ⭐
+ - [Example 3](http://mfem.github.io/doxygen/html/ex3_8cpp_source.html): Nedelec H(curl) FEM for the definite Maxwell problem. ⭐
+ - [Example 4](http://mfem.github.io/doxygen/html/ex4_8cpp_source.html): Raviart-Thomas H(div) FEM for the grad-div problem. ⭐
+ - [Example 5](http://mfem.github.io/doxygen/html/ex5_8cpp_source.html): mixed pressure-velocity FEM for the Darcy problem.
+ - [Example 6](http://mfem.github.io/doxygen/html/ex6_8cpp_source.html): non-conforming adaptive mesh refinement (AMR) for the Laplace problem.
+ - [Example 7](http://mfem.github.io/doxygen/html/ex7_8cpp_source.html): Laplace problem on a surface (the unit sphere).
+ - [Example 8](http://mfem.github.io/doxygen/html/ex8_8cpp_source.html): Discontinuous Petrov-Galerkin (DPG) for the Laplace problem.
+ - [Example 9](http://mfem.github.io/doxygen/html/ex9_8cpp_source.html): Discontinuous Galerkin (DG) time-dependent advection. ⭐
+ - [Example 10](http://mfem.github.io/doxygen/html/ex10_8cpp_source.html): time-dependent implicit nonlinear elasticity. ⭐
+ - [Example 11](http://mfem.github.io/doxygen/html/ex11p_8cpp_source.html): parallel Laplace eigensolver.
+ - [Example 12](http://mfem.github.io/doxygen/html/ex12p_8cpp_source.html): parallel linear elasticity eigensolver.
+ - [Example 13](http://mfem.github.io/doxygen/html/ex13p_8cpp_source.html): parallel Maxwell eigensolver.
+ - [Example 14](http://mfem.github.io/doxygen/html/ex14_8cpp_source.html): Discontinuous Galerkin (DG) for the Laplace problem.
+ - [Example 15](http://mfem.github.io/doxygen/html/ex15_8cpp_source.html): dynamic AMR for Laplace with prescribed time-dependent source. ⭐
+ - [Example 16](http://mfem.github.io/doxygen/html/ex16_8cpp_source.html): time-dependent nonlinear heat equation. ⭐
+ - [Example 17](http://mfem.github.io/doxygen/html/ex17_8cpp_source.html): Discontinuous Galerkin (DG) for linear elasticity.
+ - [Example 18](http://mfem.github.io/doxygen/html/ex18_8cpp_source.html): Discontinuous Galerkin (DG) for the Euler equations.
  - [Example 19](http://mfem.github.io/doxygen/html/ex19_8cpp_source.html): incompressible nonlinear elasticity.
 
 Most of the examples have a serial and a parallel version, illustrating the ease of transition and the minimal code changes between the two.
@@ -367,14 +367,15 @@ Many of the examples also have modifications that take advantage of optional thi
 
 Beyond the examples, a number of miniapps are available that are more representative of the advanced usage of the library in physics/application codes. Some of the included miniapps are:
 
- - [Volta](http://mfem.github.io/doxygen/html/volta_8cpp_source.html): simple electrostatics simulation code,
- - [Tesla](http://mfem.github.io/doxygen/html/tesla_8cpp_source.html): simple magnetostatics simulation code,
- - [Maxwell](http://mfem.github.io/doxygen/html/maxwell_8cpp_source.html): transient electromagnetics simulation code,
- - [Joule](http://mfem.github.io/doxygen/html/joule_8cpp_source.html): transient magnetics and Joule heating miniapp,
+ - [Volta](http://mfem.github.io/doxygen/html/volta_8cpp_source.html): simple electrostatics simulation code.
+ - [Tesla](http://mfem.github.io/doxygen/html/tesla_8cpp_source.html): simple magnetostatics simulation code.
+ - [Maxwell](http://mfem.github.io/doxygen/html/maxwell_8cpp_source.html): transient electromagnetics simulation code.
+ - [Joule](http://mfem.github.io/doxygen/html/joule_8cpp_source.html): transient magnetics and Joule heating miniapp.
+ - [Shaper](http://mfem.github.io/doxygen/html/shaper_8cpp.html): resolve material interfaces by mesh refinement. ⭐
  - [Mesh Explorer](http://mfem.github.io/doxygen/html/mesh-explorer_8cpp_source.html): visualize and manipulate meshes.
  - [Mesh Optimizer](http://mfem.github.io/doxygen/html/mesh-optimizer_8cpp_source.html): optimize high-order meshes.
 
 In addition, the sources for several external benchmark/proxy-apps build on top of MFEM are available:
 
-- [Laghos](https://github.com/CEED/Laghos): high-order Lagrangian hydrodynamics miniapp,
-- [Mulard](https://codesign.llnl.gov/mulard.php): multigroup thermal radiation diffusion mini application.
+- [Laghos](https://github.com/CEED/Laghos): high-order Lagrangian hydrodynamics miniapp.
+- [Mulard](https://codesign.llnl.gov/mulard.php): multigroup thermal radiation diffusion mini application. ⭐
