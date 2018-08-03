@@ -94,12 +94,12 @@ PETSC_OPTIONS="-ts_view -ts_adapt_monitor no" ./advection-ode
 
 ---
 
-Since the solution for pure advection problems does not grow or shrink we can use the extreme values of the solution as a surrogate for error in the computation
+The L2 error at the final timestep is printed for each run below.
 
 ### Run 2: Explicit, with Euler and fixed timestep $$\Delta t$$ of 0.001
 
 ```
-PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_monitor_extreme -ts_monitor :/dev/null -ts_type euler -ts_dt .001" ./advection-ode
+PETSC_OPTIONS="-ts_view -ts_monitor :/dev/null -ts_type euler -ts_dt .001" ./advection-ode
 ```
 
 
@@ -109,7 +109,7 @@ PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_monitor_extreme -ts_monitor :/d
 ### Run 3: Explicit, with Euler and fixed timestep $$\Delta t$$ of .01
 
 ```
-PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_monitor_extreme -ts_monitor :/dev/null -ts_type euler -ts_dt .01" ./advection-ode
+PETSC_OPTIONS="-ts_view -ts_adapt_monitor no  -ts_type euler -ts_dt .01" ./advection-ode
 ```
 
 {% include qanda
@@ -126,7 +126,7 @@ PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_monitor_extreme -ts_monitor :/d
 Now, lets switch to an _implicit_ method and see how that effects behavior of the numerical algorithms.
 
 ```
-PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_monitor_extreme -ts_monitor :/dev/null -ts_dt .01" ./advection-ode -implicit
+PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_dt .01" ./advection-ode -implicit
 ```
 
 ### Run 5: Implicit, Fixed $$\Delta t$$ at 0.1
@@ -134,7 +134,7 @@ PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_monitor_extreme -ts_monitor :/d
 Now, use a very large time-step and note the scheme remains stable.
 
 ```
-PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_monitor_extreme -ts_monitor :/dev/null -ts_dt .1 -log_view :/dev/null" ./advection-ode -implicit
+PETSC_OPTIONS="-ts_view -ts_adapt_monitor no  -ts_dt .1 -log_view :/dev/null" ./advection-ode -implicit
 ```
 
 
@@ -145,7 +145,7 @@ PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_monitor_extreme -ts_monitor :/d
 In this run, we'll combine **both** the advantages of an _implicit_ algorithm and an _adaptive_ time step.
 
 ```
-PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_monitor_extreme -ts_type arkimex -ts_monitor :/dev/null -ts_dt .1 -log_view :/dev/null" ./advection-ode -implicit
+PETSC_OPTIONS="-ts_view -ts_adapt_monitor no  -ts_type arkimex  -ts_dt .1 -log_view :/dev/null" ./advection-ode -implicit
 ```
 
 
@@ -156,7 +156,7 @@ PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_monitor_extreme -ts_type arkime
 The -log_view option 
 
 ```
-PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_monitor_extreme -ts_type arkimex -ts_monitor :/dev/null -ts_dt .1 -log_view " ./advection-ode -implicit
+PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_type arkimex -ts_dt .1 -log_view " ./advection-ode -implicit
 ```
 
 ## The problem being solved
@@ -209,13 +209,13 @@ Run the two examples with a different number of levels of refinement using
 and the -log_view option introduced above to explore the scalability of the algorithms. For example
 
 ```
-PETSC_OPTIONS="-ts_adapt_monitor no -ts_type arkimex -ts_monitor :/dev/null -log_view " ./elasticity-ode -rs 2
+PETSC_OPTIONS="-ts_adapt_monitor no -ts_type arkimex -ts_monitor :/dev/null -log_view " ./elasticity-snes -rs 2
 ```
 
 then again 
 
 ```
-PETSC_OPTIONS="-ts_adapt_monitor no -ts_type arkimex -ts_monitor :/dev/null -log_view " mpiexec -n 4 ./elasticity-ode -rs 2
+PETSC_OPTIONS="-ts_adapt_monitor no -ts_type arkimex -ts_monitor :/dev/null -log_view " mpiexec -n 4 ./elasticity-snes -rs 2
 ```
 
 Try other combinations of levels of refinement and number of processes.
