@@ -18,16 +18,13 @@ header:
 |What is [discretization][DISC]?|Introduce basic concepts in solving continous<br>[PDEs][PDE] using discrete computations.|_Meshing_ (or [discretization][DISC]) is an<br>important first step.|
 |How can numerical packages<br>help me with my software?|Understand the value numerical packages<br>offer in developing science applications|Numerical packages offer many advantages<br>including: rigorous/vetted numerics<br>increased generality, extreme scalability,<br>performance portability, enhanced reproducibility<br>and many others...|
 
-### To begin this lesson...
+#### To begin this lesson
 
 * [Open the Answers Form](https://docs.google.com/forms/d/e/1FAIpQLSdoyXOL4UCe4_p0SheNidqY_ErKcrRS2qqqomIHQMZi5eVM2g/viewform?usp=sf_link){:target="_blank"}
 * Go to the directory for the hand-coded `heat` application
 ```
 cd {{ site.handson_root }}/hand_coded_heat
 ```
-
-[//]: # (Example below, commented out of the kramdown, is embedded form)
-[//]: # (<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdoyXOL4UCe4_p0SheNidqY_ErKcrRS2qqqomIHQMZi5eVM2g/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>)
 
 ## A Simple Science Question
 
@@ -57,8 +54,6 @@ is the _thermal diffusivity_
 of the material(s) comprising the wall. This equation is known as the
 _Diffusion Equation_ and also the [_Heat Equation_](https://en.wikipedia.org/wiki/Heat_equation).
 
----
-
 ### Simplifying Assumptions
 
 To make the problem tractable for this short lesson, we make some simplifying assumptions...
@@ -73,7 +68,7 @@ In this case, the [PDE][PDE] we need to develop an application to solve simplifi
 
 $$\frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$
 
-## [Discretization][DISC]
+## Discretization
 
 The equation above is a _continous_,
 [partial differential equation (PDE)][PDE]
@@ -104,10 +99,10 @@ where \\( r=\alpha\frac{\Delta t}{\Delta x^2} \\)
 {% include qanda
     question='Is there anything here that looks like a _mesh_?'
     answer='
-In the process of discretizing the [PDE][PDE], we have defined a fixed spacing in x
+In the process of discretizing the PDE, we have defined a fixed spacing in x
 and a fixed spacing in t as shown in the figure here
 
-|[<img src="heat_mesh.png" width="320">](heat_mesh.png)|
+[<img src="heat_mesh.png" width="320">](heat_mesh.png){:align="middle"}
 
 This is essentially a uniform mesh. Later lessons
 here address more sophisticated discretizations in space and in time which
@@ -130,7 +125,9 @@ _[forward in time, centered difference (FTCS)](https://en.wikipedia.org/wiki/FTC
 * They typically require minimal memory.
 * They are easy to parallelize.
 
-## Exercise #1 (2 mins)
+---
+
+## Exercise #1: Impliment the FTCS Algorithm (2 mins)
 
 The function, `solution_update_ftcs`, is defined below without its body.
 
@@ -181,50 +178,74 @@ Open ftcs.C and implement the FTCS numerical algorithm by coding the body of thi
 
 ## Exercise #2: Build and Test the Application (1 min)
 
-### Compiling heat.c
-
 To compile the code you have just written...
 
 ```
 make
 ```
 
-### Testing The `heat` Application
-
-Before we use our new application to solve our simple science question, how can we assure
-ourselves that the code we have written is correct?
-
-{% include qanda
-    question='Can you think ways to test the application?'
-    answer='
-* Compare it to known, validated numerical solutions.
-* Compare it to known analytical solutions.
-
-In any case, think about how you would measure _error_.
-' %}
-
-We have defined a known numerical result in `heat_soln_check.curve` for the case of
-$$L_x = 1$$, $$u(0,t) = 0$$, $$u(1,t) = 1$$. We have defined convenient way of testing
-against this result.  To run your new application and compare its results to this known
-result, simly run 
-
+#### A Simple Sanity Check Run
+As a sanity check, lets just run the application with no arguments and see what
+happens...
 ```
-make check
+% ./heat
+    runame="heat_results"
+    prec="double"
+    alpha=0.2
+    lenx=1
+    dx=0.1
+    dt=0.004
+    maxt=2
+    bc0=0
+    bc1=1
+    ic="const(1)"
+    alg="ftcs"
+    savi=0
+    save=0
+    outi=100
+    noout=0
+Iteration 0000: last change l2=0.0909091
+Iteration 0100: last change l2=2.42918e-06
+Iteration 0200: last change l2=4.86446e-07
+Iteration 0300: last change l2=1.00929e-07
+Iteration 0400: last change l2=2.09483e-08
+Iteration 0500: last change l2=4.41684e-09
+Counts: Adds:24500, Mults:25001, Divs:1005, Bytes:176
+```
+Before running, the application dumps its command-line arguments so the user can
+see what parameters it was passed to run. In this case, you are seeing the default
+values. It then runs the problem as defined by the command-line arguments and 
+saves result files to the directory specified by the `runame=` argument.
+```
+% ls -1t | head -n 1
+heat_results
+% file heat_results/*.*
+heat_results/clargs.out:                    ASCII text
+heat_results/heat_results_soln_00000.curve: ASCII text
+heat_results/heat_results_soln_final.curve: ASCII text
+```
+For this simple application, the results are uncomplicated. They are simple ascii
+text files containing x/y pairs of the computed numerical results.
+```
+% cat heat_results/heat_results_soln_final.curve 
+# Temperature
+       0        0
+     0.1   0.1039
+     0.2   0.2073
+     0.3   0.3101
+     0.4   0.4119
+     0.5   0.5125
+     0.6   0.6119
+     0.7   0.7101
+     0.8   0.8073
+     0.9   0.9039
+       1        1
 ```
 
-#### The `check` make target
+#### Getting Help
 
-The make _target_ `check` (or sometimes `test`) is a standard community adopted
-standard target for numerical packages to define in order to perform simple tests and 
-checks that the compiled software is actually operating as expected.
-
-#### The `--help` command line argument
-
-Another common practice in developing numerical packages is to provide a means for
-users to obtain help by simply running the application with `--help` command-line
-argument.
-
-At any point, you can get help regarding various options `heat` like so...
+Now that we have built the application, at any point, we can get help
+regarding various options for the `heat` application like so...
 ```
 Usage: ./heat <arg>=<value> <arg>=<value>...
     runame="heat"                       name to give run and results dir (char*)
@@ -247,10 +268,76 @@ Examples...
     ./heat dx=0.1 bc0=273 bc1=273 ic="spikes(273,5,373)"
 ```
 
-See the note below regarding more information on the `ic` argument to
-specify an initial condition.
+See the [note below](#icarg) regarding more information on the `ic` argument to
+specify a variety of initial conditions.
 
-## Exercise #3 Do Some Simple Science (4 mins)
+When the `heat` application runs, by default it will store three files in a
+directory named `runame`
+
+### Testing The heat Application
+
+Before we use our new application to solve our simple science question, how can we assure
+ourselves that the code we have written is correct or, at the very least, sanity check
+ourselves that there isn't anything glarinly incorrect?
+
+{% include qanda
+    question='Can you think ways to test the application?'
+    answer='
+* Compare it to known, validated numerical solutions.
+* Compare it to known analytical solutions.
+
+In any case, think about how you would measure _error_.
+' %}
+
+We know, maybe even intuitively, that if we maintain constant temperatures at
+$$A @ x=0$$ and $$B @ x=L_x$$, then after a long time (e.g. when the solution
+reaches _[steady state](https://en.wikipedia.org/wiki/Steady_state)_), we
+expect it to be a simple linear variation between temperatures A and B. For
+example, observe what happens after a long time in the one dimensional example
+below.
+
+![Evolution Towards Steady State ::](Heat_Transfer.gif)
+
+{% include qanda
+    question='Construct a suitable command-line to easily confirm a linear steady state'
+    answer='Since the default length is 1 and the default boundary conditions are 0 and 1,
+            we just need to run the problem for a long time. But, to be a little more
+            thorough, it is even better to start with a random initial condition too.
+```
+% ./heat dx=0.25 maxt=100 ic="rand(125489,100,50)" runame=test
+```
+' %}
+
+{% include qanda
+    question='How do you confirm the results are correct?'
+    answer='Examine the inital and final results file and confirm even a random input
+            still yields a final result where x==y for all rows of the results file
+```
+% cat test/test_soln_00000.curve 
+# Temperature
+       0    69.09
+    0.25    143.6
+     0.5     96.3
+    0.75    52.61
+       1    131.6
+% cat test/test_soln_final.curve
+# Temperature
+       0        0
+    0.25     0.25
+     0.5      0.5
+    0.75     0.75
+       1        1
+```
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+' %}
+
+
+## Exercise #3: Solve the Science Problem of Interest
 
 Lets now use our `heat` application to solve our simple science question.
 
@@ -263,7 +350,7 @@ Lets now use our `heat` application to solve our simple science question.
 
 * Outside temp has been same as inside temp for a long time, 70 degrees F
 * Night/Storm will last 15.5 hours @ -40 degrees F
-* Walls are 0.25 meters thick wood
+* Walls are 0.25 meters thick wood and pipe is 0.1 meters in diameter
 * Pipe will freeze if center point drops below freezing.
 
 **Note:** An all too common issue in simulation applications is being sure data is
@@ -301,8 +388,10 @@ values of u at time _k+1_.
 This means each time we advance the solution in time we must
 solve a linear system; in other words we must solve for all of the
 values at time _k+1_ in one step.
-This is an example of an [_implicit_](https://en.wikipedia.org/wiki/Explicit_and_implicit_methods) method.
-In this case, the system of equations is [_tri-diagonal_](https://en.wikipedia.org/wiki/Tridiagonal_matrix_algorithm) --
+This is an example of an
+[_implicit_](https://en.wikipedia.org/wiki/Explicit_and_implicit_methods) method.
+In this case, the system of equations is
+[_tri-diagonal_](https://en.wikipedia.org/wiki/Tridiagonal_matrix_algorithm) --
 since each update for u at _i_ only uses u at _i-1_ , _i_ and _i+1_ --
 so it is easier to implement than a general matrix solve but is still more complicated
 than an explicit update.
@@ -315,7 +404,7 @@ is used on each solution timestep to solve for the new temperatures.
 Run the same problems using each of these algorithms and observe total
 memory usage and operation counts (printed at the end).
 
-### Use The Application to Solve The Pipeline Problem
+### Use The Application to Solve The Pipeline Problem (10 points)
 
 ![Pipeline Problem::](pipeline.png){:width="500"}
 
@@ -326,11 +415,23 @@ the manuer facility and burning kerosene at the kerosene facility),
 that _briefly_ increases the local air temperature on both sides of
 the pipe to the burning temperature of the respective materials, determine
 the minimum thermal diffusivity of the material used to coat/insulate the pipe
-to prevent the E-85 from exploding.
+to prevent the E-85 from exploding. Assume the pipe is 36 inches in
+diameter.
 
-### Modify the Application to Support Two Materials
+When you are done, go to `Intro->Submit A Show Your Work` using the hands-on
+activity name _Pipeline_ and upload evidence of your completed solution.
 
-### A note about the `ic=` argument to `heat` 
+### Modify the Application to Support Two Materials (20 points)
+
+Using [other research](http://www.ams.org/journals/mcom/1960-14-072/S0025-5718-60-99228-0/S0025-5718-60-99228-0.pdf),
+modify the application to work for a composite wall composed of two materials.
+
+When you are done, go to `Intro->Submit A Show Your Work` using the hands-on activity
+name _Composite Wall_ and upload evidence of your completed solution.
+
+---
+
+### A note about the `ic=` argument to `heat` {#icarg}
 
 The initial condition argument, `ic`, handles a few interesting cases
 
@@ -346,9 +447,9 @@ Step, `ic="step(L,Mx,R)"`
 
 : Set initial condition to a step function having value `L` for all x<Mx and value `R` for all x>=Mx.
 
-Random, `ic="rand(S,A)"`
+Random, `ic="rand(S,B,A)"`
 
-: Set initial condition to random values between 0 and `A` using seed value `S`.
+: Set initial condition to random values in the range [B-A,B+A] using seed value `S`.
 
 Sin, `ic="sin(Pi*x)"`
 

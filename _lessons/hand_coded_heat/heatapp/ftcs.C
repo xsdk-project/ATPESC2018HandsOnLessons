@@ -9,18 +9,4 @@ update_solution_ftcs(
     Double dx, Double dt,     // spacing in space, x, and time, t.
     Double bc0, Double bc1)   // boundary conditions @ x=0 & x=Lx
 {
-    Double r = alpha * dt / (dx * dx);
-
-    // Sanity check for stability
-    if (r > 0.5) return false;
-
-    // FTCS update
-    for (int i = 1; i < n-1; i++)
-        uk1[i] = r*uk0[i+1] + (1-2*r)*uk0[i] + r*uk0[i-1];
-
-    // Enforce boundary conditions
-    uk1[0  ] = bc0;
-    uk1[n-1] = bc1;
-
-    return true;
 }

@@ -121,15 +121,16 @@ set_initial_condition(int n, Double *a, Double dx, char const *ic)
         for (i = 0, x = left; i < n; i++, x+=dv)
             a[i] = x;
     }
-    else if (!strncmp(ic, "rand(", 5)) /* rand(seed,amp) */
+    else if (!strncmp(ic, "rand(", 5)) /* rand(seed,base,amp) */
     {
-        char *p;
+        char *p, *ep;
         int seed = (int) strtol(ic+5,&p,10);
+        double base = strtod(p+1, &p);
         double amp = strtod(p+1, 0);
         const double maxr = ((long long)1<<31)-1;
         srandom(seed);
         for (i = 0; i < n; i++)
-            a[i] = amp * random()/maxr;
+            a[i] = base + amp * (2*random()/maxr - 1);
     }
     else if (!strncmp(ic, "sin(Pi*x)", 9)) /* rand(seed,amp) */
     {

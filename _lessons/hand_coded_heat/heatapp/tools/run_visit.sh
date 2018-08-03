@@ -42,9 +42,22 @@ echo "# Pipe" >> $tmpfil
 echo "$p0 273.15" >> $tmpfil
 echo "$p1 273.15" >> $tmpfil
 
-~/Applications/VisIt.app/Contents/Resources/bin/visit -cli -launchengine << EOF 1>/dev/null 2>&1
+visit -cli -launchengine << EOF 1>/dev/null 2>&1
 import sys, time
 OpenDatabase("$tmpfil")
+A = AnnotationAttributes()
+A.userInfoFlag=0
+A.databaseInfoFlag=0
+A.legendInfoFlag=0
+A.axes2D.xAxis.title.userUnits = 1
+A.axes2D.xAxis.title.userTitle = 1
+A.axes2D.xAxis.title.units = "meters"
+A.axes2D.xAxis.title.title = "Distance"
+A.axes2D.yAxis.title.userUnits = 1
+A.axes2D.yAxis.title.userTitle = 1
+A.axes2D.yAxis.title.units = "Kelvin"
+A.axes2D.yAxis.title.title = "Temperature"
+SetAnnotationAttributes(A)
 AddPlot("Curve","Temperature")
 AddPlot("Curve","Water_Freeze")
 ca = CurveAttributes()
