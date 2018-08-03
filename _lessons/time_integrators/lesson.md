@@ -84,17 +84,33 @@ Options:
 	Use or not an implicit method in PETSc to solve the ODE system.
 ```
 
-### Run 1: Explicit, Fixed $$\Delta t$$ of 0.001
+### Run 1: Explicit Method Default Options
 
 ```
-PUT COMMAND AND OUTPUT HERE
+PETSC_OPTIONS="-ts_view -ts_adapt_monitor no" ./advection-ode
 ```
 
-The first few time steps of this explicit algorithm are plotted below.
 
-|Time Step 0|Time Step 1|Time Step 2|
-|:---:|:---:|:---:|
-|[<img src="mfem_sundials_explicit0000.png" width="400">](mfem_sundials_explicit0000.png)|[<img src="mfem_sundials_explicit0001.png" width="400">](mfem_sundials_explicit0001.png)|[<img src="mfem_sundials_explicit0002.png" width="400">](mfem_sundials_explicit0002.png)
+
+---
+
+The L2 error at the final timestep is printed for each run below.
+
+### Run 2: Explicit, with Euler and fixed timestep $$\Delta t$$ of 0.001
+
+```
+PETSC_OPTIONS="-ts_view -ts_monitor :/dev/null -ts_type euler -ts_dt .001" ./advection-ode
+```
+
+
+
+---
+
+### Run 3: Explicit, with Euler and fixed timestep $$\Delta t$$ of .01
+
+```
+PETSC_OPTIONS="-ts_view -ts_adapt_monitor no  -ts_type euler -ts_dt .01" ./advection-ode
+```
 
 {% include qanda
     question='What do you think happened"'
@@ -102,203 +118,59 @@ The first few time steps of this explicit algorithm are plotted below.
 
 {% include qanda
     question='How can we make this explicit method work?'
-    answer='We can shrink the timestep.' %}
+    answer='We can shrink the timestep or use an implicit method.' %}
 
----
 
-### Run 2: Explicit, Smaller $$\Delta t$$ of 0.005
-
-```
-PUT COMMAND AND OUTPUT HERE
-```
-
-|Time Step 7|Time Step 32|Time Step 100|
-|:---:|:---:|:---:|
-|[<img src="mfem_sundials_explicit20000.png" width="400">](mfem_sundials_explicit20000.png)|[<img src="mfem_sundials_explicit20001.png" width="400">](mfem_sundials_explicit20001.png)|[<img src="mfem_sundials_explicit20002.png" width="400">](mfem_sundials_explicit20002.png)
-
----
-
-### Run 3: Explicit, Adaptive $$\Delta t$$ Absolute and Relative Tolerance 1e-6
-
-Now, we will switch to an _adaptive_ time stepping method using the `-adt`
-command-line option but keeping all other options the same.
-
-```
-PUT COMMANDS AND OUTPUT HERE
-```
-
-| Plot of $$\Delta t$$ vs _t_|
-|:---:|
-|[<img src="mfem_sundials_dtt0000.png" width="400">](mfem_sundials_dtt0000.png)|
-
-{% include qanda
-    question='How many steps did this method take and how many flops?'
-    answer='By adapting the timestep, we took only 136 steps to the solution
-            at t=0.1. There are about 10% more flops required, however, in total.' %}
-
-{% include qanda
-    question='A plot of the time step size vs. time is shown above.
-              Can you explain its shape?'
-    answer='Recall the explicit method we are using here is unstable
-            for dt=0.001 but is stable for dt=0.0005. The adaptive algorithm is
-            attempting to adapt the timestep. It attemps step sizes outside of
-            the regime of stability and may even get away with a few steps in
-            that regime before having to shrink the timestep back down to maintain
-            stability. Note the majority of timestep sizes used are between 0.0007
-            and 0.0008 which is just butting up against the timestep threshold of
-            stability for this particular 4th order algorithm.' %}
-
----
-
-### Run 4: Implicit, Fixed $$\Delta t$$ at 0.001
+### Run 4: Implicit, Fixed $$\Delta t$$ at 0.01
 
 Now, lets switch to an _implicit_ method and see how that effects behavior of the numerical algorithms.
 
 ```
-PUT COMMANDS AND OUTPUT HERE
+PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_dt .01" ./advection-ode -implicit
 ```
 
-Take note of the number of non-linear solution iterations here, 524 and total flops 248347397.
+### Run 5: Implicit, Fixed $$\Delta t$$ at 0.1
 
-{% include qanda
-    question='How does the flop count in this _implicit_ fixed time step method
-              compare with the _explicit_ fixed time step method?'
-    answer='Well, at a dt=0.001, the explicit method failed due to stability issues.
-            But, it suceeded with a dt=0.0005, which required twice as many steps to
-            reach t=0.1 where the _implicit_ succeeds with dt=0.001 but still requires
-            about 33% more flops due to the implicit solves needed on each step.
-            The cost of the implicit method may be reduced by using looser tolerances
-            if those are appropriate for the application needs.' %}
+Now, use a very large time-step and note the scheme remains stable.
 
-{% include qanda
-    question='How is all the flexiblity demonstrated here possible?'
-    answer='The lines of code below illustrate how the application is
-            taking advantage of the SUNDIALS numerical package to affect
-            various methods of solution.' %}
-
----
-```c++
-204    // Define the ARKODE solver used for time integration. Either implicit or explicit.
-205    ODESolver *ode_solver = NULL;
-206    ARKODESolver *arkode = NULL;
-207    SundialsJacSolver sun_solver; // Used by the implicit ARKODE solver.
-208    if (implicit)
-209    {
-210       arkode = new ARKODESolver(MPI_COMM_WORLD, ARKODESolver::IMPLICIT);
-211       arkode->SetLinearSolver(sun_solver);
-212    }
-213    else
-214    {
-215       arkode = new ARKODESolver(MPI_COMM_WORLD, ARKODESolver::EXPLICIT);
-216       //arkode->SetERKTableNum(FEHLBERG_13_7_8);
-217    }
-218    arkode->SetStepMode(ARK_ONE_STEP);
-219    arkode->SetSStolerances(arkode_reltol, arkode_abstol);
-220    arkode->SetOrder(arkode_order);
-221    arkode->SetMaxStep(t_final / 2.0);
-222    if (!adaptdt)
-223    {
-224       arkode->SetFixedStep(dt);
-225    }
-226    ode_solver = arkode;
+```
+PETSC_OPTIONS="-ts_view -ts_adapt_monitor no  -ts_dt .1 -log_view :/dev/null" ./advection-ode -implicit
 ```
 
-Note lines 210/215 that select either _implicit_ or _explicit_ method.
-Lines 220 sets the order of the method and line 224 sets a _fixed_ time
-step whereas the default is an _adaptive_ timestep.
 
 ---
 
-### Run 5: Implicit, Fixed $$\Delta t$$  at 0.001, 2nd Order
-
-Here, we reduce the order of the time-integration from 4 to 2 and observe the behavior.
-
-```
-PUT PROGRAM AND OUTPUT HERE
-```
-
-{% include qanda
-    question='This second order method succeeds in about 1/2 the number of
-              flops and nonlinear iterations. Why?'
-    answer='High order time-integration is not always required or the best approach.
-            By paying attention to the time-integration order requirements of your
-            particular application, you can indeed reduce flop counts required.' %}
-
----
-
-### Run 6: Implicit, Adaptive $$\Delta t$$, Tolerances 1e-6, 4th Order
+### Run 6: Implicit, Adaptive $$\Delta t$$, Tolerances 1e-4, 4th Order
 
 In this run, we'll combine **both** the advantages of an _implicit_ algorithm and an _adaptive_ time step.
 
 ```
-COMMAND TO EXECUTE AND OUTPUT HERE
+PETSC_OPTIONS="-ts_view -ts_adapt_monitor no  -ts_type arkimex  -ts_dt .1 -log_view :/dev/null" ./advection-ode -implicit
 ```
 
-| Plot of $$\Delta t$$ vs _t_|
-|:---:|
-|[<img src="mfem_sundials_dtt0001.png" width="400">](mfem_sundials_dtt0001.png)|
-
-{% include qanda
-    question='How many steps and flops does it take to reach t=0.1?'
-    answer='The algorithm reaches t=0.1 in 26 steps but about the same number of flops.' %}
-
-{% include qanda
-    question='A plot of dt vs. time is shown above. Why is it able to continue increasing dt?'
-    answer='This is using a stable implicit method. As time increases, the solution changes
-            more slowly allow the time-integration to continue to increase. Contrast this
-            with adaptive time stepping for the explicit case where it would try to increase
-            the step size and then constantly have to back up to maintain stability.' %}
 
 ---
 
-### Run 7: Implicit, Adaptive $$\Delta t$$, Tolerances 1e-6, 2nd Order
+### Run 7: View a summary of the operations for Implicit, Adaptive $$\Delta t$$, Tolerances 1e-4, 4th Order
 
-Here, like Run 5, we compare to the preceding run with a 2nd order method.
-
-```
-COMMAND AND OUTPUT HERE
-```
-
-{% include qanda
-    question='Why does the algorithm take more steps to reach t=0.1?'
-    answer='The lower order (2 as compared to 4) we are using here means the algorithm is
-            unable to maintain the desired tolerances at larger step sizes. In general,
-            the step sizes are smaller for a lower order method so more steps are required
-            to reach t=0.1' %}
-
-| Plot of $$\Delta t$$ vs _t_|
-|:---:|
-|[<img src="mfem_sundials_dtt0002.png" width="400">](mfem_sundials_dtt0002.png)|
-
----
-
-### Run 8: Implicit, Adaptive $$\Delta t$$, Tolerances 1e-6, 5th Order
-
-Here, for a final comparison, we _increase_ to order 5 and observe the impact.
+The -log_view option 
 
 ```
-COMMAND AND OUTPUT HERE
+PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_type arkimex -ts_dt .1 -log_view " ./advection-ode -implicit
 ```
 
-A comparison of the three, preceding _implicit_, adaptive methods at order 4, 2 and 5 is shown below
+## The problem being solved
 
-#### Plot of $$\Delta t$$ vs _t_ for 3 succeeding implicit, adaptive runs
+The example application here, elasticity-snes.cpp uses MFEM and the ODE solvers from PETSc to solve a time-dependent nonlinear elasticity problem.
 
-|O=2, N=128, F=218387843|O=4, N=26, F=115569416|O=5, N=15, F=108013134|
-|N=_Nn_, F=_Fn_ (normalized)|N=0.2 _Nn_, F=0.5 _Fn_|N=0.12 _Nn_, F=0.5 _Fn_|
-|:---:|:---:|:---:|
-|[<img src="mfem_sundials_dtt0002.png" width="400">](mfem_sundials_dtt0002.png)|[<img src="mfem_sundials_dtt0001.png" width="400">](mfem_sundials_dtt0001.png)|[<img src="mfem_sundials_dtt0003.png" width="400">](mfem_sundials_dtt0003.png)|
-
----
-
-### Run 20: Quadratic convergence of Newton's method
+### Run 8: Quadratic convergence of Newton's method
 
 
 ```
 make elasticity-snes
 ./elasticity-snes
 ```
-### Run 21: Mesh independent convergence of Newton's method
+### Run 9: Mesh independent convergence of Newton's method
 
 ```
 ./elasticity-snes -rs 2
@@ -323,6 +195,34 @@ _space_ (e.g. meshing).
 Finally, it is worth reminding the learner that the application demonstrated here can
 be run on 1, 2 and 3 dimensional meshes and in scalable, parallel settings and on meshes
 of extremely high spatial resolution if so desired. 
+
+----
+
+## Evening Hands On Session
+
+Run the two examples with a different number of levels of refinement using
+
+```
+-rs n
+```
+
+and the -log_view option introduced above to explore the scalability of the algorithms. For example
+
+```
+PETSC_OPTIONS="-ts_adapt_monitor no -ts_type arkimex -ts_monitor :/dev/null -log_view " ./elasticity-snes -rs 2
+```
+
+then again 
+
+```
+PETSC_OPTIONS="-ts_adapt_monitor no -ts_type arkimex -ts_monitor :/dev/null -log_view " mpiexec -n 4 ./elasticity-snes -rs 2
+```
+
+Try other combinations of levels of refinement and number of processes.
+
+
+
+
 
 ### Further Reading
 

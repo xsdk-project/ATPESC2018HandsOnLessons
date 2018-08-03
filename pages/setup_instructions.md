@@ -43,7 +43,7 @@ There are three options
 
 #### Client-Server vs. All Local
 
-**Note**: requires `soft add +visit` in `.login/.cshrc` on Cooley
+**Note**: add `@visit` to `~/.soft.cooley` and run `resoft` on Cooley login node
 
 ### ParaView
 
