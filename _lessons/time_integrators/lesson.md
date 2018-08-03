@@ -84,17 +84,33 @@ Options:
 	Use or not an implicit method in PETSc to solve the ODE system.
 ```
 
-### Run 1: Explicit, Fixed $$\Delta t$$ of 0.001
+### Run 1: Explicit Method Default Options
 
 ```
-PUT COMMAND AND OUTPUT HERE
+PETSC_OPTIONS="-ts_view -ts_adapt_monitor no" ./advection-ode
 ```
 
-The first few time steps of this explicit algorithm are plotted below.
 
-|Time Step 0|Time Step 1|Time Step 2|
-|:---:|:---:|:---:|
-|[<img src="mfem_sundials_explicit0000.png" width="400">](mfem_sundials_explicit0000.png)|[<img src="mfem_sundials_explicit0001.png" width="400">](mfem_sundials_explicit0001.png)|[<img src="mfem_sundials_explicit0002.png" width="400">](mfem_sundials_explicit0002.png)
+
+---
+
+Since the solution for pure advection problems does not grow or shrink we can use the extreme values of the solution as a surrogate for error in the computation
+
+### Run 2: Explicit, with Euler and fixed timestep $$\Delta t$$ of 0.001
+
+```
+PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_monitor_extreme -ts_monitor :/dev/null -ts_type euler -ts_dt .001" ./advection-ode
+```
+
+
+
+---
+
+### Run 3: Explicit, with Euler and fixed timestep $$\Delta t$$ of .01
+
+```
+PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_monitor_extreme -ts_monitor :/dev/null -ts_type euler -ts_dt .01" ./advection-ode
+```
 
 {% include qanda
     question='What do you think happened"'
@@ -104,21 +120,6 @@ The first few time steps of this explicit algorithm are plotted below.
     question='How can we make this explicit method work?'
     answer='We can shrink the timestep.' %}
 
----
-
-### Run 2: Explicit, Smaller $$\Delta t$$ of 0.005
-
-```
-PUT COMMAND AND OUTPUT HERE
-```
-
-|Time Step 7|Time Step 32|Time Step 100|
-|:---:|:---:|:---:|
-|[<img src="mfem_sundials_explicit20000.png" width="400">](mfem_sundials_explicit20000.png)|[<img src="mfem_sundials_explicit20001.png" width="400">](mfem_sundials_explicit20001.png)|[<img src="mfem_sundials_explicit20002.png" width="400">](mfem_sundials_explicit20002.png)
-
----
-
-### Run 3: Explicit, Adaptive $$\Delta t$$ Absolute and Relative Tolerance 1e-6
 
 Now, we will switch to an _adaptive_ time stepping method using the `-adt`
 command-line option but keeping all other options the same.
