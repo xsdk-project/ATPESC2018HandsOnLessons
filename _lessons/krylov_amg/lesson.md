@@ -18,15 +18,18 @@ header:
 
 ## The Problem Being Solved
 
-We consider the diffusion-convection partial differential equation
+We consider the Poisson equation
 
-$$-\Delta u + a \nabla \cdot u = f$$
+$$-\Delta u = f$$
 
 on a cuboid of size $$n_x \times n_y \times n_z$$ with Dirichlet boundary conditions $$u = 0$$.
 
-The diffusion part is discretized using central finite differences, and upwind finite differences are used for the advection term.
+It is discretized using central finite differences, leading to a symmetric positive matrix.
 
-We will mostly focus on the case where $$a = 0$$, i.e. the Poisson equation, which leads to a symmetric positive definite system, but we will also consider the case $$a > 0$$, which generates a nonsymmetric linear system. 
+**Note:** To begin this lesson...
+```
+cd {{site.handson_root}}/hypre
+```
 
 
 ## The Example Source Code
@@ -76,7 +79,7 @@ Choice of solver:
 
 Run the first example for a small problem of size 27000 using restarted GMRES with a Krylov space of size 10.
 ```
-./ij -n 30 30 30 -k 10 -gmres
+./ij -n 30 30 30 -gmres
 ```
 
 #### Expected Behavior/Output
@@ -139,9 +142,9 @@ Total time = 0.270000
 ```
 
 Note the total time and the number of iterations.
-Now increase the Krylov subspace by changing input to -k to 20, then 40, and finally 75.
+Now increase the Krylov subspace by changing input to -k to 40, and finally 75.
 
-{% include qanda question='What do you observe about the number of iterations and times?' answer='Number of iterations and times generally improve except for the last run, which is somewhat slower because the last iterations are more expensive. Iterations: 392, 229, 116, 73. Times: 0.27, 0.21, 0.16, 0.17.' %}
+{% include qanda question='What do you observe about the number of iterations and times?' answer='Number of iterations and times generally improve except for the last run, which is somewhat slower because the last iterations are more expensive. Iterations: 392, 116, 73. Times: 0.27, 0.16, 0.17.' %}
 
 {% include qanda question='How many restarts were required for the last run using -k 75?'  answer='None, since the number of iterations is 73. Here full GMRES was used.'%}
 
@@ -151,51 +154,42 @@ Now solve this problem using -pcg and -bicgstab.
 
 {% include qanda question='Why is BiCGSTAB slower than PCG?' answer='It requires two matrix vector operations and additional vector operations per iteration, and thus each iteration takes longer than an iteration of PCG.' %}
 
-Now let us apply Krylov solvers to the convection-diffusion equation with $$a=10$$, starting with conjugate gradient.
-
-```
-./ij -n 30 30 30 -difconv -a 10 -pcg
-```
-{% include qanda question='What do you observe? Why?' answer='PCG fails, because the linear system is nonsymmetric.' %}
-
-Now try -gmres and -bicgstab.
-{% include qanda question='What do you observe?' answer='Both BiCGSTAB and GMRES solve the problem.' %}
-
-Let us investigate what happens for larger linear systems. We will do so using weak scaling, i.e. increasing the number of processes and with it the problem size for the Poisson equation using the Krylov method that does so in the least amount of time.
+Now let us scale up the problem starting with a cube of size $$50 \times 50 \times 50$$ on one process:
 ```
 mpiexec -n 1 ./ij -n 50 50 50 -pcg -P 1 1 1
 ```
-Now gradually increase the problem size, updating the numbers for -n and -P with
-
--n 2 -P 2 1 1
-
--n 4 -P 2 2 1
-
--n 8 -P 2 2 2
-
-{% include qanda question='What happens to convergence and solve time?' answer='They increase with increasing problem size. 
-Number of iterations: 124, 198, 233, 249.
-Total time: 0.55, 0.61, 0.88, 1.46 seconds.' %}
+Now we increase the problem size to a cube of size $$100 \times 100 \times 100$$
+by increasing the number of processes to 8 using the process topology -P 2 2 2.
+```
+mpiexec -n 8 ./ij -n 50 50 50 -pcg -P 2 2 2
+```
+{% include qanda question='What happens to convergence and solve time?' answer='
+the number of iterations increases from 124 to 249, the time from 0.55 seconds to 1.46 seconds.' %}
 
 
 
 ### Second Set of Runs (Algebraic Multigrid)
 
-Now perform the weak scaling study using algebraic multigrid starting with
+Now perform the previous weak scaling study using algebraic multigrid starting with
 ```
 mpiexec -n 1 ./ij -n 50 50 50 -amg -P 1 1 1
 ```
-{% include qanda question='What happens to convergence and solve time now?' answer='AMG solves the problem using significantly less iterations, and time increases somewhat slower.
-Number of iterations: 12, 15, 17, 23.
-Total time: 0.51, 0.66, 0.85, 1.18 seconds.' %}
+followed by
+```
+mpiexec -n 8 ./ij -n 50 50 50 -amg -P 2 2 2
+```
+
+{% include qanda question='What happens to convergence and solve time now?' answer='AMG solves the problem using significantly less iterations, and time increases somewhat slower.  Number of iterations: 12, 23.
+Total time: 0.51, 1.18 seconds.' %}
 
 Now repeat the scaling study using AMG as a preconditioner for CG:
 ```
 mpiexec -n 1 ./ij -n 50 50 50 -amgpcg -P 1 1 1
 ```
-{% include qanda question='What happens to convergence and solve time now?' answer='Using PCG preconditioned with AMG further decreases the number of iterations and solve times.
-Number of iterations: 8, 9, 9, 11.
-Total time: 0.47, 0.57, 0.69, 0.89 seconds.' %}
+```
+mpiexec -n 8 ./ij -n 50 50 50 -amgpcg -P 2 2 2
+```
+{% include qanda question='What happens to convergence and solve time now?' answer='Using PCG preconditioned with AMG further decreases the number of iterations and solve times.  Number of iterations: 8, 11.  Total time: 0.47, 0.89 seconds.' %}
 
 Now let us take a look at the complexities of the last run by printing some setup statistics:
 ```
@@ -282,9 +276,9 @@ BoomerAMG SOLVER PARAMETERS:
 This output contains some statistics for the AMG preconditioner. It shows the number of levels, the average number of nonzeros in total and per row for each matrix $$A_i$$ as well as each interpolation operator $$P_i$$.
 It also shows the operator complexity, which is defined as the sum of the number of nonzeroes of all operators $$A_i$$
 divided by the number of nonzeroes of the original matrix $$A$$:
-$$\frac{\sum_i^L {A_i}}{nnz(A)}$$.
+$$\frac{\sum_i^L {nnz(A_i)}}{nnz(A)}$$.
 It also gives the memory complexity, which is defined by
-$$\frac{\sum_i^L {A_i + P_i}}{nnz(A)}$$.
+$$\frac{\sum_i^L {nnz(A_i + P_i)}}{nnz(A)}$$.
 
 {% include qanda question='What do you notice about the average number of nonzeroes per row across increasing levels?' answer='It increases significantly  through level 4 and decreases after that. It is much larger than the original level.'
  %}
@@ -337,25 +331,60 @@ Now let us use aggressive coarsening in the first two levels.
 ```
 mpiexec -n 8 ./ij -n 50 50 50 -amgpcg -P 2 2 2 -iout 1 -agg_nl 2
 ```
-{% include qanda question='What happens to complexities, number of nonzeroes per row, the number of iterations and the total time?' answer='Complexities and number of nonzeroes per row decrease further, but the number of iterations as well as total time is increasing. Choosing to aggressively coarsen on the second level does not lead to further time savings, but gives further memory savings. If achieving the shortest time is the objective, coarsen aggressively on the second level is not adviced.'  %}
+{% include qanda question='What happens to complexities, number of iterations and total time?' answer='Complexities decrease further to 1.22, but the number of iterations is increasing to 26 and total time increases as well. Choosing to aggressively coarsen on the second level does not lead to further time savings, but gives further memory savings. If achieving the shortest time is the objective, coarsen aggressively on the second level is not adviced.'  %}
 
 So far, we achieved the best overall time to solve a Poisson problem on a cube of size $$100 \times 100 \times$$ using conjugate gradient preconditioned with AMG with one level of aggressive coarsening.
 
 How would a structured solver perform on this problem?
-To run the structured solver for this problem type
+We now use the driver for the structured interface, which will also give various input options by typing
 ```
-mpiexec -n 8 ./struct -n 50 50 50 -pfmg -P 2 2 2
+./struct -help
 ```
+
+To run the structured solver PFMG for this problem type
+```
+mpiexec -n 8 ./struct -n 50 50 50 -P 2 2 2 -pfmg
+```
+{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations 35, but the total time is less (0.36)'  %}
+
 Now run it as a preconditioner for conjugate gradient.
 ```
 mpiexec -n 8 ./struct -n 50 50 50 -pfmgpcg -P 2 2 2
 ```
-To get even better total time, now run the nonGalerkin version.
+{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations 14, but the total time is less (0.24)'  %}
+
+To get even better total time, now run the non-Galerkin version.
 
 ```
 mpiexec -n 8 ./struct -n 50 50 50 -pfmgpcg -P 2 2 2 -rap 1
 ```
+{% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations remains 14, but the total time is less (0.21)'  %}
 
+
+### Second Set of Runs (Algebraic Multigrid)
+
+
+$$-\Delta u + a \nabla \cdot u = f$$
+
+The diffusion part is discretized using central finite differences, and upwind finite differences are used for the advection term.
+
+We will mostly focus on the case where $$a = 0$$, i.e. the Poisson equation, which leads to a symmetric positive definite system, but we will also consider the case $$a > 0$$, which generates a nonsymmetric linear system. 
+
+**Note:** To begin this lesson...
+
+
+
+Now let us apply Krylov solvers to the convection-diffusion equation with $$a=10$$, starting with conjugate gradient.
+
+```
+./ij -n 30 30 30 -difconv -a 10 -pcg
+```
+{% include qanda question='What do you observe? Why?' answer='PCG fails, because the linear system is nonsymmetric.' %}
+
+Now try -gmres and -bicgstab.
+{% include qanda question='What do you observe?' answer='Both BiCGSTAB and GMRES solve the problem.' %}
+
+Let us investigate what happens for larger linear systems. We will do so using weak scaling, i.e. increasing the number of processes and with it the problem size for the Poisson equation using the Krylov method that does so in the least amount of time.
 
 ## Out-Brief
 
