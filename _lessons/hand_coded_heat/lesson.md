@@ -6,6 +6,7 @@ teaser: "Why use numerical packages..."
 permalink: "lessons/hand_coded_heat/"
 use_math: true
 lesson: true
+answers_google_form: "https://docs.google.com/forms/d/e/1FAIpQLSdoyXOL4UCe4_p0SheNidqY_ErKcrRS2qqqomIHQMZi5eVM2g/viewform?usp=sf_link"
 header:
  image_fullwidth: "xsdk_logo_wide.png"
 ---
@@ -431,7 +432,7 @@ name _Composite Wall_ and upload evidence of your completed solution.
 
 ---
 
-### A note about the `ic=` argument to `heat` {#icarg}
+### A note about the `ic=` argument to `heat`{#icarg}
 
 The initial condition argument, `ic`, handles a few interesting cases
 
