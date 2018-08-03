@@ -159,7 +159,9 @@ The -log_view option
 PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_monitor_extreme -ts_type arkimex -ts_monitor :/dev/null -ts_dt .1 -log_view " ./advection-ode -implicit
 ```
 
+## The problem being solved
 
+The example application here, elasticity-ode.cpp uses MFEM and the ODE solvers from PETSc to solve a time-dependent nonlinear elasticity problem.
 ---
 
 ### Run 8: Quadratic convergence of Newton's method
