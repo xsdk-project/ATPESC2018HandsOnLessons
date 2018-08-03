@@ -197,6 +197,34 @@ Finally, it is worth reminding the learner that the application demonstrated her
 be run on 1, 2 and 3 dimensional meshes and in scalable, parallel settings and on meshes
 of extremely high spatial resolution if so desired. 
 
+----
+
+## Evening Hands On Session
+
+Run the two examples with a different number of levels of refinement using
+
+```
+-rs n
+```
+
+and the -log_view option introduced above to explore the scalability of the algorithms. For example
+
+```
+PETSC_OPTIONS="-ts_adapt_monitor no -ts_type arkimex -ts_monitor :/dev/null -log_view " ./elasticity-ode -rs 2
+```
+
+then again 
+
+```
+PETSC_OPTIONS="-ts_adapt_monitor no -ts_type arkimex -ts_monitor :/dev/null -log_view " mpiexec -n 4 ./elasticity-ode -rs 2
+```
+
+Try other combinations of levels of refinement and number of processes.
+
+
+
+
+
 ### Further Reading
 
 [PETSc Manual](http://www.mcs.anl.gov/petsc/petsc-current/docs/manual.pdf)
