@@ -39,10 +39,14 @@ The goal is to determine an optimal initial condition that can minimizes the dif
 We will use this example to illustrate the performance considerations for realistic large-scale applications. In particular, we will show how to play with checkpointing and how to profile/tune the performance.
 
 ### Compile the code
-This example is in `src/ts/examples/advection-diffusion-reaction`. The source code is included in [ex5opt_ic.c](./ex5opt_ic.c)
+The example [ex5opt_ic.c](https://bitbucket.org/petsc/petsc/src/master/src/ts/examples/tutorials/advection-diffusion-reaction/ex5opt_ic.c) can be compiled with
 
 ```
 make ex5opt_ic
+```
+To clean the example, do
+```
+make clean
 ```
 
 ATPESC participants do not need to compile code because binaries are available in the ATPESC project folder on Cooley.
@@ -83,7 +87,7 @@ $$
 ### Run 1: Monitor solution graphically
 
 ```
-mpiexec -n 4 ./ex5opt_ic mpiexec -n 4 ./ex5opt_ic -forwardonly -ts_type rk -ts_max_steps 20 -ts_monitor -ts_monitor_draw_solution
+mpiexec -n 4 ./ex5opt_ic -forwardonly -ts_type rk -ts_max_steps 20 -ts_monitor -ts_monitor_draw_solution
 ```
 
 * `-forwardonly` perform the forward simulation without doing optimization
