@@ -40,7 +40,7 @@
     </style>
     <section>
       {% if site.handson_hide_qanda %}
-          Answer expansions are currently being hidden. Go to the <a href="{{page.answers_google_form}}">Google Answers Form</a> for this lesson to enter your answers
+          Answer expansions are currently disabled. Go to the <a href="{{page.answers_google_form}}" target="_blank">Google Answers Form</a> for this lesson to enter your answers
       {% else %}
           {{ include.answer | markdownify }}
       {% endif %}
