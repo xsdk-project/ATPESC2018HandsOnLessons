@@ -30,7 +30,7 @@ It is discretized using central finite differences, leading to a symmetric posit
 **Note:** To begin this lesson...
 * [Open the Answers Form](https://docs.google.com/forms/d/e/1FAIpQLSeZAaguErZ-VTtzQSeYfkrpkck_ki2-OZ1uIbLRXjc6NW8-gg/viewform?usp=sf_link)
 ```
-cd {{site.handson_root}}/hypre
+cd {{site.handson_root}}/krylov_amg
 ```
 
 
@@ -410,26 +410,20 @@ Let us solve the problem using structured multigrid solvers.
 ./struct -n 50 50 50 -a 10 -pfmggmres -rap 1
 ```
 
-{% include qanda question='What do you observe? Which solver fails? What is the order of the remaining solvers?' answer='The non-Galerkin version of PFMG as alone solver fails. The order from slowest to fastest is: PFMG-GMRES, non_galerkin PFMG-GMRES, PFMG.' %}
+{% include qanda question='What do you observe? Which solver fails? What is the order of the remaining solvers in terms of number of iterations? Which solver is the fastest.' answer='The non-Galerkin version of PFMG as alone solver fails. The order from largest to least number of iterations is: Non-Galerkin PFMG-GMRES, PFMG, PFMG-GMRES. But PFMG alone solves the problem faster.' %}
 
 We will now consider a two-dimensional problem with a rotated anisotropy on a rectangular domain.
 Let us begin with a grid-aligned anisotropy.
 ```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -gmres
+./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -gmres -k 100 -iout 3
 ```
 ```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -bicgstab
+./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -bicgstab -iout 3
 ```
 ```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -amgbicgstab
+./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -amg -iout 3
 ```
-```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -amggmres
-```
-```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -amg
-```
-{% include qanda question='What do you observe? Which solvers fail? What is the order of the remaining solvers?' answer='GMRES and BiCGSTAB fails. The order from slowest to fastest is: AMG-BiCGSTAB, AMG-GMRES, AMG.' %}
+{% include qanda question='What do you observe?' answer='The residual norms for all solvers improve, but only AMG converges within less than 1000 iterations.' %}
 
 Now let us rotate the anisotropy by 45 degrees.
 ```
@@ -459,22 +453,22 @@ mpiexec -n 8 ./ij -P 4 2 -rotate -n 300 300 -eps 0.01 -alpha 45 -amggmres
 
 Let us now rotate the anisotropy by 30 degrees.
 ```
-mpiexec -n 8 ./ij -P 4 2 -rotate -n 300 300 -eps 0.01 -alpha 45 -amggmres
+mpiexec -n 8 ./ij -P 4 2 -rotate -n 300 300 -eps 0.01 -alpha 30 -amggmres
 ```
 {% include qanda question='Is the convergence affected by the change in angle?' answer='This problem is harder. The number of iterations increases to 15.' %}
 
 Let us now coarsen more aggressively.
 ```
-mpiexec -n 8 ./ij -P 4 2 -rotate -n 300 300 -eps 0.01 -alpha 45 -amggmres -agg_nl 1
+mpiexec -n 8 ./ij -P 4 2 -rotate -n 300 300 -eps 0.01 -alpha 30 -amggmres -agg_nl 1
 ```
 {% include qanda question='Does this improve convergence and time?' answer='No. Both get worse. The number of iterations increases to 34 and the time goes up.' %}
 
 Let us investigate the operator complexities:
 ```
-mpiexec -n 8 ./ij -P 4 2 -rotate -n 300 300 -eps 0.01 -alpha 45 -amggmres -iout 1
+mpiexec -n 8 ./ij -P 4 2 -rotate -n 300 300 -eps 0.01 -alpha 30 -amggmres -iout 1
 ```
 ```
-mpiexec -n 8 ./ij -P 4 2 -rotate -n 300 300 -eps 0.01 -alpha 45 -amggmres -agg_nl 1 -iout 1
+mpiexec -n 8 ./ij -P 4 2 -rotate -n 300 300 -eps 0.01 -alpha 30 -amggmres -agg_nl 1 -iout 1
 ```
 
 {% include qanda question='What are the operator complexities and how large is the largest average number of nonzeroes per row (row avg) for both cases?' answer='The operator complexities are 3.2 and 1.3. The largest average number of nonzeroes per row are 36.3 and 27.5.' %}

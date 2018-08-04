@@ -20,7 +20,7 @@ header:
 - [Open the Answers Form](https://docs.google.com/forms/d/e/1FAIpQLSfxlKXG74hffseYxc52l7p7DALHk-WTiZXQmdT6WGMVBRw7Sg/viewform?usp=sf_link){:target="_blank"}
 - Get into the correct directory
 ```
-cd {{site.handson_root}}/mfem/examples/atpesc/superlu
+cd {{site.handson_root}}/superlu_mfem
 ```
 ## The problem being solved
 
@@ -48,8 +48,6 @@ Solving this PDE is well known to cause convergence problems for iterative solve
 for larger _v_. We use MFEM as a vehicle to demonstrate the use of a distributed,
 direct solver, [SuperLU_DIST](http://crd-legacy.lbl.gov/~xiaoye/SuperLU/),
 to solve very ill-conditioned linear systems.
-
-## The Example Source Code
 
 ## Running the Example
 
@@ -268,7 +266,7 @@ By adding `--refine 2`, each element in the mesh is subdivided twice yielding a 
 Here, we'll run on 16 tasks and just grep the output form some key values of interest.
 
 ```
-$ ${MPIEXEC_OMPI} -n 16 ./convdiff --refine 2 --velocity 1000 -slu --slu-colperm 4 >& junk.out
+$ mpiexec -n 16 ./convdiff --refine 2 --velocity 1000 -slu --slu-colperm 4 >& junk.out
 $ grep 'Time required for solver:' junk.out 
 Time required for solver:  10.3593 (s)
 Time required for solver:  16.3567 (s)
