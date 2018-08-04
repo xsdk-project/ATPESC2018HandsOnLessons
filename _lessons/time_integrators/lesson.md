@@ -163,6 +163,8 @@ PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_type arkimex -ts_dt .1 -log_vie
 
 The example application here, elasticity-snes.cpp uses MFEM and the ODE solvers from PETSc to solve a time-dependent nonlinear elasticity problem.
 
+![Quad Beam ::](elasticity.gif)
+
 ### Run 8: Quadratic convergence of Newton's method
 
 
