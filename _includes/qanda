@@ -28,6 +28,9 @@
       #qanda_toggle{{ qanda_id }}:checked ~ #qanda_expand{{ qanda_id }} {
         {% capture text_height %}{{ include.answer | size | divided_by: 20 }}{% endcapture %}
         {% assign text_height = text_height | plus: 0 %}
+        {% if site.handson_hide_qanda %}
+                {% assign text_height = 0 %}
+        {% endif %}
         {% if text_height > 10 %}
             height: {{ text_height }}vmin;
         {% else %}
@@ -36,7 +39,11 @@
       }
     </style>
     <section>
-      {{ include.answer | markdownify }}
+      {% if site.handson_hide_qanda %}
+          Answer expansions are currently being hidden. Go to the <a href="{{page.answers_google_form}}">Google Answers Form</a> for this lesson to enter your answers
+      {% else %}
+          {{ include.answer | markdownify }}
+      {% endif %}
     </section>
   </div>
 </div>

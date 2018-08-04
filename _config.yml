@@ -30,6 +30,9 @@ baseurl: '/ATPESC2018HandsOnLessons'
 handson_install_root: '/projects/ATPESC2018/FASTMath'
 handson_root: 'HandsOnLessons'
 
+# Controls whether lesson answer expansions are hidden or not
+handson_hide_qanda: false
+
 # This is for the editing function in _/includes/improve_content
 # Leave it empty if your site is not on GitHub/GitHub Pages
 improve_content: https://github.com/xsdk-project/ATPESC2018HandsOnLessons/edit/gh-pages

@@ -12,7 +12,7 @@ permalink: "/atpesc_2018_agenda/"
 |Start|Minutes|Topic|Speaker|
 |:----|:------|:---:|------:|
 |7:30am|60|Breakfast||
-|8:30am|5|Introduction to Session|||
+|8:30am|5|Introduction to Session|[Ulrike Meier Yang][11] ([LLNL][2])|
 |8:35am|55|Algorithmic Adaptations to Extreme-Scale Computing|[David Keyes][4] ([KAUST][5])|
 |9:30am|60|Overview of Numerical Algorithms and Software|[Lori Diachin][6] ([LLNL][2])|
 |10:30am|30|Break||
@@ -23,7 +23,7 @@ permalink: "/atpesc_2018_agenda/"
 |3:00pm|30|Break||
 |3:30pm|45|Direct Linear Solvers|[Xiaoye Li][14] ([LBNL][15])<br>[+ Hands-on examples with][24] [SuperLU][16]|
 |4:15pm|45|Numerical Optimization|[Todd Munson][17] &<br>[Hong Zhang][18] ([ANL][12])<br>[+ Hands-on examples with][25] [TAO][19]|
-|5:00pm|30|Putting It All Together||
+|5:00pm|30|Wrap-Up and Brief Q&A|All|
 |5:30pm|60|Dinner + Panel: Extreme-Scale Algorithms & Software|Moderator [Mark Miller][20] ([LLNL][2])|
 |6:30pm|180|Evening Hands-on + Other Activities|All|
 |9:30pm|Adjourn||

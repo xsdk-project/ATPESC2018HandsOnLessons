@@ -5,6 +5,7 @@ subheadline: "Demonstrate utility of multigrid"
 permalink: "lessons/krylov_amg/"
 use_math: true
 lesson: true
+answers_google_form: "https://docs.google.com/forms/d/e/1FAIpQLSeZAaguErZ-VTtzQSeYfkrpkck_ki2-OZ1uIbLRXjc6NW8-gg/viewform?usp=sf_link"
 header:
  image_fullwidth: "AMG-hypre.png"
 ---

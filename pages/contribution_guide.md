@@ -30,6 +30,7 @@ teaser: "Set your teaser here..."
 permalink: "lessons/my_new_lesson/"
 use_math: true
 lesson: true
+answers_google_form: "<path-to-a-google-forms-page-of-your-design-and-choosing>"
 header:
  image_fullwidth: "2012.jpg"
 ---
@@ -46,6 +47,10 @@ header:
    * If you intend to have [LaTeX](https://www.latex-project.org) equations
      include the `use_math: true` line. Otherwise, leave it out.
    * Keep the `lesson: true` line unchanged.
+   * Provide a path to the associated Google Form (optiona)
+     * If you want to create a Google Form for participants to submit their answers
+       to questions during the day (see below), go create that form and then 
+       set the path to that form in this yaml variable.
    * There are header options you can choose from. You can see a list of header
      options and examples [here](/headers/). Each option has different front-matter
      code to implement it. 
@@ -111,7 +116,7 @@ To github.com:xsdk-project/ATPESC2018HandsOnLessons.git
 ### Adding a Answers Google Form To Your Lesson
 
 
-* Go into the folder named "Marks Test Folder"
+* Go into the Google Docs folder, [Forms Folder](https://drive.google.com/drive/u/0/folders/1j7N5HlmpRg4sKyyNf48iHw2zEXEyfNbn)
 * Begin creating a new Google Form there (New->More->Google Forms->Blank Form)
 * Select the "Create and Share" button
 * Give the Form a Title
@@ -128,11 +133,14 @@ To github.com:xsdk-project/ATPESC2018HandsOnLessons.git
 * When you are done creating the form, hit the send button (upper right)
   * Select the 'send via link' option
   * Hit the copy button to copy the link
-  * Paste the copied link into your lesson like so...
+  * Paste the copied link into your lesson's yaml frontmatter code like so
+```
+answers_google_form: "<URL to form>"
+```
+Also, include a link to it in the "To begin this lesson" section like so
 ```
 [Open the Answers Form](<URL to form>){:target="_blank"}
 ```
-    near the top of your lesson.
 
 ### Better Control of Images
 
