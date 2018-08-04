@@ -4,14 +4,6 @@ REPORT = iops fops mem
 help:
 	./heat --help; exit 0
 
-clean:
-	@for x in *; do \
-	    if [[ -d $$x ]]; then \
-	        echo "Removing directory $$x"; \
-		rm -rf $$x; \
-	    fi; \
-	done
-
 #
 # To get performance data, we actually run multiple instances
 # using different valgrind tools
