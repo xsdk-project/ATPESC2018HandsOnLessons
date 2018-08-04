@@ -39,7 +39,7 @@ The goal is to determine an optimal initial condition that can minimizes the dif
 We will use this example to illustrate the performance considerations for realistic large-scale applications. In particular, we will show how to play with checkpointing and how to profile/tune the performance.
 
 ### Compile the code
-The example [ex5opt_ic.c](https://bitbucket.org/petsc/petsc/src/master/src/ts/examples/tutorials/advection-diffusion-reaction/ex5opt_ic.c) can be compiled wit
+The example [ex5opt_ic.c](https://bitbucket.org/petsc/petsc/src/master/src/ts/examples/tutorials/advection-diffusion-reaction/ex5opt_ic.c) can be compiled with
 
 ```
 make ex5opt_ic
