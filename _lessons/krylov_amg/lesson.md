@@ -410,7 +410,7 @@ Let us solve the problem using structured multigrid solvers.
 ./struct -n 50 50 50 -a 10 -pfmggmres -rap 1
 ```
 
-{% include qanda question='What do you observe? Which solver fails? What is the order of the remaining solvers?' answer='The non-Galerkin version of PFMG as alone solver fails. The order from slowest to fastest is: PFMG-GMRES, non_galerkin PFMG-GMRES, PFMG.' %}
+{% include qanda question='What do you observe? Which solver fails? What is the order of the remaining solvers in terms of number of iterations? Which solver is the fastest.' answer='The non-Galerkin version of PFMG as alone solver fails. The order from largest to least number of iterations is: Non-Galerkin PFMG-GMRES, PFMG, PFMG-GMRES. But PFMG alone solves the problem faster.' %}
 
 We will now consider a two-dimensional problem with a rotated anisotropy on a rectangular domain.
 Let us begin with a grid-aligned anisotropy.
