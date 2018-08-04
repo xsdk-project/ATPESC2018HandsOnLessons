@@ -1,16 +1,14 @@
 ---
 layout: page-fullwidth
 title: "Using adjoint for PDE-constrained optimization"
-subheadline: "Simple ODEs and PDEs"
-teaser: ""
+subheadline: "Adjoin time dependent differential equations"
 permalink: "lessons/adjoint/"
 use_math: true
 lesson: true
 header:
- image_fullwidth: "xsdk_logo_wide.png"
+ image_fullwidth: "theta.png"
+layout: page-fullwidth
 ---
-
-# Using adjoint for optimization
 
 ## At a Glance
 <!-- (Expected # minutes to complete) %% temporarily omit -->
@@ -33,148 +31,11 @@ use the adjoint method?   |for adjoint calculation        |
 cd {{site.handson_root}}/adjoint
 ```
 
-## Example 1: Generator Stability Analysis:
 
-This code uses [PETSc/TAO](https://www.mcs.anl.gov/petsc/) to demonstrates how to solve an ODE-constrained optimization problem with the Toolkit for Advanced Optimization (TAO), TSEvent, TSAdjoint and TS.
-The objective is to maximize the mechanical power input subject to the generator swing equations and a constraint on the maximum rotor angle deviation, which is reformulated as a minimization problem
-
-![equation](http://latex.codecogs.com/gif.latex?%5Cbegin%7Balign%2A%7D%0D%0A%20%20%5Cmin%20%26%20%5C%7B-P_m%20%2B%20%5Csigma%5Cdisplaystyle%20%5Cint_%7Bt_0%7D%5E%7Bt_F%7D%20%5Cmax%5Cleft%280%2C%20%5Ctheta%20-%20%5Ctheta_%7Bmax%7D%5Cright%29%5E%5Ceta%20%5C%20%5Cmathrm%7Bd%7Dt%20%5C%7D%5C%5C%0D%0A%20%20%5Cnonumber%20%7E%7E%20%5Ctext%7Bs.t.%7D%20%26%20%5Cqquad%20%5Cfrac%7Bd%20%5Ctheta%7D%7Bdt%7D%20%3D%20%5Comega_B%5Cleft%28%5Comega%20-%20%5Comega_s%5Cright%29%20%5C%5C%0D%0A%20%20%26%20%5Cqquad%20%5Cfrac%7Bd%20%5Comega%7D%7Bdt%7D%20%3D%20%5Cfrac%7B%5Comega_s%7D%7B2H%7D%5Cleft%28P_m%20-%20P_%7Bmax%7D%5Csin%28%5Ctheta%29%20-%20D%28%5Comega%20-%20%5Comega_s%29%5Cright%29%0D%0A%5Cend%7Balign%2A%7D)
-
-Disturbance (a fault) is applied to the generator at time 0.1 and cleared at time 0.2.
-The objective function contains an integral function.
-The gradient is computed with the discrete adjoint of an implicit time stepping method ([Crank-Nicolson](https://en.wikipedia.org/wiki/Crank–Nicolson_method)).
-
-### Compile the code
-During ATPESC, participants do not need to compile code because binaries are available in the ATPESC project folder on Cooley. In case you are using your own copy of PETSc, this example is located in `src/ts/examples/power_grid/`. To compile, run the following in the source folder
-```
-make ex3opt
-```
-The source code is included in [ex3opt.c](./ex3opt.c)
-
-All the example codes need to compiled only once. Different tasks can be accomplished using command line options.
-
-### Command line options
-You can determine the command line options available for this particular example by doing
-```
-./ex3opt -help
-```
-and show the options related to TAO only by doing
-```
-./ex3opt -help | grep tao
-```
-
-### Run 1: Monitor the optimization progress
-
-```
-./ex3opt -tao_monitor -tao_view
-iter =   0, Function value: 2.03778,  Residual: 144.125
-iter =   1, Function value: -0.552947,  Residual: 43.1456
-iter =   2, Function value: -0.911654,  Residual: 18.3028
-iter =   3, Function value: -1.00401,  Residual: 2.48745
-iter =   4, Function value: -1.00649,  Residual: 1.17916
-iter =   5, Function value: -1.00732,  Residual: 0.125532
-iter =   6, Function value: -1.00733,  Residual: 0.00012392
-iter =   7, Function value: -1.00733,  Residual: 1.3024e-08
-iter =   8, Function value: -1.00733,  Residual: 3.46501e-12
-Tao Object: 1 MPI processes
-type: blmvm
-Gradient steps: 0
-TaoLineSearch Object: 1 MPI processes
-type: more-thuente
-Active Set subset type: subvec
-convergence tolerances: gatol=1e-08,   steptol=0.,   gttol=0.
-Residual in Function/Gradient:=3.46501e-12
-Objective value=-1.00733
-total number of iterations=8,                          (max: 2000)
-total number of function/gradient evaluations=9,      (max: 4000)
-Solution converged:    ||g(X)|| <= gatol
-Vec Object: 1 MPI processes
-type: seq
-1.00793
-```
-#### Questions
-> **Examine the source code and find the user-provided functions for TAO, TS, and TSAdjoint respectively.**
-
-|<font color="white">Essential functions we have provided are FormFunctionGradient for TAO, TSIFunction and TSIJacobian for TS,  RHSJacobianP for TSAdjoint. Because of the integral in the objective function, extra functions including CostIntegrand, DRDYFunction and DRDPFunction are given to TSAdjoint.</font>|
-
-### Further information
-
-A more complicated example for power grid application is in `src/ts/examples/power_grid/stability_9bus/ex9busopt.c`.
-
-
-## Example 2: Hybrid Dynamical System:
-
-This code demonstrates how to compute the adjoint sensitivity for a complex dynamical system involving discontinuities with TSEvent, TSAdjoint and TS. The dynamics are described by the ODE
-
-![equation](http://latex.codecogs.com/gif.latex?%5Cdot%7Bx%7D%20%3D%20A_i%20x)
-
-where ![equation](http://latex.codecogs.com/gif.latex?x%20%3D%20%5Bx_1%2C%20x_2%5D%5ET) and the matrix A change from
-
-![equation](http://latex.codecogs.com/gif.latex?A_1%20%3D%20%5Cleft%5B%20%5Cbegin%7Barray%7D%7Bc%20c%7D1%20%26-100%5C%5C%2010%20%261%20%5Cend%7Barray%7D%0D%0A%5Cright%5D%0D%0A%5Cquad%20%5Ctext%7Bto%7D%20%5Cquad%0D%0AA_2%20%3D%20%5Cleft%5B%20%5Cbegin%7Barray%7D%7Bc%20c%7D1%20%2610%5C%5C%20-100%20%261%20%5Cend%7Barray%7D%0D%0A%5Cright%5D)
-
- when ![equation](http://latex.codecogs.com/gif.latex?%24x_2%3D2.75%20x_1%24) and switch back  when ![equation](http://latex.codecogs.com/gif.latex?%24x_2%3D0.365%20x_1%24).
-
-Thus the ODE system alternates the right-hand side when a switching face is encountered. The switching surfaces are given by the algebraic constraints depending on the state variables, as shown below (left)
-
-<img src="ex1.png" width="400"><img src="ex1adj.png" width="400">
-
-* The parameter to which the sensitivities are computed is marked in red.
-* It represents the slope of the switching surface.
-* Intuitively the trajectory cannot be affected before it hits the surface.
-* The influence of the perturbation in the slope diminishes as the trajectory is approaching the equilibrium point.
-
-### Compile the code
-This example is in `src/ts/examples/hybrid`. The source code is included in [ex1adj.c](./ex1adj.c)
-
-```
-make ex1adj
-```
-
-### Make the graghics work via interactive mode on cooley
-Graphics is tricky. HPC users often do it offline. In order to make it work with cooley, your computer must have X11 (Mac users can install XQuartz). If you do not have it now, just skip the graphics parts since they are not essential.
-
-Apply for an interactive allocation (skip this if you already got one)
-```
-$ qsub -I -t 60 -n 1 -A <project_name>
-```
-For example, if your interactive allocation gives you node cc115, open a new terminal and do the following:
-```
-$ ssh -C -X -Y cooley.alcf.anl.gov
-```
-```
-$ ssh -X cc115
-```
-Then continue to run the applications in this new terminal.
-
-### Run 1: Monitor solution graphically with phase diagram
-
-```
-./ex1adj -ts_monitor_draw_solution_phase -4,-2,2,2 -draw_pause -2
-```
-
-### Run 2: Monitor the timestepping process
-
-```
-./ex1adj -ts_monitor
-```
-Trailing (r) in some lines of the output indicates that a rollback happens. In this example, it is triggered by `TSEvent`. To check  details about the event, we can use the event monitor
-```
-./ex1adj -ts_monitor -ts_event_monitor
-```
-We can also monitor the timestepping for the adjoint calculation by doing
-```
-./ex1adj -ts_monitor -ts_adjoint_monitor
-```
-
-### Further information
-
-The example `ex1fwd.c` in the same folder illustrates the forward sensitivity approach for the same problem.
-
-
-## Example 3: An Inverse Initial Value Problem
+## An Inverse Initial Value Problem
 
 This code demonstrates how to solve an inverse initial value problem for a system of time-dependent PDEs on a 2D rectangular grid.
-The goal is to determine an optimal  initial condition that can minimizes the difference between the simulated result and the reference solution.
+The goal is to determine an optimal initial condition that can minimizes the difference between the simulated result and the reference solution.
 We will use this example to illustrate the performance considerations for realistic large-scale applications. In particular, we will show how to play with checkpointing and how to profile/tune the performance.
 
 ### Compile the code
@@ -182,6 +43,18 @@ This example is in `src/ts/examples/advection-diffusion-reaction`. The source co
 
 ```
 make ex5opt_ic
+```
+
+ATPESC participants do not need to compile code because binaries are available in the ATPESC project folder on Cooley.
+
+### Command line options
+You can determine the command line options available for this particular example by doing
+```
+./ex5opt_ic -help
+```
+and show the options related to TAO only by doing
+```
+./ex5opt_ic -help | grep tao
 ```
 
 ### Problem being solved
@@ -210,12 +83,11 @@ $$
 ### Run 1: Monitor solution graphically
 
 ```
-mpiexec -n 4 ./ex5opt_ic -forwardonly -implicitform 0 -ts_type rk \
-                     -ts_monitor -ts_monitor_draw_solution -forwardonly
+mpiexec -n 4 ./ex5opt_ic mpiexec -n 4 ./ex5opt_ic -forwardonly -ts_type rk -ts_max_steps 20 -ts_monitor -ts_monitor_draw_solution
 ```
 
-* `-forwardonly` perform the forward simulation without doing adjoint
-* `-implicitform 0 -ts_type rk` changes the time stepping algorithm to a Runge-Kutta method
+* `-forwardonly` perform the forward simulation without doing optimization
+* `-ts_type rk` changes the time stepping algorithm to a Runge-Kutta method
 * `-ts_monitor_draw_solution` monitors the progress for the solution at each time step
 * Add `-draw_pause -2` if you want to pause at the end of simulation to see the plot
 
@@ -223,7 +95,7 @@ mpiexec -n 4 ./ex5opt_ic -forwardonly -implicitform 0 -ts_type rk \
 By default, the checkpoints are stored in binary files on disk. Of course, this may not be a good choice for large-scale applications running on high-performance machines where I/O cost is significant. We can make the solver use RAM for checkpointing and specify the maximum allowable checkpoints so that an optimal adjoint checkpointing schedule that minimizes the number of recomputations will be generated.
 
 ```
-mpiexec -n 4 ./ex5opt_ic -implicitform 0 -ts_type rk -ts_adapt_type none \
+mpiexec -n 4 ./ex5opt_ic -ts_type rk -ts_adapt_type none \
                      -ts_max_steps 10 -ts_monitor -ts_adjoint_monitor \
                      -ts_trajectory_type memory -ts_trajectory_max_cps_ram 3 \
                      -ts_trajectory_monitor -ts_trajectory_view
@@ -237,12 +109,85 @@ The output corresponds to the schedule depicted by the following diagram:
     question='What will happen if we add the option `-ts_trajectory_max_cps_disk 2` to specify there are two available slots for disk checkpoints?'
     answer='Looking at the output, we will find that the new schedule uses both RAM and disk for checkpointing and takes two less recomputations.' %}
 
-### Run 3: Implicit time integration method
+### Run 3: Monitor the optimization progress
+
+```
+./ex5opt_ic -ts_type rk -ts_adapt_type none -ts_max_steps 4 -tao_monitor -tao_view
+  0 TAO,  Function value: 8.36006,  Residual: 6.55337
+  1 TAO,  Function value: 1.2247,  Residual: 2.03451
+  2 TAO,  Function value: 0.28669,  Residual: 0.988
+  3 TAO,  Function value: 0.10604,  Residual: 0.506329
+  4 TAO,  Function value: 0.0439724,  Residual: 0.305655
+  5 TAO,  Function value: 0.00961548,  Residual: 0.194142
+  6 TAO,  Function value: 0.00212597,  Residual: 0.0717966
+  7 TAO,  Function value: 0.000314925,  Residual: 0.0277359
+  8 TAO,  Function value: 2.25713e-05,  Residual: 0.00721522
+  9 TAO,  Function value: 4.93656e-06,  Residual: 0.00297588
+ 10 TAO,  Function value: 5.25895e-07,  Residual: 0.000915948
+ 11 TAO,  Function value: 1.85135e-07,  Residual: 0.000583128
+ 12 TAO,  Function value: 5.59173e-08,  Residual: 0.00048044
+ 13 TAO,  Function value: 1.07054e-08,  Residual: 0.000133039
+ 14 TAO,  Function value: 4.02034e-09,  Residual: 6.72053e-05
+ 15 TAO,  Function value: 1.07375e-09,  Residual: 4.23986e-05
+ 16 TAO,  Function value: 3.21326e-10,  Residual: 2.61398e-05
+ 17 TAO,  Function value: 8.69953e-11,  Residual: 1.04063e-05
+ 18 TAO,  Function value: 3.57649e-11,  Residual: 6.74477e-06
+ 19 TAO,  Function value: 7.34887e-12,  Residual: 3.07887e-06
+ 20 TAO,  Function value: 1.54676e-12,  Residual: 1.73001e-06
+ 21 TAO,  Function value: 5.03403e-13,  Residual: 1.19175e-06
+ 22 TAO,  Function value: 1.42416e-13,  Residual: 4.86789e-07
+ 23 TAO,  Function value: 5.08422e-14,  Residual: 4.30692e-07
+ 24 TAO,  Function value: 9.76239e-15,  Residual: 1.98762e-07
+ 25 TAO,  Function value: 5.17458e-15,  Residual: 1.53495e-07
+ 26 TAO,  Function value: 5.75693e-16,  Residual: 2.50412e-08
+ 27 TAO,  Function value: 2.86621e-16,  Residual: 1.54482e-08
+ 28 TAO,  Function value: 1.87938e-17,  Residual: 7.31909e-09
+Tao Object: 1 MPI processes
+  type: blmvm
+  Gradient steps: 0
+  Mat Object: (tao_blmvm_) 1 MPI processes
+    type: lmvmbfgs
+    rows=8192, cols=8192
+      Scale type: diagonal
+      Scale history: 1
+      Scale params: alpha=1., beta=0.5, rho=1.
+      Convex factors: phi=0., theta=0.125
+      Max. storage: 5
+      Used storage: 5
+      Number of updates: 27
+      Number of rejects: 0
+      Number of resets: 1
+  TaoLineSearch Object: 1 MPI processes
+    type: more-thuente
+    maximum function evaluations=30
+    tolerances: ftol=0.0001, rtol=1e-10, gtol=0.9
+    total number of function evaluations=0
+    total number of gradient evaluations=0
+    total number of function/gradient evaluations=1
+    using variable bounds
+    Termination reason: 1
+  Active Set subset type: subvec
+  convergence tolerances: gatol=1e-08,   steptol=0.,   gttol=0.
+  Residual in Function/Gradient:=7.31909e-09
+  Objective value=1.87938e-17
+  total number of iterations=28,                          (max: 2000)
+  total number of function/gradient evaluations=29,      (max: 4000)
+  Solution converged:    ||g(X)|| <= gatol
+```
+* `-tao_draw_solution` can visualize the solution at each optimization iteration
+
+#### Questions
+{% include qanda
+    question='Examine the source code and find the user-provided functions for TAO, TS, and TSAdjoint respectively.'
+    answer='Essential functions we have provided are FormFunctionGradient for TAO, TSIFunction and TSIJacobian for TS,  RHSJacobianP for TSAdjoint. Because of the integral in the objective function, extra functions including CostIntegrand, DRDYFunction and DRDPFunction are given to TSAdjoint.' %}
+
+### Run 4: Implicit time integration method
 Now we switch to an implicit method ([Crank-Nicolson](https://en.wikipedia.org/wiki/Crank–Nicolson_method)) using fixed stepsize, which is the default setting in the code. At each time step, a nonlinear system is solved by the PETSc nonlinear solver `SNES`.
 ```
-mpiexec -n 12 ./ex5opt_ic -da_grid_x 1024 -da_grid_y 1024 -ts_max_steps 10 -snes_monitor -log_view -ts_monitor
+mpiexec -n 12 ./ex5opt_ic -implicit-form -da_grid_x 64 -da_grid_y 64 -ts_max_steps 5 -log_view -tao_monitor
 ```
-* `-snes_monitor` shows the progress of `SNES`
+* `-snes_monitor` can show the progress of `SNES`
+* `-ts_monitor` can show the progress of `TS`
 * `-log_view` prints a summary of the logging
 
 A snippet of the summary:
@@ -268,9 +213,9 @@ Event                Count      Time (sec)     Flop                             
 
 --- Event Stage 0: Main Stage
 
-VecDot                20 1.0 2.7505e-02 1.7 7.00e+06 1.0 0.0e+00 0.0e+00 2.0e+01  0  0  0  0  2   0  0  0  0  2  3050
-VecMDot              321 1.0 2.6292e+00 1.4 6.62e+08 1.0 0.0e+00 0.0e+00 3.2e+02 25 15  0  0 34  25 15  0  0 34  3017
-VecNorm              401 1.0 7.1590e-01 1.9 1.40e+08 1.0 0.0e+00 0.0e+00 4.0e+02  7  3  0  0 42   7  3  0  0 42  2349
+VecDot              1130 1.0 3.9795e-01 1.4 1.59e+06 1.0 0.0e+00 0.0e+00 1.1e+03  4  1  0  0  8   4  1  0  0  8    46
+VecMDot             1919 1.0 5.9272e-01 2.0 5.40e+06 1.0 0.0e+00 0.0e+00 1.9e+03  5  4  0  0 14   5  4  0  0 14   106
+VecNorm             3678 1.0 8.1644e-01 1.3 5.18e+06 1.0 0.0e+00 0.0e+00 3.7e+03  9  4  0  0 27   9  4  0  0 27    74
 ...
 ```
 
@@ -282,6 +227,18 @@ VecNorm              401 1.0 7.1590e-01 1.9 1.40e+08 1.0 0.0e+00 0.0e+00 4.0e+02
 {% include qanda
     question='How can we improve performance?'
     answer='1. Use memory instead of disk for checkpointing(`-ts_trajectory_type memory -ts_trajectory_solution_only 0`); 2. Tune the time stepping solver, nonlinear solver, linear solver, preconditioner and so forth.' %}
+
+### Run 5: Scale up the problem
+We use explicit Runge-Kutta methods for time integration, and increase the grid resolution to $512\times 512$.
+```
+mpirun -n 12 ./ex5opt_ic -ts_type rk -ts_adapt_type none -ts_max_steps 5 -tao_monitor -da_grid_x 512 -da_grid_y 512
+```
+
+#### Questions
+{% include qanda
+    question='Does the optimization converge? If not, can you fix it?'
+    answer='No. The PDE solution blows up. As we decrease the grid spacing, the stepsize should be reduced according to CFL condition. For example, adding -ts_dt 0.1 should work.' %}
+
 
 ### Further information
 Because this example uses `DMDA`, Jacobian can be efficiently approxiated using finite difference with coloring. You can use the option `-snes_fd_color` to enable this feature.
