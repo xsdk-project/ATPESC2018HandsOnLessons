@@ -55,50 +55,20 @@ to solve very ill-conditioned linear systems.
 
 ```
 $ ./convdiff
-
 Options used:
    --refine 0
    --order 1
    --velocity 100
    --no-visit
    --no-superlu
-   --slu-colperm 0
+   --slu-colperm 4
+   --slu-rowperm 1
+   --slu-parsymbfact 0
+   --one-matrix
+   --one-rhs
 Number of unknowns: 10201
-=============================================
-Setup phase times:
-=============================================
-GMRES Setup:
-  wall clock time = 0.010000 seconds
-  wall MFLOPS     = 0.000000
-  cpu clock time  = 0.010000 seconds
-  cpu MFLOPS      = 0.000000
-
-L2 norm of b: 9.500000e-04
-Initial L2 norm of residual: 9.500000e-04
-=============================================
-
-Iters     resid.norm     conv.rate  rel.res.norm
------    ------------    ---------- ------------
-    1    4.065439e-04    0.427941   4.279409e-01
-    2    1.318995e-04    0.324441   1.388415e-01
-    3    4.823031e-05    0.365660   5.076874e-02
-    ...
-   23    2.436775e-16    0.249025   2.565027e-13
-
-Final L2 norm of residual: 2.436857e-16
-
-=============================================
-Solve phase times:
-=============================================
-GMRES Solve:
-  wall clock time = 0.030000 seconds
-  wall MFLOPS     = 0.000000
-  cpu clock time  = 0.020000 seconds
-  cpu MFLOPS      = 0.000000
-
-GMRES Iterations = 23
-Final GMRES Relative Residual Norm = 2.56511e-13
-Time required for solver:  0.0362886 (s)
+Time required for first solve:  0.0477607 (s)
+Final L2 norm of residual: 2.43686e-16
 ```
 
 |Steady State|
@@ -111,36 +81,25 @@ Time required for solver:  0.0362886 (s)
 
 ```
 $ ./convdiff --velocity 1000
-
 Options used:
    --refine 0
    --order 1
    --velocity 1000
    --no-visit
    --no-superlu
-   --slu-colperm 0
+   --slu-colperm 4
+   --slu-rowperm 1
+   --slu-parsymbfact 0
+   --one-matrix
+   --one-rhs
 Number of unknowns: 10201
-=============================================
-Setup phase times:
-=============================================
-GMRES Setup:
-  wall clock time = 0.020000 seconds
-  wall MFLOPS     = 0.000000
-  cpu clock time  = 0.010000 seconds
-  cpu MFLOPS      = 0.000000
-
-L2 norm of b: 9.500000e-04
-Initial L2 norm of residual: 9.500000e-04
-=============================================
-
-Iters     resid.norm     conv.rate  rel.res.norm
------    ------------    ---------- ------------
-    1    9.500000e-04    1.000000   1.000000e+00
-    2    9.500000e-04    1.000000   1.000000e+00
-    3    9.500000e-04    1.000000   1.000000e+00
-    ...
-  200    9.500000e-04    1.000000   1.000000e+00
+Time required for first solve:  0.564898 (s)
+Final L2 norm of residual: 0.00095
 ```
+
+{% include qanda
+   question='How many orders of magnitude different is L2 norm of the residual as compared to the previous run?'
+   answer='Between 12 and 13' %}
 
 Below, we plot behavior of the GMRES method for velocity values in the
 range [100,1000] at incriments, _dv_, of 25 and also show an animation
@@ -154,8 +113,8 @@ of the solution GMRES gives as velocity increases
 |:---:||:---:|
 |[<img src="gmres_time.png" width="400">](gmres_time.png)|[<img src="gmres_residual.png" width="400">](gmres_residual.png)|
 
-{% include
-   qanda question='What do you think happened?'
+{% include qanda
+   question='What do you think happened?'
    answer='GMRES method works ok for low velocity values.
            As velocity increases, GMRES method eventually crosses a
            threshold where it can no longer provide a useful result' %}
@@ -171,8 +130,7 @@ of the solution GMRES gives as velocity increases
 
 ### Run 3: Now use SuperLU_DIST, with default options
 ```
-$ ./convdiff -slu --velocity 1000
-
+$ ./convdiff --velocity 1000 -slu -cp 0
 Options used:
    --refine 0
    --order 1
@@ -180,16 +138,13 @@ Options used:
    --no-visit
    --superlu
    --slu-colperm 0
+   --slu-rowperm 1
+   --slu-parsymbfact 0
+   --one-matrix
+   --one-rhs
 Number of unknowns: 10201
-
-** Memory Usage **********************************
-** NUMfact space (MB): (sum-of-all-processes)
-    L\U :           41.12 |  Total :    50.72
-** Total highmark (MB):
-    Sum-of-all :    62.27 | Avg :    62.27  | Max :    62.27
-**************************************************
-Time required for solver:  38.2684 (s)
-Final L2 norm of residual: 1.55553e-18
+Time required for first solve:  19.82 (s)
+Final L2 norm of residual: 1.62703e-18
 ```
 
 |Stead State For _vel=1000_|
@@ -198,8 +153,7 @@ Final L2 norm of residual: 1.55553e-18
 
 ### Run 4: Now use SuperLU_DIST, with MMD(A'+A) ordering.
 ```
-$ ./convdiff -slu --velocity 1000 --slu-colperm 2
-
+./convdiff --velocity 1000 -slu -cp 2
 Options used:
    --refine 0
    --order 1
@@ -207,20 +161,13 @@ Options used:
    --no-visit
    --superlu
    --slu-colperm 2
+   --slu-rowperm 1
+   --slu-parsymbfact 0
+   --one-matrix
+   --one-rhs
 Number of unknowns: 10201
-       Nonzeros in L       594238
-       Nonzeros in U       580425
-       nonzeros in L+U     1164462
-       nonzeros in LSUB    203857
-
-** Memory Usage **********************************
-** NUMfact space (MB): (sum-of-all-processes)
-    L\U :           10.07 |  Total :    16.19
-** Total highmark (MB):
-    Sum-of-all :    16.19 | Avg :    16.19  | Max :    16.19
-**************************************************
-Time required for solver:  0.780516 (s)
-Final L2 norm of residual: 1.52262e-18
+Time required for first solve:  0.100353 (s)
+Final L2 norm of residual: 1.53726e-18
 ```
 NOTE: the number of nonzeros in L+U is much smaller than natural ordering.
 This affects the memory usage and runtime.
