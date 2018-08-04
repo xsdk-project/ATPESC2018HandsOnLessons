@@ -24,3 +24,5 @@ sass:
 
 # Disable when not in production
 google_analytics_tracking_id: false
+
+handson_hide_qanda: false
