@@ -415,21 +415,15 @@ Let us solve the problem using structured multigrid solvers.
 We will now consider a two-dimensional problem with a rotated anisotropy on a rectangular domain.
 Let us begin with a grid-aligned anisotropy.
 ```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -gmres
+./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -gmres -k 100 -iout 3
 ```
 ```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -bicgstab
+./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -bicgstab -iout 3
 ```
 ```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -amgbicgstab
+./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -amg -iout 3
 ```
-```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -amggmres
-```
-```
-./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -amg
-```
-{% include qanda question='What do you observe? Which solvers fail? What is the order of the remaining solvers?' answer='GMRES and BiCGSTAB fails. The order from slowest to fastest is: AMG-BiCGSTAB, AMG-GMRES, AMG.' %}
+{% include qanda question='What do you observe?' answer='The residual norms for all solvers improve, but only AMG converges within less than 1000 iterations.' %}
 
 Now let us rotate the anisotropy by 45 degrees.
 ```
