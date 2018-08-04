@@ -235,7 +235,7 @@ VecNorm             3678 1.0 8.1644e-01 1.3 5.18e+06 1.0 0.0e+00 0.0e+00 3.7e+03
 ### Run 5: Scale up the problem
 We use explicit Runge-Kutta methods for time integration, and increase the grid resolution to $512\times 512$.
 ```
-mpirun -n 12 ./ex5opt_ic -ts_type rk -ts_adapt_type none -ts_max_steps 5 -tao_monitor -da_grid_x 512 -da_grid_y 512
+mpiexec -n 12 ./ex5opt_ic -ts_type rk -ts_adapt_type none -ts_max_steps 5 -tao_monitor -da_grid_x 512 -da_grid_y 512
 ```
 
 #### Questions
