@@ -25,9 +25,12 @@ COMPLETED
     * chat options: Use google docs feature?
 
 TODO
-    * do we keep blog? (maybe as lessons)
-    * faq / comments / questions?
-    * instructions
+    * setup instructions
+    * add show-your-work links to all lessons
+    * sherry's lesson
+    * lesson links to all presenations (email)
+    * send email to students
+    * disable qanda and push to github
 
 Menu arrangement:
     Start: (rename to ATPESC2018 or Lessons)

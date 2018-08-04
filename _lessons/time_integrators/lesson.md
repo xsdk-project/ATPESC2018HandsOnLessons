@@ -215,11 +215,11 @@ then again
 PETSC_OPTIONS="-ts_adapt_monitor no -ts_type arkimex -ts_monitor :/dev/null -log_view " mpiexec -n 4 ./elasticity-snes -rs 2
 ```
 
-Try other combinations of levels of refinement and number of processes.
+Try other combinations of levels of refinement and number of processes. Produce a small
+_scaling_ plot showing scaling of algorithms from say 1..32 mpi ranks.
 
-
-
-
+When you are done, go to `Intro->Submit A Show Your Work` using the hands-on activity
+name _Time Integrators Scalability_ and upload evidence of your completed solution.
 
 ### Further Reading
 
