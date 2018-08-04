@@ -161,7 +161,7 @@ PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_type arkimex -ts_dt .1 -log_vie
 
 ## The problem being solved
 
-The example application here, elasticity-snes.cpp[4] uses MFEM and the ODE solvers from PETSc to solve a time-dependent nonlinear elasticity problem.
+The example application here, [elasticity-snes.cpp][4] uses MFEM and the ODE solvers from PETSc to solve a time-dependent nonlinear elasticity problem.
 
 ![Quad Beam ::](elasticity.gif)
 
