@@ -18,7 +18,7 @@ header:
 **Note:** To begin this lesson...
 
 ```
-cd {{site.handson_root}}/mfem/examples/atpesc/petsc
+cd {{site.handson_root}}/time_integrators
 ```
 
 ## The problem being solved
@@ -153,7 +153,7 @@ PETSC_OPTIONS="-ts_view -ts_adapt_monitor no  -ts_type arkimex  -ts_dt .1 -log_v
 
 ### Run 7: View a summary of the operations for Implicit, Adaptive $$\Delta t$$, Tolerances 1e-4, 4th Order
 
-The -log_view option 
+The `-log_view` option
 
 ```
 PETSC_OPTIONS="-ts_view -ts_adapt_monitor no -ts_type arkimex -ts_dt .1 -log_view " ./advection-ode -implicit
@@ -202,13 +202,7 @@ of extremely high spatial resolution if so desired.
 
 ## Evening Hands On Session
 
-Run the two examples with a different number of levels of refinement using
-
-```
--rs n
-```
-
-and the -log_view option introduced above to explore the scalability of the algorithms. For example
+Run the two examples with a different number of levels of refinement using `-rs n` and the `-log_view` option introduced above to explore the scalability of the algorithms. For example
 
 ```
 PETSC_OPTIONS="-ts_adapt_monitor no -ts_type arkimex -ts_monitor :/dev/null -log_view " ./elasticity-snes -rs 2

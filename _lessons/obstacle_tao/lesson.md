@@ -20,7 +20,7 @@ header:
 
 **Note:** To run the application in this lesson
 ```
-cd {{site.handson_root}}/petsc/examples/obstacle
+cd {{site.handson_root}}/obstacle_tao
 make obstacle
 ./obstacle -tao_monitor -tao_view
 ```
@@ -111,29 +111,6 @@ ierr = TaoSolve(tao);CHKERRQ(ierr);
 ```
 
 Note that these operations must be preceded by `PetscInitialize()` and `PetscFinalize()` must be called after the solution is computed and all PETSc objects are destroyed.
-
-## Compiling and Running
-
-The problem file can be compiled using the [makefile]({{ site.baseurl }}{% link _lessons/obstacle_tao/makefile %}). You need to ensure that the MFEM variables point to the correct directories
-
-```
-MFEM_DIR = /projects/ATPESC2018/FASTMath/spark/mfem
-MFEM_BUILD_DIR = /projects/ATPESC2018/FASTMath/spark/mfem
-```
-
-and both `PETSC_ARCH` and `PETSC_DIR` are set correctly in your shell environment. Additionally, the mesh file location
-
-```
-const char *mesh_file = "/projects/ATPESC2018/FASTMath/spark/mfem/data/star.mesh";
-```
-
-in `obstacle.cpp` must be set to the correct MFEM data folder. The mesh file path can also be determined with the option flag `--mesh` when running the problem.
-
-Finally, you can run the compiled executable via command
-
-```
-./obstacle -tao_monitor -tao_view -tao_type bqnls
-```
 
 ## Results
 

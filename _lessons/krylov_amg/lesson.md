@@ -363,30 +363,123 @@ mpiexec -n 8 ./struct -n 50 50 50 -pfmgpcg -P 2 2 2 -rap 1
 {% include qanda question='How does the number of iterations and the time change?' answer='The number of iterations remains 14, but the total time is less (0.21)'  %}
 
 
-### Second Set of Runs (Algebraic Multigrid)
+### Evening exercises
 
+We now consider the diffusion-convection equation
 
 $$-\Delta u + a \nabla \cdot u = f$$
 
+on a cuboid with Dirichlet boundary conditions.
+
 The diffusion part is discretized using central finite differences, and upwind finite differences are used for the advection term.
-
-We will mostly focus on the case where $$a = 0$$, i.e. the Poisson equation, which leads to a symmetric positive definite system, but we will also consider the case $$a > 0$$, which generates a nonsymmetric linear system. 
-
-**Note:** To begin this lesson...
-
-
+For $$a = 0$$ we just get the Poisson equation, but when $$a > 0$$ we get a nonsymmetric linear system. 
 
 Now let us apply Krylov solvers to the convection-diffusion equation with $$a=10$$, starting with conjugate gradient.
 
 ```
-./ij -n 30 30 30 -difconv -a 10 -pcg
+./ij -n 50 50 50 -difconv -a 10 -pcg
 ```
 {% include qanda question='What do you observe? Why?' answer='PCG fails, because the linear system is nonsymmetric.' %}
 
-Now try -gmres and -bicgstab.
-{% include qanda question='What do you observe?' answer='Both BiCGSTAB and GMRES solve the problem.' %}
+Now try GMRES(20), BiCGSTAB, and AMG with and without aggressive coarsening.
+```
+./ij -n 50 50 50 -difconv -a 10 -gmres -k 20
+```
+```
+./ij -n 50 50 50 -difconv -a 10 -bicgstab
+```
+```
+./ij -n 50 50 50 -difconv -a 10 -amg
+```
+```
+./ij -n 50 50 50 -difconv -a 10 -amg -agg_nl 1
+```
+{% include qanda question='What do you observe? Order the solvers in the order of slowest to fastest solver for this problem!' answer='BiCGSTAB, GMRES and AMG with or without aggressive coarsening solve the problem. The order slowest to fastest for this problem is: GMRES(20), AMG, BiCGSTAB, AMG with aggressive coarsening.' %}
 
-Let us investigate what happens for larger linear systems. We will do so using weak scaling, i.e. increasing the number of processes and with it the problem size for the Poisson equation using the Krylov method that does so in the least amount of time.
+Let us solve the problem using structured multigrid solvers.
+```
+./struct -n 50 50 50 -a 10 -pfmg 
+```
+```
+./struct -n 50 50 50 -a 10 -pfmg -rap 1
+```
+```
+./struct -n 50 50 50 -a 10 -pfmggmres
+```
+```
+./struct -n 50 50 50 -a 10 -pfmggmres -rap 1
+```
+
+{% include qanda question='What do you observe? Which solver fails? What is the order of the remaining solvers?' answer='The non-Galerkin version of PFMG as alone solver fails. The order from slowest to fastest is: PFMG-GMRES, non_galerkin PFMG-GMRES, PFMG.' %}
+
+We will now consider a two-dimensional problem with a rotated anisotropy on a rectangular domain.
+Let us begin with a grid-aligned anisotropy.
+```
+./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -gmres
+```
+```
+./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -bicgstab
+```
+```
+./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -amgbicgstab
+```
+```
+./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -amggmres
+```
+```
+./ij -rotate -n 300 300 -eps 0.01 -alpha 0 -amg
+```
+{% include qanda question='What do you observe? Which solvers fail? What is the order of the remaining solvers?' answer='GMRES and BiCGSTAB fails. The order from slowest to fastest is: AMG-BiCGSTAB, AMG-GMRES, AMG.' %}
+
+Now let us rotate the anisotropy by 45 degrees.
+```
+./ij -rotate -n 300 300 -eps 0.01 -alpha 45 -amgbicgstab
+```
+```
+./ij -rotate -n 300 300 -eps 0.01 -alpha 45 -amggmres
+```
+```
+./ij -rotate -n 300 300 -eps 0.01 -alpha 45 -amg
+```
+
+{% include qanda question='Does the result change? What is the order of the solvers?' answer='The order from slowest to fastest is: AMG, AMG-GMRES, AMG-BiCGSTAB.' %}
+
+Let us now scale up the problem.
+```
+mpiexec -n 2 ./ij -P 2 1 -rotate -n 300 300 -eps 0.01 -alpha 45 -amggmres
+```
+```
+mpiexec -n 4 ./ij -P 2 2 -rotate -n 300 300 -eps 0.01 -alpha 45 -amggmres
+```
+```
+mpiexec -n 8 ./ij -P 4 2 -rotate -n 300 300 -eps 0.01 -alpha 45 -amggmres
+```
+
+{% include qanda question='How do the numbers of iterations change?' answer='They increase to 10 when running more than 1 process, but stay 10 all three parallel runs.' %}
+
+Let us now rotate the anisotropy by 30 degrees.
+```
+mpiexec -n 8 ./ij -P 4 2 -rotate -n 300 300 -eps 0.01 -alpha 45 -amggmres
+```
+{% include qanda question='Is the convergence affected by the change in angle?' answer='This problem is harder. The number of iterations increases to 15.' %}
+
+Let us now coarsen more aggressively.
+```
+mpiexec -n 8 ./ij -P 4 2 -rotate -n 300 300 -eps 0.01 -alpha 45 -amggmres -agg_nl 1
+```
+{% include qanda question='Does this improve convergence and time?' answer='No. Both get worse. The number of iterations increases to 34 and the time goes up.' %}
+
+Let us investigate the operator complexities:
+```
+mpiexec -n 8 ./ij -P 4 2 -rotate -n 300 300 -eps 0.01 -alpha 45 -amggmres -iout 1
+```
+```
+mpiexec -n 8 ./ij -P 4 2 -rotate -n 300 300 -eps 0.01 -alpha 45 -amggmres -agg_nl 1 -iout 1
+```
+
+{% include qanda question='What are the operator complexities and how large is the largest average number of nonzeroes per row (row avg) for both cases?' answer='The operator complexities are 3.2 and 1.3. The largest average number of nonzeroes per row are 36.3 and 27.5.' %}
+
+Often using aggressive coarsening is not recommended for two-dimensional problems, which generally have less growth in the number of nonzeroes per row than three-dimensional problems.
 
 ## Out-Brief
 

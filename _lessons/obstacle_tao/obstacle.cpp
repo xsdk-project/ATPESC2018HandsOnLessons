@@ -132,7 +132,7 @@ PetscErrorCode StiffMult(Mat A, Vec X, Vec Y)
 int main(int argc, char *argv[])
 {
    // 1. Parse command-line options.
-   const char *mesh_file = "/projects/ATPESC2018/FASTMath/spark/mfem/data/star.mesh";
+   const char *mesh_file = "star.mesh";
    int order = 1;
    bool static_cond = false;
    bool visualization = 1;
