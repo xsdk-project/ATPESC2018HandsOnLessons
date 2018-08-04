@@ -1,4 +1,5 @@
 - title: Intro
+  audience: "public"
   url: "/"
   side: left
   dropdown:
@@ -14,6 +15,7 @@
     url: "https://goo.gl/forms/B7UFpBvEOJbC58oJ2"
 
 - title: Lessons
+  audience: "public"
   url: "/lessons/"
   side: left
   dropdown:
@@ -33,6 +35,7 @@
     url: "/lessons/obstacle_tao"
 
 - title: Packages
+  audience: "public"
   url: "https://fastmath-scidac.org/software-catalog.html"
   side: left
   dropdown:
@@ -47,13 +50,9 @@
   - title: "SuperLU"
     url: "https://github.com/xiaoyeli/superlu_dist"
   - title: "Tao"
-    url: "http://www.mcs.anl.gov/research/projects/tao/tao-deprecated/index.html"
-  - title: "SUNDIALS"
-    url: "https://computation.llnl.gov/projects/sundials"
-  - title: "AMReX"
-    url: "https://amrex-codes.github.io"
 
 - title: Contributing
+  audience: "private"
   url: "/contributing_guide/"
   side: left
   dropdown:
@@ -69,9 +68,11 @@
     url: "/documentation/"
 
 - title: "Search"
+  audience: "public"
   url: "/search/"
   side: right
 
 - title: "Contact"
+  audience: "public"
   url: "/contact/"
   side: right
