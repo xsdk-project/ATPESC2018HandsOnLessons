@@ -36,18 +36,6 @@ directory.
 
 ## To begin this lesson
 
-- Ensure that your environment is only using the `@default` packages by running the following commands:
-```
-cp ~/.soft ~/.soft_bk
-echo '@default' > ~/.soft
-resoft
-mv ~/.soft_bk ~/.soft
-```
-
-- Add mvapich2 to your environment
-```
-soft add +mvapich2-2.3rc1
-```
 
 - Copy the example directory to your home directory
 ```
@@ -59,6 +47,10 @@ rsync -aP {{site.handson_install_root}}/mfem-pumi-lesson ~/.
 cd ~/mfem-pumi-lesson
 ```
 
+- Setup your environment (ensures that your environment is using the `@default` + `+mvapich2-2.3rc1` dotkit pacakges)
+```
+source setup.sh
+```
 
 ## Geometric Model Defeaturing
 
