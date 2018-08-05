@@ -1,11 +1,4 @@
-#include <sys/stat.h>
-#include <unistd.h>
-
-#include <cassert>
-#include <cstring>
-#include <sstream>
-
-#include "Double.h"
+#include "heat.H"
 
 static char clargs[2048];
 

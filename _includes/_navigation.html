@@ -26,6 +26,9 @@
 {% endcomment %}
       <ul class="right">
         {% for link in site.data.navigation %}
+              {% unless site.audience contains link.audience %}
+                  {% continue %}
+              {% endunless %}
 
               {% if link.url contains 'http' %}
                 {% assign domain = '' %}
@@ -85,6 +88,9 @@
 {% endcomment %}
       <ul class="left">
         {% for link in site.data.navigation %}
+              {% unless site.audience contains link.audience %}
+                  {% continue %}
+              {% endunless %}
 
               {% if link.url contains 'http' %}
                 {% assign domain = '' %}

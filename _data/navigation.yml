@@ -1,4 +1,5 @@
 - title: Intro
+  audience: "public"
   url: "/"
   side: left
   dropdown:
@@ -8,12 +9,13 @@
     url: "/setup_instructions/"
   - title: "Open Chat"
     url: "https://docs.google.com/document/d/1mLi4wybFnN1VIVSx0KH9SVBSygsgEOhIRilUbklcb6Q/edit?usp=sharing"
-  - title: "Speed Dating Signup Form"
-    url: "https://goo.gl/forms/XtWnVmUPOGBpVNEd2"
+  - title: "One-on-One Signup Form"
+    url: "https://goo.gl/forms/KGzU8lr9WqvEBoL92"
   - title: "Submit a Show Your Work"
     url: "https://goo.gl/forms/B7UFpBvEOJbC58oJ2"
 
 - title: Lessons
+  audience: "public"
   url: "/lessons/"
   side: left
   dropdown:
@@ -33,6 +35,7 @@
     url: "/lessons/obstacle_tao"
 
 - title: Packages
+  audience: "public"
   url: "https://fastmath-scidac.org/software-catalog.html"
   side: left
   dropdown:
@@ -47,13 +50,9 @@
   - title: "SuperLU"
     url: "https://github.com/xiaoyeli/superlu_dist"
   - title: "Tao"
-    url: "http://www.mcs.anl.gov/research/projects/tao/tao-deprecated/index.html"
-  - title: "SUNDIALS"
-    url: "https://computation.llnl.gov/projects/sundials"
-  - title: "AMReX"
-    url: "https://amrex-codes.github.io"
 
 - title: Contributing
+  audience: "private"
   url: "/contributing_guide/"
   side: left
   dropdown:
@@ -69,9 +68,11 @@
     url: "/documentation/"
 
 - title: "Search"
+  audience: "public"
   url: "/search/"
   side: right
 
 - title: "Contact"
+  audience: "public"
   url: "/contact/"
   side: right

@@ -39,7 +39,7 @@ The goal is to determine an optimal initial condition that can minimizes the dif
 We will use this example to illustrate the performance considerations for realistic large-scale applications. In particular, we will show how to play with checkpointing and how to profile/tune the performance.
 
 ### Compile the code
-The example [ex5opt_ic.c](https://bitbucket.org/petsc/petsc/src/master/src/ts/examples/tutorials/advection-diffusion-reaction/ex5opt_ic.c) can be compiled wit
+The example [ex5opt_ic.c](https://bitbucket.org/petsc/petsc/src/master/src/ts/examples/tutorials/advection-diffusion-reaction/ex5opt_ic.c) can be compiled with
 
 ```
 make ex5opt_ic
@@ -246,7 +246,7 @@ VecNorm             3678 1.0 8.1644e-01 1.3 5.18e+06 1.0 0.0e+00 0.0e+00 3.7e+03
 ### Run 5: Scale up the problem
 We use explicit Runge-Kutta methods for time integration, and increase the grid resolution to $512\times 512$.
 ```
-mpirun -n 12 ./ex5opt_ic -ts_type rk -ts_rk_type 3 -ts_adapt_type none -ts_max_steps 5 -tao_monitor -da_grid_x 512 -da_grid_y 512
+mpiexec -n 12 ./ex5opt_ic -ts_type rk -ts_rk_type 3 -ts_adapt_type none -ts_max_steps 5 -tao_monitor -da_grid_x 512 -da_grid_y 512
 ```
 
 #### Questions

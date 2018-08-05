@@ -1,4 +1,4 @@
-#include "Double.h"
+#include "heat.H"
 
 bool
 update_solution_upwind15(int n, Double *curr, Double const *last,

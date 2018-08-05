@@ -1,5 +1,4 @@
-#include "Double.h"
-#include <cassert>
+#include "heat.H"
 
 // Licensing: This code is distributed under the GNU LGPL license. 
 // Modified: 30 May 2009 Author: John Burkardt
