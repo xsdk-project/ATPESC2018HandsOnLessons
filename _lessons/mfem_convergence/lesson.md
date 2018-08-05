@@ -196,7 +196,7 @@ Usage: ./convergence [options] ...
 Options:
    -h, --help
 	Print this help message and exit.
-   -m <string>, --mesh <string>, current value: ../../../data/star.mesh
+   -m <string>, --mesh <string>, current value: star.mesh
 	Mesh file to use.
    -o <int>, --order <int>, current value: 1
 	Finite element order (polynomial degree).
@@ -218,7 +218,7 @@ first order (linear) basis functions. We use the `star.mesh` 2D mesh file.
 ```
 ./convergence -r 7
 Options used:
-   --mesh ../../../data/star.mesh
+   --mesh star.mesh
    --order 1
    --no-static-condensation
    --refinements 7
@@ -245,7 +245,7 @@ Now consider the same run, only we are using 3rd order (cubic) basis functions i
 ```
 ./convergence -r 7 -o 3
 Options used:
-   --mesh ../../../data/star.mesh
+   --mesh star.mesh
    --order 3
    --no-static-condensation
    --refinements 7
@@ -281,9 +281,9 @@ approximate it better.
 The previous two runs used a 2D mesh in serial, but the same code can be used to run a 3D problem in parallel.
 
 ```
-mpiexec -n 4 ./convergence -r 4 -o 2 -m ../../../data/inline-hex.mesh
+mpiexec -n 4 ./convergence -r 4 -o 2 -m inline-hex.mesh
 Options used:
-   --mesh ../../../data/inline-hex.mesh
+   --mesh inline-hex.mesh
    --order 2
    --no-static-condensation
    --refinements 4
