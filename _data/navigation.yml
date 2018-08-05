@@ -33,6 +33,8 @@
     url: "/lessons/adjoint/"
   - title: "Numerical Optimization"
     url: "/lessons/obstacle_tao"
+  - title: "MFEM+PUMI Adaptive Workflow"
+    url: "/lessons/pumi/"
 
 - title: Packages
   audience: "public"
