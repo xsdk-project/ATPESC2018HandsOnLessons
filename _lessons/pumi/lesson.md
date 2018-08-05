@@ -279,8 +279,7 @@ two mesh elements).
     answer='All of the above.'
 %}
 
-[<img src="figs/pmetis-rcb-rib.
-png" width="400">](figs/pmetis-rcb-rib.png)
+[<img src="figs/pmetis-rcb-rib.png" width="400">](figs/pmetis-rcb-rib.png)
 
 *Figure 8. Partitions created with multi-level graph (left), RCB (middle), and RIB (right)*
 
