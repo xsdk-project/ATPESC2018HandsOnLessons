@@ -62,71 +62,7 @@ The command blocks until the node is ready.  Until the allocation expires (480mi
   * **Note 3:** Be aware, however, that starting new jobs on the reserved node too close to the allocation's expiration
     may result in the allocation going away before your job completes.
 
-## Visualization Tools
+## Visualization Tool Setup
 
-There are three options
+To be completed
 
-
-
-**Note**: Client-Server is Best Option
-
-#### Installing and Setting up VisIt for Client-Server to Cooley
-
-#### Installing and Setting up ParaView for Client-Server to Cooley
-
-**Can Cameron write this section?**
-
-
-### Running Remotely via X-Windows
-
-**Note**: Requires X-Server with indirect GLX enabled.
-
-### VisIt
-
-#### Client-Server vs. All Local
-
-**Note**: add `@visit` to `~/.soft.cooley` and run `resoft` on Cooley login node
-
-### ParaView
-
-### GlVis
-
-## Transferring Data
-
-### Secure Shell Control Master
-
-### Secure File Transfer Protocol (sftp)
-
-
-
-
-currently, just notes to self
-
-* confirm cooley login
-* confirm display via x back to laptop
-* confirm editor(s) available (vi, nano, ...)
-* confirm run apps in /projects/ATPESC2018
-* confirm run VisIt
-  * install instructs for local VisIt
-* confirm run ParaView
-  * install instructs for local ParaView (don't know this)
-* confirm run glvis
-* confirm run gnuplot
-* windows, osx and linux specific setup
-* vnc setup and/or script?
-* run a script (we still need to write) to set paths, etc.
-* instructions on reserving a node (w/ Cobalt) If request interactive, get it immediately
-
-* As a back up, confirm all above on NERSC/Cori
-  * perhaps this is too much to ask?
-
-ALCF Rerservation Info
-
-#### Reservation: ATPESC2018_0806_1
-
-* Queue       : training
-* User        : None
-* Start       : Mon Aug 06 09:00:00 2018 -0500 (CDT)
-* Duration    : 12:00
-* End Time    : Mon Aug 06 21:00:00 2018 -0500 (CDT)
-* Partitions  : [cc038-039],[cc043-125]

@@ -64,10 +64,15 @@ code review, which [research has shown](http://www.sciencedirect.com/science/art
 results in higher productivity. Finally, if you are not using an OSX or Linux laptop, it would
 be best to try to pair with someone who is.
 
+#### Chat Option
+We will set up a Google Hangouts Chat starting the morning of the session. Expect to recieve
+an email invite with the subject _ATPESC2018 Numerical Packages Chat_. We will also include
+a link under the Intro menu. We ask that you please exercise discretion and use this chat only
+for interactions as they pertain to today’s material and exercises.
+
+
 #### Getting Help
-* Use your red post-it note (see above)
+* If during day-time hands-on exercises, please use your red post-it note (see above)
+* Feel free to flag any of us down throughout the day.
 * You may send email to
 [Mark Miller, miller86@llnl.gov, Satish Balay,balay@mcs.anl.gov and Cameron Smith, smithc11@rpi.edu](mailto:balay@mcs.anl.gov,smithc11@rpi.edu,miller86@llnl.gov?subject=ATPESC2018%20Tech%20Support)
-* We plan to provide a chat option, which you can also find under the Intro menu. We ask
-that you please exercise discretion and use this chat only for interactions as they pertain
-to today’s material and exercises.
