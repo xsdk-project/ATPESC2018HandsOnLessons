@@ -31,7 +31,7 @@ widget3:
 # To change colors see sass/_01_settings_colors.scss
 #
 callforaction:
-  url: https://bssw.io/pages/receive-our-email-digest 
+  url: https://xsdk.info/faq
   text: How can I get involved?
   style: alert
 permalink: /index.html

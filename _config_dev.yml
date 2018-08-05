@@ -26,5 +26,4 @@ sass:
 google_analytics_tracking_id: false
 
 handson_hide_qanda: false
-#audience: ['public', 'private']
-audience: ['public']
+audience: ['public', 'private']

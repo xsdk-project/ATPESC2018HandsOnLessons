@@ -41,7 +41,7 @@ qsub -I -n 1 -t 5 -A ATPESC2018
 cd HandsOnLessons/hypre
 touch ij.c
 make ij
-mpirun -np 4 ./ij
+mpiexec -n 4 ./ij
 echo $?
 exit
 ``` 
@@ -55,7 +55,7 @@ exit
 ```
 qsub -I -n 1 -t 480 -A ATPESC2018 -q training
 ```
-The command blocks until the node is ready.  Until the allocation expires (480mins in this example), all commands executed in the returned session will run on the allocated compute node; `mpirun` can be used directly instead of going through `qsub`.
+The command blocks until the node is ready.  Until the allocation expires (480mins in this example), all commands executed in the returned session will run on the allocated compute node; `mpiexec` can be used directly instead of going through `qsub`.
   * **Note 1:** The special `-q training` will not be functional until 9am, August 6th and will go away 9pm that same day.
   * **Note 2:** All the software here can also run on the login nodes of Cooley. However, we ask that you please
     **DO NOT** run jobs on the login nodes and instead run them on a reserved allocation.

@@ -370,7 +370,7 @@ input in the correct units. Take care!
 What are the minimium thicknesses of walls of Wood, Adobe and Common brick
 to prevent the pipes from freezing?
 
-### Compare FTCS, Crank-Nicholson and Upwind15 Algorithms
+### Compare FTCS, Crank-Nicholson and Upwind15 Algorithms (5 points)
 
 #### [Crank-Nicolson](https://en.wikipedia.org/wiki/Crank–Nicolson_method) Discretization
 
@@ -405,7 +405,10 @@ is used on each solution timestep to solve for the new temperatures.
 Run the same problems using each of these algorithms and observe total
 memory usage and operation counts (printed at the end).
 
-### Use The Application to Solve The Pipeline Problem (10 points)
+When you are done, go to `Intro->Submit A Show Your Work` using the hands-on
+activity name _Crank-Nicholson_ and upload evidence of your completed solution.
+
+### Use The Application to Solve The Pipeline Problem (5 points)
 
 ![Pipeline Problem::](pipeline.png){:width="500"}
 
@@ -422,7 +425,7 @@ diameter.
 When you are done, go to `Intro->Submit A Show Your Work` using the hands-on
 activity name _Pipeline_ and upload evidence of your completed solution.
 
-### Modify the Application to Support Two Materials (20 points)
+### Modify the Application to Support Two Materials (10 points)
 
 Using [other research](http://www.ams.org/journals/mcom/1960-14-072/S0025-5718-60-99228-0/S0025-5718-60-99228-0.pdf),
 modify the application to work for a composite wall composed of two materials.
