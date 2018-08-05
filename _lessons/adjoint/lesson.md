@@ -6,25 +6,18 @@ permalink: "lessons/adjoint/"
 use_math: true
 lesson: true
 header:
- image_fullwidth: "theta.png"
-layout: page-fullwidth
+ image_fullwidth: "rd.jpg"
 ---
 
 ## At a Glance
 <!-- (Expected # minutes to complete) %% temporarily omit -->
 
-```
-Questions                 |Objectives                     |Key Points
---------------------------|-------------------------------|-------------------------------------
-How can gradients be      |Know PETSc/TAO's capability for|Adjoint enables dynamic
-computed for simulations? |adjoint and optimization       |constrained optimization.
-                          |                               |
-How difficult is it to    |Understand ingredients needed  |Jacobian is imperative.
-use the adjoint method?   |for adjoint calculation        |
-                          |                               |
-                          |Understand the concern of      |Performance may depend on
-                          |checkpointing                  |checkpointing at large scale.
-```
+
+|Questions                 |Objectives                     |Key Points |
+|How can gradients be computed for simulations? | Know PETSc/TAO's capability for adjoint and optimization | Adjoint enables dynamic constrained optimization |
+|How difficult is it to use the adjoint method? | Understand ingredients needed  for adjoint calculation   | Jacobian is imperative |
+|                          |Understand the concern of checkpointing     |Performance may depend on checkpointing at large scale |
+
 
 **Note:** To begin this lesson...
 ```
