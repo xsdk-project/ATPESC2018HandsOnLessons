@@ -382,7 +382,7 @@ Run the adaptive simulation:
 
 ```
 cd ~/mfem-pumi-lesson/analysis
-mpirun -np 2 pumi_upright_ex2p -p upright_defeatured_geomsim.smd -bf upright.def -m 2p5k1g/
+mpirun -np 2 ./pumi_upright_ex2p -p upright_defeatured_geomsim.smd -bf upright.def -m 2p5kg1.smb
 ```
 
 [<img src="figs/uprightMesh/initial.png" width="400">](figs/uprightMesh/initial.png)
