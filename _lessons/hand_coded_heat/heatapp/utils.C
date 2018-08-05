@@ -1,13 +1,4 @@
-#if 0
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#endif
-
-#include <cassert>
-#include <cmath>
-
-#include "Double.h"
+#include "heat.H"
 
 extern int Nx;
 extern Double *exact;

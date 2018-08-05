@@ -1,6 +1,4 @@
-#include <cmath>
-
-#include "Double.h"
+#include "heat.H"
 
 void 
 compute_exact_solution(int n, Double *a, Double dx, char const *ic,
