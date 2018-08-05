@@ -8,8 +8,8 @@ layout: frontpage
 widget1:
   title: "Open</br>Source"
   url: 'https://fastmath-scidac.llnl.gov/software-catalog.html'
-  video: '<a href="#" data-reveal-id="videoModal1"><img src="images/FASTMath_logo2.png" width="302" height="182" alt=""/></a>'
-  text: '<ul><li>Numerically Rigorous.</li><li>Community Adopted.</li><li>Fully Supported.</li><li>Proven Results.</li></ul>'
+  video: '<a href="#" data-reveal-id="videoModal1"><img src="images/ecp_fastmath.png" width="302" height="182" alt=""/></a>'
+  text: '<a href="https://www.exascaleproject.org"<ul><li>Numerically Rigorous.</li><li>Community Adopted.</li><li>Fully Supported.</li><li>Proven Results.</li></ul></a>'
 widget2:
   title: "Ease of Use</br>&nbsp;"
   url: 'https://xsdk.info'
@@ -19,7 +19,7 @@ widget3:
   title: "Enhanced</br>Productivity"
   url: 'https://bssw.io'
   text: '<a href="https://ideas-productivity.org"><ul><li>Development Resources.</li><li>Shared Know-How.</li><li>Common Tools.</li><li>Training.</li></ul></a>'
-  video: '<a href="#" data-reveal-id="videoModal3"><img src="images/bssw_wide_trans.png" width="302" height="182" alt=""/></a>'
+  video: '<a href="#" data-reveal-id="videoModal3"><img src="images/ideas_bssw.png" width="302" height="182" alt=""/></a>'
 #
 # Use the call for action to show a button on the frontpage
 #

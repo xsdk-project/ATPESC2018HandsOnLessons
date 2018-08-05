@@ -8,7 +8,7 @@ use_math: true
 lesson: true
 answers_google_form: "https://docs.google.com/forms/d/e/1FAIpQLSdoyXOL4UCe4_p0SheNidqY_ErKcrRS2qqqomIHQMZi5eVM2g/viewform?usp=sf_link"
 header:
- image_fullwidth: "xsdk_logo_wide.png"
+ image_fullwidth: "Differential-Equations-e1509686869201.png"
 ---
 
 ## At a Glance
