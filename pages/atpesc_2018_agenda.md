@@ -23,7 +23,7 @@ permalink: "/atpesc_2018_agenda/"
 |3:00pm|30|Break||
 |3:30pm|45|Direct Linear Solvers|[Xiaoye Li][14] ([LBNL][15])<br>[+ Hands-on examples with][24] [SuperLU][16]|
 |4:15pm|45|Numerical Optimization|[Todd Munson][17] &<br>[Hong Zhang][18] ([ANL][12])<br>[+ Hands-on examples with][25] [TAO][19]|
-|5:00pm|30|Putting It All Together|[Mark Shephard][7] &<br>[Cameron Smith][26] ([RPI][8])|
+|5:00pm|30|Putting It All Together:<br>One Perspective|[Mark Shephard][7] &<br>[Cameron Smith][26] ([RPI][8])|
 |5:30pm|60|Dinner + Panel: Extreme-Scale Algorithms & Software|Moderator [Mark Miller][20] ([LLNL][2])|
 |6:30pm|180|Evening Hands-on + Other Activities|All|
 |9:30pm|Adjourn||

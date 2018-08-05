@@ -370,6 +370,9 @@ input in the correct units. Take care!
 What are the minimium thicknesses of walls of Wood, Adobe and Common brick
 to prevent the pipes from freezing?
 
+When you are done, go to `Intro->Submit A Show Your Work` using the hands-on
+activity name _Optimized Walls_ and upload evidence of your completed solution.
+
 ### Compare FTCS, Crank-Nicholson and Upwind15 Algorithms (5 points)
 
 #### [Crank-Nicolson](https://en.wikipedia.org/wiki/Crank–Nicolson_method) Discretization
@@ -403,7 +406,8 @@ sets up and LU factors the initial matrix. Then, the LU factored matrix
 is used on each solution timestep to solve for the new temperatures.
 
 Run the same problems using each of these algorithms and observe total
-memory usage and operation counts (printed at the end).
+memory usage and operation counts (printed at the end) and provide your
+explanations for them and in comparison with the FTCS method.
 
 When you are done, go to `Intro->Submit A Show Your Work` using the hands-on
 activity name _Crank-Nicholson_ and upload evidence of your completed solution.

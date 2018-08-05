@@ -3,10 +3,14 @@
   url: "/"
   side: left
   dropdown:
-  - title: "Agenda"
+  - title: "ATPESC Overall Agenda"
+    url: "http://extremecomputingtraining.anl.gov/agenda-2018/"
+  - title: "Today's Agenda"
     url: "/atpesc_2018_agenda/"
   - title: "Setup Instructions"
     url: "/setup_instructions/"
+  - title: "ALCF User Guides"
+    url: "https://www.alcf.anl.gov/user-guides"
   - title: "Open Chat"
     url: "https://docs.google.com/document/d/1mLi4wybFnN1VIVSx0KH9SVBSygsgEOhIRilUbklcb6Q/edit?usp=sharing"
   - title: "One-on-One Signup Form"
@@ -23,6 +27,8 @@
     url: "/lessons/hand_coded_heat/"
   - title: "Meshing and Discretization (MFEM)"
     url: "/lessons/mfem_convergence/"
+  - title: "MFEM+PUMI Adaptive Workflow"
+    url: "/lessons/pumi/"
   - title: "Time Integration & Non-Linear Solvers"
     url: "/lessons/time_integrators/"
   - title: "Krylov Solvers and Algebraic Multigrid"
@@ -33,8 +39,6 @@
     url: "/lessons/adjoint/"
   - title: "Numerical Optimization"
     url: "/lessons/obstacle_tao"
-  - title: "MFEM+PUMI Adaptive Workflow"
-    url: "/lessons/pumi/"
 
 - title: Packages
   audience: "public"
