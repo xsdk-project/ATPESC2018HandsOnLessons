@@ -310,7 +310,7 @@ below.
 ' %}
 
 {% include qanda
-    question='How do you confirm the results are correct?'
+    question='How do you confirm results are indeed a linear steady state?'
     answer='Examine the inital and final results file and confirm even a random input
             still yields a final result where x==y for all rows of the results file
 ```
@@ -364,6 +364,16 @@ input in the correct units. Take care!
 ----
 
 ## Evening Hands On Session
+
+### Short / Quick Follow-on Questions
+
+{% include qanda
+   question='Will the pipes freeze in a common brick wall of same thickness?'
+   answer='Yes' %}
+
+{% include qanda
+   question='What is the Optimum thickness of an Adobe Brick Wall?'
+   answer='0.4-0.5 meters' %}
 
 ### Determine Optimum Wall Thicknesses
 
