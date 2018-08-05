@@ -16,25 +16,11 @@ header:
 |What is a high order method?|Understand how polynomial<br>order affects simulations.|High order methods add more<br>unknowns on the same mesh<br>for more precise solutions.|
 |What is _convergence_?|Understand how convergence and<br>convergence rate are calculated.|High order methods converge<br>faster for smooth solutions.|
 
-### To begin this lesson...
-- [Open the Answers Form](https://docs.google.com/forms/d/e/1FAIpQLScs9reOCfuD1CfbQ-m458MDyvwiTCRXEcp1XCQukaf5tP_uSQ/viewform?usp=sf_link){:target="_blank"}
-- Add the
-```
-{{site.handson_install_root}}/spack/bin
-```
-directory to your `PATH`. For example: `setenv PATH "/projects/ATPESC2018/FASTMath/spack/bin:$PATH"`. You can test with `spack find`.
+**Note:** To begin this lesson...
 
-- Copy the MFEM install directory locally
 ```
-cp -a `spack location -i mfem` mfem
+cd {{site.handson_root}}/mfem_convergence
 ```
-
-- Go into the ATPESC examples directory
-```
-cd mfem/examples/atpesc
-```
-
-- The MFEM [convergence](https://github.com/mfem/mfem/blob/atpesc-dev/examples/atpesc/mfem/convergence.cpp) example described below is in the `mfem/` directory.
 
 ## A Widely Applicable Equation
 
