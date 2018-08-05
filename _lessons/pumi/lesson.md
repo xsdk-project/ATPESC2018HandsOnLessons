@@ -3,7 +3,7 @@ layout: page-fullwidth
 title: "Adaptive MFEM+PUMI Workflow"
 subheadline: "Conformal Unstructured Mesh Adaptation for Linear Elastic Tensial Loading"
 teaser: "MFEM with PUMI Conformal Unstructured Mesh Adaptation"
-permalink: "lessons/pumi_evening_handson/"
+permalink: "lessons/pumi/"
 use_math: true
 lesson: true
 header:
