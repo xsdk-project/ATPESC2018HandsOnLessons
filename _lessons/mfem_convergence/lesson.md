@@ -192,7 +192,7 @@ In code, this is implemented in a refinement loop as follows:
 
 ## Running the Convergence Study
 
-The convergence study in `mfem/examples/atpesc/mfem` has the following options.
+The convergence study has the following options.
 
 ```
 ./convergence --help
