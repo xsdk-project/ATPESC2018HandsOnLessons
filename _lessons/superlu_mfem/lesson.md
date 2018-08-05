@@ -55,20 +55,8 @@ to solve very ill-conditioned linear systems.
 ### Run 1: default setting with GMRES solver, preconditioned by hypre, velocity = 100
 
 ```
-$ ./convdiff
-Options used:
-   --refine 0
-   --order 1
-   --velocity 100
-   --no-visit
-   --no-superlu
-   --slu-colperm 4
-   --slu-rowperm 1
-   --slu-parsymbfact 0
-   --one-matrix
-   --one-rhs
-Number of unknowns: 10201
-Time required for first solve:  0.0477607 (s)
+$ ./convdiff | tail -n 3
+Time required for first solve:  0.0408995 (s)
 Final L2 norm of residual: 2.43686e-16
 ```
 
@@ -81,20 +69,8 @@ Final L2 norm of residual: 2.43686e-16
 ### Run 2: increase velocity to 1000, GMRES does not converge anymore
 
 ```
-$ ./convdiff --velocity 1000
-Options used:
-   --refine 0
-   --order 1
-   --velocity 1000
-   --no-visit
-   --no-superlu
-   --slu-colperm 4
-   --slu-rowperm 1
-   --slu-parsymbfact 0
-   --one-matrix
-   --one-rhs
-Number of unknowns: 10201
-Time required for first solve:  0.564898 (s)
+$ ./convdiff --velocity 1000 | tail -n 3
+Time required for first solve:  0.47337 (s)
 Final L2 norm of residual: 0.00095
 ```
 
@@ -131,7 +107,7 @@ of the solution GMRES gives as velocity increases
 
 ### Run 3: Now use SuperLU_DIST, with default options
 ```
-$ ./convdiff --velocity 1000 -slu -cp 0
+$  ./convdiff --velocity 1000 -slu -cp 0  
 Options used:
    --refine 0
    --order 1
@@ -144,8 +120,33 @@ Options used:
    --one-matrix
    --one-rhs
 Number of unknowns: 10201
-Time required for first solve:  19.82 (s)
+	Nonzeros in L       1040781
+	Nonzeros in U       1045632
+	nonzeros in L+U     2076212
+	nonzeros in LSUB    1040215
+
+** Memory Usage **********************************
+** NUMfact space (MB): (sum-of-all-processes)
+    L\U :           41.12 |  Total :    50.74
+** Total highmark (MB):
+    Sum-of-all :    50.74 | Avg :    50.74  | Max :    50.74
+**************************************************
+Time required for first solve:  19.0018 (s)
 Final L2 norm of residual: 1.62703e-18
+
+**************************************************
+**** Time (seconds) ****
+	EQUIL time             0.00
+	ROWPERM time           0.01
+	SYMBFACT time          0.04
+	DISTRIBUTE time        0.11
+	FACTOR time           18.52
+	Factor flops	1.958603e+08	Mflops 	   10.58
+	SOLVE time             0.10
+	Solve flops	5.167045e+06	Mflops 	   52.21
+	REFINEMENT time        0.20	Steps       2
+
+**************************************************
 ```
 
 |Stead State For _vel=1000_|
@@ -154,7 +155,7 @@ Final L2 norm of residual: 1.62703e-18
 
 ### Run 4: Now use SuperLU_DIST, with MMD(A'+A) ordering.
 ```
-./convdiff --velocity 1000 -slu -cp 2
+$ ./convdiff --velocity 1000 -slu -cp 2
 Options used:
    --refine 0
    --order 1
@@ -167,16 +168,41 @@ Options used:
    --one-matrix
    --one-rhs
 Number of unknowns: 10201
-Time required for first solve:  0.100353 (s)
+	Nonzeros in L       594238
+	Nonzeros in U       580425
+	nonzeros in L+U     1164462
+	nonzeros in LSUB    203857
+
+** Memory Usage **********************************
+** NUMfact space (MB): (sum-of-all-processes)
+    L\U :           10.07 |  Total :    15.52
+** Total highmark (MB):
+    Sum-of-all :    15.52 | Avg :    15.52  | Max :    15.52
+**************************************************
+Time required for first solve:  0.111105 (s)
 Final L2 norm of residual: 1.53726e-18
+
+**************************************************
+**** Time (seconds) ****
+	EQUIL time             0.00
+	ROWPERM time           0.01
+	COLPERM time           0.04
+	SYMBFACT time          0.01
+	DISTRIBUTE time        0.02
+	FACTOR time            0.05
+	Factor flops	1.063303e+08	Mflops 	 2045.75
+	SOLVE time             0.00
+	Solve flops	2.367059e+06	Mflops 	  779.35
+	REFINEMENT time        0.01	Steps       2
+
+**************************************************
 ```
 NOTE: the number of nonzeros in L+U is much smaller than natural ordering.
 This affects the memory usage and runtime.
 
 ### Run 5: Now use SuperLU_DIST, with Metis(A'+A) ordering.
 ```
-$ ./convdiff -slu --velocity 1000 --slu-colperm 4
-
+$ ./convdiff --velocity 1000 -slu -cp 4
 Options used:
    --refine 0
    --order 1
@@ -184,20 +210,39 @@ Options used:
    --no-visit
    --superlu
    --slu-colperm 4
+   --slu-rowperm 1
+   --slu-parsymbfact 0
+   --one-matrix
+   --one-rhs
 Number of unknowns: 10201
-       Nonzeros in L       522306
-       Nonzeros in U       527748
-       nonzeros in L+U     1039853
-       nonzeros in LSUB    218211
+	Nonzeros in L       522306
+	Nonzeros in U       527748
+	nonzeros in L+U     1039853
+	nonzeros in LSUB    218211
 
 ** Memory Usage **********************************
 ** NUMfact space (MB): (sum-of-all-processes)
-    L\U :            9.24 |  Total :    15.64
+    L\U :            9.24 |  Total :    14.96
 ** Total highmark (MB):
-    Sum-of-all :    15.64 | Avg :    15.64  | Max :    15.64
+    Sum-of-all :    14.96 | Avg :    14.96  | Max :    14.96
 **************************************************
-Time required for solver:  0.786936 (s)
-Final L2 norm of residual: 1.55331e-18
+Time required for first solve:  0.152424 (s)
+Final L2 norm of residual: 1.51089e-18
+
+**************************************************
+**** Time (seconds) ****
+	EQUIL time             0.00
+	ROWPERM time           0.01
+	COLPERM time           0.05
+	SYMBFACT time          0.01
+	DISTRIBUTE time        0.02
+	FACTOR time            0.05
+	Factor flops	7.827314e+07	Mflops 	 1717.18
+	SOLVE time             0.00
+	Solve flops	2.120276e+06	Mflops 	  606.75
+	REFINEMENT time        0.01	Steps       2
+
+**************************************************
 ```
 
 |Solutions @_dv_=25 in [100,1000]|Steady State Solution @ _vel=1000_|
@@ -208,10 +253,57 @@ Final L2 norm of residual: 1.55331e-18
 |:---:|
 |[<img src="slu_metis_time.png" width="400">](slu_metis_time.png)|
 
+### Run 5.5: Now use SuperLU_DIST, with Metis(A'+A) ordering, using 1 MPI tasks, on a larger problem.
+By adding `--refine 2`, each element in the mesh is subdivided twice yielding a 16x larger problem.
+But, we'll run it on only one processor.
+
+```
+$ mpiexec -n 1 ./convdiff --refine 2 --velocity 1000 -slu -cp 4
+Options used:
+   --refine 2
+   --order 1
+   --velocity 1000
+   --no-visit
+   --superlu
+   --slu-colperm 4
+   --slu-rowperm 1
+   --slu-parsymbfact 0
+   --one-matrix
+   --one-rhs
+Number of unknowns: 160801
+	Nonzeros in L       8746079
+	Nonzeros in U       8746079
+	nonzeros in L+U     17331357
+	nonzeros in LSUB    3659374
+
+** Memory Usage **********************************
+** NUMfact space (MB): (sum-of-all-processes)
+    L\U :          152.37 |  Total :   171.34
+** Total highmark (MB):
+    Sum-of-all :   172.43 | Avg :   172.43  | Max :   172.43
+**************************************************
+Time required for first solve:  3.28833 (s)
+Final L2 norm of residual: 3.07474e-18
+
+**************************************************
+**** Time (seconds) ****
+	EQUIL time             0.01
+	ROWPERM time           0.07
+	COLPERM time           1.11
+	SYMBFACT time          0.08
+	DISTRIBUTE time        0.34
+	FACTOR time            1.26
+	Factor flops	2.596701e+09	Mflops 	 2056.43
+	SOLVE time             0.15
+	Solve flops	3.523111e+07	Mflops 	  236.61
+	REFINEMENT time        0.25	Steps       2
+
+**************************************************
+```
+
 ### Run 6: Now use SuperLU_DIST, with Metis(A'+A) ordering, using 16 MPI tasks, on a larger problem.
 
-By adding `--refine 2`, each element in the mesh is subdivided twice yielding a 16x larger problem.
-Here, we'll run on 16 tasks and just grep the output form some key values of interest.
+Here, we'll re-run the above except on 16 tasks and just grep the output form some key values of interest.
 
 ```
 $ mpiexec -n 16 ./convdiff --refine 2 --velocity 1000 -slu --slu-colperm 4 >& junk.out
@@ -261,6 +353,136 @@ Final L2 norm of residual: 3.06951e-18
             of these numbers, we get ~16. However, recall that the matrix size
             goes up as the SQUARE of the mesh size and this accounts for this
             additional factor of 16.' %}
+
+### Run 7: Now use SuperLU_DIST, with Metis(A'+A) ordering, using 16 MPI tasks, on a larger problem.
+
+Here, we re-solve the same system a second time except telling SuperLU to re-use the right hand side.
+Notice the improvement in solve time when re-using the right hand side.
+
+```
+$ mpiexec -n 16 ./convdiff --refine 2 --velocity 1000 -slu -cp 4 -2rhs
+Options used:
+   --refine 2
+   --order 1
+   --velocity 1000
+   --no-visit
+   --superlu
+   --slu-colperm 4
+   --slu-rowperm 1
+   --slu-parsymbfact 0
+   --one-matrix
+   --two-rhs
+Number of unknowns: 160801
+	Nonzeros in L       8751360
+	Nonzeros in U       8751360
+	nonzeros in L+U     17341919
+	nonzeros in LSUB    3696221
+
+** Memory Usage **********************************
+** NUMfact space (MB): (sum-of-all-processes)
+    L\U :          153.37 |  Total :   295.20
+** Total highmark (MB):
+    Sum-of-all :   703.49 | Avg :    43.97  | Max :    43.97
+**************************************************
+Time required for first solve:  29.1715 (s)
+Final L2 norm of residual: 3.18307e-40
+
+**************************************************
+**** Time (seconds) ****
+	EQUIL time             0.33
+	ROWPERM time           1.49
+	COLPERM time           1.64
+	SYMBFACT time          0.09
+	DISTRIBUTE time        1.23
+	FACTOR time           33.39
+	Factor flops	2.623572e+09	Mflops 	   78.58
+	SOLVE time             0.99
+	Solve flops	3.524035e+07	Mflops 	   35.77
+	REFINEMENT time        2.16	Steps       2
+
+**************************************************
+Time required for second solve (new rhs):  2.8843 (s)
+Final L2 norm of residual: 2.98269e-40
+
+	SOLVE time             0.74
+	Solve flops	3.524035e+07	Mflops 	   47.75
+	REFINEMENT time        1.78	Steps       2
+
+**************************************************
+```
+
+### Run 8
+
+```
+i$ mpiexec -n 16 ./convdiff --refine 2 --velocity 1000 -slu -cp 4 -2mat
+Options used:
+   --refine 2
+   --order 1
+   --velocity 1000
+   --no-visit
+   --superlu
+   --slu-colperm 4
+   --slu-rowperm 1
+   --slu-parsymbfact 0
+   --two-matrix
+   --one-rhs
+Number of unknowns: 160801
+	Nonzeros in L       8751360
+	Nonzeros in U       8751360
+	nonzeros in L+U     17341919
+	nonzeros in LSUB    3696221
+
+** Memory Usage **********************************
+** NUMfact space (MB): (sum-of-all-processes)
+    L\U :          153.37 |  Total :   295.20
+** Total highmark (MB):
+    Sum-of-all :   703.49 | Avg :    43.97  | Max :    43.97
+**************************************************
+Time required for first solve:  35.4073 (s)
+Final L2 norm of residual: 2.543e-40
+
+**************************************************
+**** Time (seconds) ****
+	EQUIL time             0.93
+	ROWPERM time           1.98
+	COLPERM time           1.86
+	SYMBFACT time          0.09
+	DISTRIBUTE time        0.33
+	FACTOR time           34.80
+	Factor flops	2.623572e+09	Mflops 	   75.39
+	SOLVE time             0.97
+	Solve flops	3.524035e+07	Mflops 	   36.51
+	REFINEMENT time        2.12	Steps       2
+
+**************************************************
+	Nonzeros in L       8751360
+	Nonzeros in U       8751360
+	nonzeros in L+U     17341919
+	nonzeros in LSUB    3696221
+
+** Memory Usage **********************************
+** NUMfact space (MB): (sum-of-all-processes)
+    L\U :          153.37 |  Total :   295.20
+** Total highmark (MB):
+    Sum-of-all :   703.49 | Avg :    43.97  | Max :    43.97
+**************************************************
+Time required for second matrix (same sparsity):  32.8356 (s)
+Final L2 norm of residual: 2.37648e-40
+**************************************************
+**** Time (seconds) ****
+	EQUIL time             0.70
+	ROWPERM time           0.31
+	COLPERM time           1.98
+	SYMBFACT time          0.09
+	DISTRIBUTE time        0.91
+	FACTOR time           32.69
+	Factor flops	2.623572e+09	Mflops 	   80.27
+	SOLVE time             0.96
+	Solve flops	3.524035e+07	Mflops 	   36.68
+	REFINEMENT time        2.16	Steps       2
+
+**************************************************
+```
 
 ---
 
