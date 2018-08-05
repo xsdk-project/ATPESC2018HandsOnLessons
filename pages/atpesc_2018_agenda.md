@@ -14,7 +14,7 @@ permalink: "/atpesc_2018_agenda/"
 |7:30am|60|Breakfast||
 |8:30am|5|Introduction to Session|[Ulrike Meier Yang][11] ([LLNL][2])|
 |8:35am|55|Algorithmic Adaptations to Extreme-Scale Computing|[David Keyes][4] ([KAUST][5])|
-|9:30am|60|Overview of Numerical Algorithms and Software|[Lori Diachin][6] ([LLNL][2])|
+|9:30am|60|Overview of Numerical Algorithms and Software|[Lori Diachin][6] ([LLNL][2])<br>+ [Hands-on Example][27]|
 |10:30am|30|Break||
 |11:00am|60|Unstructured Meshing and Discretization|[Tzanio Kolev][3] ([LLNL][2]) &<br>[Mark Shephard][7] ([RPI][8])<br>[+ Hands-on examples with][21] [MFEM][1]|
 |12:30pm|60|Lunch||
@@ -23,7 +23,7 @@ permalink: "/atpesc_2018_agenda/"
 |3:00pm|30|Break||
 |3:30pm|45|Direct Linear Solvers|[Xiaoye Li][14] ([LBNL][15])<br>[+ Hands-on examples with][24] [SuperLU][16]|
 |4:15pm|45|Numerical Optimization|[Todd Munson][17] &<br>[Hong Zhang][18] ([ANL][12])<br>[+ Hands-on examples with][25] [TAO][19]|
-|5:00pm|30|Wrap-Up and Brief Q&A|All|
+|5:00pm|30|Putting It All Together|[Mark Shephard][7] &<br>[Cameron Smith][26] ([RPI][8])|
 |5:30pm|60|Dinner + Panel: Extreme-Scale Algorithms & Software|Moderator [Mark Miller][20] ([LLNL][2])|
 |6:30pm|180|Evening Hands-on + Other Activities|All|
 |9:30pm|Adjourn||
@@ -53,3 +53,5 @@ permalink: "/atpesc_2018_agenda/"
 [23]: ../lessons/krylov_amg/
 [24]: ../lessons/superlu_mfem/
 [25]: ../lessons/adjoint/
+[26]: <mailto:smithc11@rpi.edu>
+[27]: ../lessons/hand_coded_heat/
