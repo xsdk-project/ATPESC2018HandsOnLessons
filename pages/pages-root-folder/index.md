@@ -49,7 +49,7 @@ projects with shared values, all of which focus on producing high-quality, well-
 easy to use, sustainable, and scalable numerical packages for developing high-performance scientific simulations.
 Each project highlighted on this page focuses on a different facet software development and use.
 For example, [FASTMath](https://fastmath-scidac.llnl.gov) focuses on the numerical underpinnings
-of various packages, while [xSDK](https://xsdk.info) and [Spack](https://spack.io) focus on ease of use of multiple packages in combination.  Complementary work by the [IDEAS](https://ideas-productivity.org) project and the community-driven site [Better Scientific Software](https://bssw.io) focus on resources to help improve software productivity, quality, and sustainability, as key aspects of increasing overall scientific productivity.
+of various packages, while [xSDK](https://xsdk.info) and [Spack](https://spack.io) focus on ease of use of multiple packages in combination.  Complementary work by the [IDEAS](https://ideas-productivity.org) project and the community-driven organization [Better Scientific Software](https://bssw.io) focuses on resources to help improve software productivity, quality, and sustainability, as key aspects of increasing overall scientific productivity.  
 
 [//]: # (The stuff below is defining div elements that match the video links above)
 [//]: # (Because div elements themselves don't render, this stuff produces no output)
