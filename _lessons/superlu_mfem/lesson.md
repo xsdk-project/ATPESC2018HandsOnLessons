@@ -28,23 +28,23 @@ cd {{site.handson_root}}/superlu_mfem
 The [convdiff.c](https://github.com/mfem/mfem/blob/atpesc-dev/examples/atpesc/superlu/convdiff.cpp)
 application is modeling the steady state convection-diffusion equation in 2D
 with a constant velocity.  This equation is used to model the concentration
-of something like a _die_ in a _moving_ fluid as it diffuses and flows through 
+of something like a _die_ in a _moving_ fluid as it diffuses and flows through
 he fluid.  The equation is as follows:
 
 $$\nabla \cdot (\kappa \nabla u) - \nabla \cdot (\overrightarrow{v}u)+R=0$$
 
 Where _u_ is the concentration that we are tracking, $$\kappa$$, is the diffusion rate,
 _v_ is the velocity of the flow and _R_ is a concentration source.
- 
-In the application we use here, the velocity vector _direction_ is fixed in the _+x_ 
+
+In the application we use here, the velocity vector _direction_ is fixed in the _+x_
 direction. However, the _magnitude_ is set by the user (default of 100), $$\kappa$$,
-is fixed at 1.0, and the source is 0.0 everywhere except for a small disc centered at
+is fixed at 1.0, and the source is 0.0 everywhere except for a small square centered at
 the middle of the domain where it is 1.0.
 
 |Initial Condition|
 |:---:|
 |[<img src="mfem-superlu0000.png" width="400">](mfem-superlu0000.png)|
- 
+
 Solving this PDE is well known to cause convergence problems for iterative solvers,
 for larger _v_. We use MFEM as a vehicle to demonstrate the use of a distributed,
 direct solver, [SuperLU_DIST](http://crd-legacy.lbl.gov/~xiaoye/SuperLU/),
@@ -79,7 +79,7 @@ Final L2 norm of residual: 0.00095
    answer='Between 12 and 13' %}
 
 Below, we plot behavior of the GMRES method for velocity values in the
-range [100,1000] at incriments, _dv_, of 25 and also show an animation
+range [100,1000] at increments, _dv_, of 25 and also show an animation
 of the solution GMRES gives as velocity increases
 
 |Solutions @_dv_=25 in [100,1000]|Contours of Solution @ _vel=1000_|
@@ -306,8 +306,8 @@ Final L2 norm of residual: 3.07474e-18
 Here, we'll re-run the above except on 16 tasks and just grep the output form some key values of interest.
 
 ```
-$ mpiexec -n 16 ./convdiff --refine 2 --velocity 1000 -slu --slu-colperm 4 >& junk.out
-$ grep 'Time required for solver:' junk.out 
+$ ${MPIEXEC_OMPI} -n 16 ./convdiff --refine 2 --velocity 1000 -slu --slu-colperm 4 >& junk.out
+$ grep 'Time required for solver:' junk.out
 Time required for solver:  10.3593 (s)
 Time required for solver:  16.3567 (s)
 Time required for solver:  11.6391 (s)

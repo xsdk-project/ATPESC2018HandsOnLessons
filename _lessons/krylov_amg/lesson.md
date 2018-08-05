@@ -216,7 +216,7 @@ BoomerAMG SETUP PARAMETERS:
  Interpolation Truncation Factor = 0.000000
  Maximum Row Sum Threshold for Dependency Weakening = 1.000000
 
- Coarsening Type = HMIS 
+ Coarsening Type = HMIS
  measures are determined locally
 
 
@@ -241,7 +241,7 @@ lev   rows  entries  sparse  min  max   avg       min         max
 
 Interpolation Matrix Information:
                  entries/row    min     max         row sums
-lev  rows cols    min max     weight   weight     min       max 
+lev  rows cols    min max     weight   weight     min       max
 =================================================================
  0 1000000 x 499594   1   4   1.429e-01 4.545e-01 5.000e-01 1.000e+00
  1 499594 x 113588   1   4   1.330e-02 5.971e-01 2.164e-01 1.000e+00
@@ -261,14 +261,14 @@ lev  rows cols    min max     weight   weight     min       max
 
 BoomerAMG SOLVER PARAMETERS:
 
-  Maximum number of cycles:         1 
-  Stopping Tolerance:               0.000000e+00 
+  Maximum number of cycles:         1
+  Stopping Tolerance:               0.000000e+00
   Cycle type (1 = V, 2 = W, etc.):  1
 
   Relaxation Parameters:
    Visiting Grid:                     down   up  coarse
-            Number of sweeps:            1    1     1 
-   Type 0=Jac, 3=hGS, 6=hSGS, 9=GE:     13   14     9 
+            Number of sweeps:            1    1     1
+   Type 0=Jac, 3=hGS, 6=hSGS, 9=GE:     13   14     9
    Point types, partial sweeps (1=C, -1=F):
                   Pre-CG relaxation (down):   0
                    Post-CG relaxation (up):   0
@@ -312,7 +312,7 @@ lev   rows  entries  sparse  min  max   avg       min         max
 
 Interpolation Matrix Information:
                  entries/row    min     max         row sums
-lev  rows cols    min max     weight   weight     min       max 
+lev  rows cols    min max     weight   weight     min       max
 =================================================================
  0 1000000 x 79110   1   9   2.646e-02 9.722e-01 2.778e-01 1.000e+00
  1 79110 x 16777   1   4   7.709e-03 1.000e+00 2.709e-01 1.000e+00
@@ -372,7 +372,7 @@ $$-\Delta u + a \nabla \cdot u = f$$
 on a cuboid with Dirichlet boundary conditions.
 
 The diffusion part is discretized using central finite differences, and upwind finite differences are used for the advection term.
-For $$a = 0$$ we just get the Poisson equation, but when $$a > 0$$ we get a nonsymmetric linear system. 
+For $$a = 0$$ we just get the Poisson equation, but when $$a > 0$$ we get a nonsymmetric linear system.
 
 Now let us apply Krylov solvers to the convection-diffusion equation with $$a=10$$, starting with conjugate gradient.
 
@@ -398,7 +398,7 @@ Now try GMRES(20), BiCGSTAB, and AMG with and without aggressive coarsening.
 
 Let us solve the problem using structured multigrid solvers.
 ```
-./struct -n 50 50 50 -a 10 -pfmg 
+./struct -n 50 50 50 -a 10 -pfmg
 ```
 ```
 ./struct -n 50 50 50 -a 10 -pfmg -rap 1
@@ -477,9 +477,9 @@ Often using aggressive coarsening is not recommended for two-dimensional problem
 
 ## Out-Brief
 
-We experimented with several Krylov solvers, GMRES, conjugate gradient and BiCGSTAB, and observed the effect of increasing the size of the Krylov space for restarted GMRES. We investigated why multigrid methods are preferrable over generic solvers like conjugate gradient for large suitable PDE problems.
+We experimented with several Krylov solvers, GMRES, conjugate gradient and BiCGSTAB, and observed the effect of increasing the size of the Krylov space for restarted GMRES. We investigated why multigrid methods are preferable over generic solvers like conjugate gradient for large suitable PDE problems.
 Additional improvements can be achieved when using them as preconditioners for Krylov solvers like conjugate gradient.
-For unstructured multigrid solvers, it is important to keep complexities low, since large complexitites lead to slow solve times and require much memory.
+For unstructured multigrid solvers, it is important to keep complexities low, since large complexities lead to slow solve times and require much memory.
 For structured problems, solvers that take advantage of the structure of the problem are more efficient than unstructured solvers.
 
 

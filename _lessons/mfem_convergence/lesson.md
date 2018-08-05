@@ -18,23 +18,10 @@ header:
 
 ### To begin this lesson...
 - [Open the Answers Form](https://docs.google.com/forms/d/e/1FAIpQLScs9reOCfuD1CfbQ-m458MDyvwiTCRXEcp1XCQukaf5tP_uSQ/viewform?usp=sf_link){:target="_blank"}
-- Add the
+- Get into the directory containing the MFEM [convergence](https://github.com/mfem/mfem/blob/atpesc-dev/examples/atpesc/mfem/convergence.cpp) example:
 ```
-{{site.handson_install_root}}/spack/bin
+cd {{site.handson_root}}/mfem_convergence
 ```
-directory to your `PATH`. For example: `setenv PATH "/projects/ATPESC2018/FASTMath/spack/bin:$PATH"`. You can test with `spack find`.
-
-- Copy the MFEM install directory locally
-```
-cp -a `spack location -i mfem` mfem
-```
-
-- Go into the ATPESC examples directory
-```
-cd mfem/examples/atpesc
-```
-
-- The MFEM [convergence](https://github.com/mfem/mfem/blob/atpesc-dev/examples/atpesc/mfem/convergence.cpp) example described below is in the `mfem/` directory.
 
 ## A Widely Applicable Equation
 
@@ -108,10 +95,14 @@ to choose the basis functions $$\phi_i$$ as we see fit.
 
 ## Convergence Study Source Code
 
+The `mfem_convergence/` directory contains the `convergence.cpp` source code for solving the
+Poisson problem using a variety of grids and orders. You can also view the code online on
+[GitHub](https://github.com/mfem/mfem/blob/atpesc-dev/examples/atpesc/mfem/convergence.cpp).
+
 To define the system we need to solve, we need three things. First, we need to define our
 basis functions which live on the computational mesh.
 
-```c++
+```cpp
    // order is the FEM basis functions polynomial order
    FiniteElementCollection *fec = new H1_FECollection(order, dim);
 
@@ -120,10 +111,10 @@ basis functions which live on the computational mesh.
 ```
 
 This defines a collection of H1 functions (meaning they have well-defined gradient) of
-a given polynomial order on a parallel computational mesh pmesh. Next, we need to define
+a given polynomial order on a parallel computational mesh `pmesh`. Next, we need to define
 the integrals in Equation (5)
 
-```c++
+```cpp
    ParBilinearForm *a = new ParBilinearForm(fespace);
    ConstantCoefficient one(1.0);
    a->AddDomainIntegrator(new DiffusionIntegrator(one));
@@ -132,7 +123,7 @@ the integrals in Equation (5)
 
 and Equation (6)
 
-```c++
+```cpp
    // f_exact is a C function defining the source
    FunctionCoefficient f(f_exact);
    ParLinearForm *b = new ParLinearForm(fespace);
@@ -143,7 +134,7 @@ and Equation (6)
 This defines the matrix A and the vector b. We then solve the linear
 system for our solution vector x using [AMG-preconditioned](../krylov_amg/) PCG iteration.
 
-```c++
+```cpp
    // FEM -> Linear System
    HypreParMatrix A;
    Vector B, X;
@@ -176,7 +167,7 @@ $$\left \| u_{\mbox{exact}} - u_{\mbox{h}} \right \|_{H^1}^2 = \left \| u_{\mbox
 
 We expect the error to behave like
 
-$$\left \| u_{\mbox{exact}} - u_{\mbox{h}} \right \|_{L_2}^2 \leq Ch^{r}$$
+$$\left \| u_{\mbox{exact}} - u_{\mbox{h}} \right \|_{L_2} \leq Ch^{r}$$
 
 where $$h$$ is the mesh size, $$C$$ is a mesh-independent constant and $$r$$
 is the [_convergence rate_](https://en.wikipedia.org/wiki/Rate_of_convergence).
@@ -188,7 +179,7 @@ $$r \approx \frac{\log\ \frac{ \left \| u_{\mbox{exact}} - u_{h_{\mbox{new}}} \r
 
 In code, this is implemented in a refinement loop as follows:
 
-```c++
+```cpp
    double l2_err = x.ComputeL2Error(u);
    double h1_err = x.ComputeH1Error(&u, &u_grad, &one, 1.0, 1);
    pmesh->GetCharacteristics(h_min, h_max, kappa_min, kappa_max);
@@ -327,20 +318,47 @@ Experiment with different orders in 2D and 3D.
 ## Out-Brief
 
 We demonstrated the ease of implementing a order- and dimension-independent finite element
-code in [MFEM](http://mfem.org). We discussed the basics of the finite element method as well as demonstrated
+code in MFEM. We discussed the basics of the finite element method as well as demonstrated
 the effect of the polynomial order of the basis functions on convergence rates.
 
 ### Further Reading
 
-To learn more about MFEM, visit [mfem.org](http://mfem.org).
+For more information, visit the MFEM website, http://mfem.org, including the
+
+- [Features](http://mfem.org/features),
+- [Examples](http://mfem.org/examples/),
+- [Publications](http://mfem.org/publications/)
+- [Finite Elements](http://mfem.org/fem/), and
+- [Meshing](http://mfem.org/meshing) pages.
+
+You may also be interested in visiting the websites of the related [GLVis](http://glvis.org)
+[CEED](http://ceed.exascaleproject.org) and [BLAST](https://computation.llnl.gov/projects/blast) projects.
 
 ---
 
 ### Evening Hands On
 
-Review discretization methods for additional physics.
+The evening hands on exercise will be dedicated on getting more experience with MFEM and on reviewing
+finite element discretization methods for additional physics.
 
-Specifically, MFEM includes a number of well-documented [example codes](http://mfem.org/examples) that can be used as tutorials, as well as simple starting points for user applications. Some of the included example codes are:
+##### (Bonus #1) Install MFEM + GLVis On Your Laptop
+- Follow the building instructions here: http://mfem.org/building/.
+- You should be able to download & install serial version of MFEM in 5min (there are no external dependencies).
+- Parallel versions of MFEM requires installing hypre and METIS (also discussed above).
+- Alternatively, if you already have Spack, you can build with: `spack install mfem glvis`.
+- GLVis requires a recent version of XQuartz on Mac laptops.
+
+##### Review And Run Additional Example Codes & Miniapps
+
+MFEM includes a number of well-documented [example codes & miniapps](http://mfem.org/examples) that can be
+used as tutorials, as well as simple starting points for user applications.
+
+These examples and miniapps are available in the `mfem/` subdirectory of your copy of
+`{{site.handson_root}}/mfem_convergence` or as top-level sub-directories in the MFEM
+source code.
+
+The full list of examples is below. Feel free to explore any of them depending on your interests, but we
+recommend starting with the ones marked with a "⭐"
 
  - [Example 1](http://mfem.github.io/doxygen/html/ex1_8cpp_source.html): nodal H1 FEM for the Laplace problem. ⭐
  - [Example 2](http://mfem.github.io/doxygen/html/ex2_8cpp_source.html): vector FEM for linear elasticity.
@@ -380,3 +398,19 @@ In addition, the sources for several external benchmark/proxy-apps build on top 
 
 - [Laghos](https://github.com/CEED/Laghos): high-order Lagrangian hydrodynamics miniapp. ⭐
 - [Mulard](https://codesign.llnl.gov/mulard.php): multigroup thermal radiation diffusion mini application.
+
+##### (Bonus #2) Create Your Own Simple Simulation
+
+Modify the miniapps and example codes, either in your local copy on Cooley, or on your laptop to
+create a simple simulation of your own. In both cases you should be able to edit the source code
+and rebuild the binary simply with `make`.
+
+For example, you can solve a steady-state [heat conduction](../hand_coded_heat/) problem in 2D
+and 3D using the `shaper` miniapp (modified for the cable shape) to define the mesh and `ex1`
+or `ex1p` to solve it (modified to include separate coefficients for air and cable).
+
+We will like to see your creativity -- the best simulations will enter for a chance to be
+featured on MFEM's [gallery](http://mfem.org/gallery/) page!
+
+Please consult the MFEM [code documentation](http://mfem.github.io/doxygen/html/index.html) and
+don't hesitate to ask if you have any implementation questions.

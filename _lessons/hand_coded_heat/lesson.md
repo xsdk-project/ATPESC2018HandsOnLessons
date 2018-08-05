@@ -15,8 +15,8 @@ header:
 
 |Questions|Objectives|Key Points|
 |:--------|:---------|:---------|
-|What is a numerical algorithm?|Implement a simple numerical algorithm.<br>Use it to solve a simple science poblem.|Numerical Packages are used<br>to solve scientific problems<br>involving [PDEs.][PDE]|
-|What is [discretization][DISC]?|Introduce basic concepts in solving continous<br>[PDEs][PDE] using discrete computations.|_Meshing_ (or [discretization][DISC]) is an<br>important first step.|
+|What is a numerical algorithm?|Implement a simple numerical algorithm.<br>Use it to solve a simple science problem.|Numerical Packages are used<br>to solve scientific problems<br>involving [PDEs.][PDE]|
+|What is [discretization][DISC]?|Introduce basic concepts in solving continuous<br>[PDEs][PDE] using discrete computations.|_Meshing_ (or [discretization][DISC]) is an<br>important first step.|
 |How can numerical packages<br>help me with my software?|Understand the value numerical packages<br>offer in developing science applications|Numerical packages offer many advantages<br>including: rigorous/vetted numerics<br>increased generality, extreme scalability,<br>performance portability, enhanced reproducibility<br>and many others...|
 
 #### To begin this lesson
@@ -42,7 +42,7 @@ pipes freeze before the storm is over?
 
 In this lesson, we demonstrate the implementation and use of a hand-coded
 (e.g., does not use any numerical packages) C-language application to
-model the one dimensional _heat_ condution equation through a wall as
+model the one dimensional _heat_ conduction equation through a wall as
 pictured here ...
 
 In general, heat [conduction](https://en.wikipedia.org/wiki/Thermal_conduction) is governed
@@ -71,7 +71,7 @@ $$\frac{\partial u}{\partial t} = \alpha \frac{\partial^2 u}{\partial x^2}$$
 
 ## Discretization
 
-The equation above is a _continous_,
+The equation above is a _continuous_,
 [partial differential equation (PDE)][PDE]
 In order to write a computer program to solve this equation, numerically, the first thing
 we need to consider is how to _[discretize][DISC]_
@@ -120,7 +120,7 @@ in terms of values of u at time _k_ .  This is an
 [_explicit_](https://en.wikipedia.org/wiki/Explicit_and_implicit_methods)
 numerical method known as the
 _[forward in time, centered difference (FTCS)](https://en.wikipedia.org/wiki/FTCS_scheme)_
- algoritm. As an explicit method, it has some nice properties:
+ algorithm. As an explicit method, it has some nice properties:
 
 * They are easy to implement.
 * They typically require minimal memory.
@@ -128,14 +128,14 @@ _[forward in time, centered difference (FTCS)](https://en.wikipedia.org/wiki/FTC
 
 ---
 
-## Exercise #1: Impliment the FTCS Algorithm (2 mins)
+## Exercise #1: Implement the FTCS Algorithm (2 mins)
 
 The function, `solution_update_ftcs`, is defined below without its body.
 
 ```c
 static void
 solution_update_ftcs(
-    int n,              // # of temperatur samples in space
+    int n,              // # of temperature samples in space
     Double *curr,       // new temperatures to be computed
     Double const *last, // old/last temperatures computed
     Double alpha,       // thermal diffusivity
@@ -215,7 +215,7 @@ Counts: Adds:24500, Mults:25001, Divs:1005, Bytes:176
 ```
 Before running, the application dumps its command-line arguments so the user can
 see what parameters it was passed to run. In this case, you are seeing the default
-values. It then runs the problem as defined by the command-line arguments and 
+values. It then runs the problem as defined by the command-line arguments and
 saves result files to the directory specified by the `runame=` argument.
 ```
 % ls -1t | head -n 1
@@ -228,7 +228,7 @@ heat_results/heat_results_soln_final.curve: ASCII text
 For this simple application, the results are uncomplicated. They are simple ascii
 text files containing x/y pairs of the computed numerical results.
 ```
-% cat heat_results/heat_results_soln_final.curve 
+% cat heat_results/heat_results_soln_final.curve
 # Temperature
        0        0
      0.1   0.1039
@@ -253,7 +253,7 @@ Usage: ./heat <arg>=<value> <arg>=<value>...
     alpha=0.2           material thermal diffusivity (sq-meters/second) (double)
     lenx=1                                     material length (meters) (double)
     dx=0.1                  x-incriment. Best if lenx/dx==int. (meters) (double)
-    dt=0.004                                      t-incriment (seconds) (double)
+    dt=0.004                                      t-increment (seconds) (double)
     maxt=2         >0:max sim time (seconds) | <0:min l2 change in soln (double)
     bc0=0                     boundary condition @ x=0: u(0,t) (Kelvin) (double)
     bc1=1               boundary condition @ x=lenx: u(lenx,t) (Kelvin) (double)
@@ -279,7 +279,7 @@ directory named `runame`
 
 Before we use our new application to solve our simple science question, how can we assure
 ourselves that the code we have written is correct or, at the very least, sanity check
-ourselves that there isn't anything glarinly incorrect?
+ourselves that there isn't anything glaringly incorrect?
 
 {% include qanda
     question='Can you think ways to test the application?'
@@ -311,10 +311,10 @@ below.
 
 {% include qanda
     question='How do you confirm results are indeed a linear steady state?'
-    answer='Examine the inital and final results file and confirm even a random input
+    answer='Examine the initial and final results file and confirm even a random input
             still yields a final result where x==y for all rows of the results file
 ```
-% cat test/test_soln_00000.curve 
+% cat test/test_soln_00000.curve
 # Temperature
        0    69.09
     0.25    143.6
@@ -377,7 +377,7 @@ input in the correct units. Take care!
 
 ### Determine Optimum Wall Thicknesses
 
-What are the minimium thicknesses of walls of Wood, Adobe and Common brick
+What are the minimum thicknesses of walls of Wood, Adobe and Common brick
 to prevent the pipes from freezing?
 
 When you are done, go to `Intro->Submit A Show Your Work` using the hands-on
@@ -426,10 +426,10 @@ activity name _Crank-Nicholson_ and upload evidence of your completed solution.
 
 ![Pipeline Problem::](pipeline.png){:width="500"}
 
-An pipeline carrying Ethenol-85 (E85) runs between a manuer processing
+An pipeline carrying Ethenol-85 (E85) runs between a manure processing
 facility and a kerosene production factory. In the unlikely event that
 both facilities experience catastrophic explosion (burning methane at
-the manuer facility and burning kerosene at the kerosene facility),
+the manure facility and burning kerosene at the kerosene facility),
 that _briefly_ increases the local air temperature on both sides of
 the pipe to the burning temperature of the respective materials, determine
 the minimum thermal diffusivity of the material used to coat/insulate the pipe
@@ -471,11 +471,11 @@ Random, `ic="rand(S,B,A)"`
 
 Sin, `ic="sin(Pi*x)"`
 
-: Set initial condition to $$sin(\pi x)$$. 
+: Set initial condition to $$sin(\pi x)$$.
 
 Spikes, `ic="spikes(C,A0,X0,A1,X1,...)"`
 
-: Set initial condition to a constant value, `C` with any number of _spikes_ where each spike is the pair, `Ai` specifying the spike amplitude and `Xi` specifing its position in, x.
+: Set initial condition to a constant value, `C` with any number of _spikes_ where each spike is the pair, `Ai` specifying the spike amplitude and `Xi` specifying its position in, x.
 
 [PDE]: https://en.wikipedia.org/wiki/Partial_differential_equation
 [DISC]:https://en.wikipedia.org/wiki/Discretization

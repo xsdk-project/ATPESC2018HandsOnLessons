@@ -56,16 +56,16 @@ and show the options related to TAO only by doing
 
 ### Problem being solved
 
-The underlying PDE models reaction and diffusion of two chemical species that can procude a variety of patterns. It is widely used to describe pattern-formation phenomena in biological, chemical and physical systems. The concentrations of the two spieces are calcuated according to the equation
+The underlying PDE models reaction and diffusion of two chemical species that can produce a variety of patterns. It is widely used to describe pattern-formation phenomena in biological, chemical and physical systems. The concentrations of the two species are calculated according to the equation
 
 $$
-\frac{d\mathbf{u}}{dt} = D_1 \nabla^2 \mathbf{u} - \mathbf{u} \mathbf{v}^2 + 
+\frac{d\mathbf{u}}{dt} = D_1 \nabla^2 \mathbf{u} - \mathbf{u} \mathbf{v}^2 +
 \gamma(1 -\mathbf{u}) \\
-\frac{d\mathbf{v}}{dt} = D_2 \nabla^2 \mathbf{v} + \mathbf{u} \mathbf{v}^2 - 
+\frac{d\mathbf{v}}{dt} = D_2 \nabla^2 \mathbf{v} + \mathbf{u} \mathbf{v}^2 -
 (\gamma + \kappa)\mathbf{v}
 $$
 
-The spatial pattern for the time interval [0,200] seconds is showin in the following figure.
+The spatial pattern for the time interval [0,200] seconds is shown in the following figure.
 
 |Figure 1|
 |:---:|
@@ -245,15 +245,15 @@ mpiexec -n 12 ./ex5opt_ic -ts_type rk -ts_rk_type 3 -ts_adapt_type none -ts_max_
 #### Questions
 {% include qanda
     question='Does the optimization converge? If not, can you fix it?'
-    answer='No. The PDE solution blows up. As we decrease the grid spacing, the stepsize should be reduced according to CFL condition. For example, adding -ts_dt 0.1 should work.' %}
+    answer='No. The PDE solution blows up. As we decrease the grid spacing, the stepsize  should be reduced according to CFL condition. For example, adding -ts_dt 0.1 should work.' %}
 
 
 ### Further information
-Because this example uses `DMDA`, Jacobian can be efficiently approxiated using finite difference with coloring. You can use the option `-snes_fd_color` to enable this feature.
+Because this example uses `DMDA`, Jacobian can be efficiently approximated using finite difference with coloring. You can use the option `-snes_fd_color` to enable this feature.
 
 ## Out-Brief
 
-We have used [PETSc](https://www.mcs.anl.gov/petsc/) to demonstrate the adjoint capability as an enabling technology for dynamic-constrained optimization. In particular, we focused on time-depdent problems including complex dynamical systems with discontinuities and a large scale hyperbolic PDE.
+We have used [PETSc](https://www.mcs.anl.gov/petsc/) to demonstrate the adjoint capability as an enabling technology for dynamic-constrained optimization. In particular, we focused on time-dependent problems including complex dynamical systems with discontinuities and a large scale hyperbolic PDE.
 
 We have shown the basic usage of the adjoint solver as well as functionalities that can facilitate rapid development, diagnosis and performance profiling.
 

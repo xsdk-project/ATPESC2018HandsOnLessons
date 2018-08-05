@@ -25,7 +25,8 @@ cd {{site.handson_root}}/time_integrators
 
 ## The problem being solved
 
-The example application here, [advection-ode.cpp][3] uses [MFEM][2] and the ODE solvers from [PETSc][1]
+The example application here, [advection-ode.cpp][3] uses
+a discontinuous Galerkin discretization from [MFEM][2] and the ODE solvers from [PETSc][1]
 to demonstrate the use of [PETSc][1] in both serial and parallel for more robust and flexible control
 over _time integration_ (e.g. discretization in time) of PDEs.
 
@@ -191,14 +192,14 @@ solution and number of time steps in the adaptive case.  In addition, we have
 demonstrated the ability of implicit methods to run at higher time steps than
 explicit and also demonstrated the cost of nonlinear solvers in implicit approaches.
 
-The use of _adaptation_ here was confined to _discretzation_ of time. Other lessons
+The use of _adaptation_ here was confined to _discretization_ of time. Other lessons
 here demonstrate the advantages _adaptation_ can play in the _discretization_ of
 _space_ (e.g. meshing).
 
 
 Finally, it is worth reminding the learner that the application demonstrated here can
 be run on 1, 2 and 3 dimensional meshes and in scalable, parallel settings and on meshes
-of extremely high spatial resolution if so desired. 
+of extremely high spatial resolution if so desired.
 
 ----
 
@@ -210,7 +211,7 @@ Run the two examples with a different number of levels of refinement using `-rs 
 PETSC_OPTIONS="-ts_adapt_monitor no -ts_type arkimex -ts_monitor :/dev/null -log_view " ./elasticity-snes -rs 2
 ```
 
-then again 
+then again
 
 ```
 PETSC_OPTIONS="-ts_adapt_monitor no -ts_type arkimex -ts_monitor :/dev/null -log_view " mpiexec -n 4 ./elasticity-snes -rs 2
