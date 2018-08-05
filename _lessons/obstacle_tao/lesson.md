@@ -49,7 +49,7 @@ where $$u$$ represents the control variables, $$x$$ represents the discrete noda
 
 In this lesson, we will solve the obstacle problem with the numerical optimization formulation using algorithms in [PETSc/TAO][4].  Calculation of the objective (the Dirichlet energy function) and its gradient and Hessian will be performed using [MFEM][5]. We will use two gradient-based algorithms available in TAO, one requiring only gradient information and the other requiring both the gradient and the Hessian. We will then examine the improvement in convergence achieved by utilizing second-order information into the problem.
 
-Source code for this problem is available in [obstacle.cpp]({{ site.baseurl }}{% link _lessons/obstacle_tao/obstacle.cpp %}) and hosted under `examples/atpesc/tao` directory of the MFEM `atpesc-dev` branch [here](https://github.com/mfem/mfem/tree/atpesc-dev/examples/atpesc/tao). The mesh file used in this lesson is available in [star.mesh]({{ site.baseurl }}{% link _lessons/obstacle_tao/star.mesh %}).
+Source code for this problem is available in [obstacle.cpp]({{ site.baseurl }}{% link _lessons/obstacle_tao/obstacle.cpp %}) and the accompanying makefile in [makefile]({{ site.baseurl }}{% link _lessons/obstacle_tao/makefile}).  The mesh file used in this lesson is available in [star.mesh]({{ site.baseurl }}{% link _lessons/obstacle_tao/star.mesh %}). All problem files are also hosted under `examples/atpesc/tao` directory of the MFEM `atpesc-dev` branch [here](https://github.com/mfem/mfem/tree/atpesc-dev/examples/atpesc/tao).
 
 ## The Obstacle Function
 
@@ -114,7 +114,9 @@ Note that these operations must be preceded by `PetscInitialize()` and `PetscFin
 
 ## Results
 
-Running the binary with the `-tao_type bqnls` flag uses the bounded quasi-Newton line-search algorithm in TAO to solve the problem. In this algorithm, the Hessian of the objective function is approximated using the [Broyden-Fletched-Goldfarb-Shanno (BFGS) approximation][6]. The TAO implementation is a limited-memory quasi-Newton algorithm, where only a limited number of previous steps are used to construct the approximate Hessian (default: 5 steps). This limited-memory quasi-Newton algorithm converges in 293 nonlinear iterations on the obstacle problem. The animation below shows the shape of the solution during the optimization.
+Once compiled with `make obstacle`, the problem can be run with `./obstacle -tao_monitor -tao_view`.
+
+Adding the `-tao_type bqnls` flag uses the bounded quasi-Newton line-search algorithm in TAO to solve the problem. In this algorithm, the Hessian of the objective function is approximated using the [Broyden-Fletched-Goldfarb-Shanno (BFGS) approximation][6]. The TAO implementation is a limited-memory quasi-Newton algorithm, where only a limited number of previous steps are used to construct the approximate Hessian (default: 5 steps). This limited-memory quasi-Newton algorithm converges in 293 nonlinear iterations on the obstacle problem. The animation below shows the shape of the solution during the optimization.
 
 [<img src="bqnls.gif" width="600">](bqnls.gif)
 
