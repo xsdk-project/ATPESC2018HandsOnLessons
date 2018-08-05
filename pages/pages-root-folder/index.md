@@ -8,8 +8,8 @@ layout: frontpage
 widget1:
   title: "Open</br>Source"
   url: 'https://fastmath-scidac.llnl.gov/software-catalog.html'
+  text: '<a href="https://www.exascaleproject.org"><ul><li>Numerically Rigorous.</li><li>Community Adopted.</li><li>Fully Supported.</li><li>Proven Results.</li></ul></a>'
   video: '<a href="#" data-reveal-id="videoModal1"><img src="images/ecp_fastmath.png" width="302" height="182" alt=""/></a>'
-  text: '<a href="https://www.exascaleproject.org"<ul><li>Numerically Rigorous.</li><li>Community Adopted.</li><li>Fully Supported.</li><li>Proven Results.</li></ul></a>'
 widget2:
   title: "Ease of Use</br>&nbsp;"
   url: 'https://xsdk.info'
