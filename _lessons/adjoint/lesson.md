@@ -6,8 +6,7 @@ permalink: "lessons/adjoint/"
 use_math: true
 lesson: true
 header:
- image_fullwidth: "theta.png"
-layout: page-fullwidth
+ image_fullwidth: "rd.jpg"
 ---
 
 ## At a Glance
