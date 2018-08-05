@@ -13,10 +13,10 @@ header:
 
 ## At A Glance
 
-| Questions                                                   | Objectives                                                                       | Key Points                                                                                                                                                                            | 
-| How can I define a simulation on a complex geometric model? | Demonstrate model defeaturing and mesh generation pre-processing tools           | Complex models require robust pre-processing tools!                                                                                                                                   | 
-|                                                             | Demonstrate the power of geometric model classification                          | Automated simulation tools designed for scientists and engineers working with real CAD models problem definition information must be specified on the geometric model - not the mesh. | 
-| How can I reliably and efficiently execute simulations?     | Demonstrate an adaptive MFEM+PUMI linear elastic analysis with large deformation | Adaptation is critical to automated, robust, and efficient simulation of simulations with transient behavior in which a static mesh defined a-priori will fail.                       | 
+| Questions                                                   | Objectives                                                             | Key Points                                                                                                                                                                            |
+| How can I define a simulation on a complex geometric model? | Demonstrate model defeaturing and mesh generation pre-processing tools | Complex models require robust pre-processing tools!                                                                                                                                   |
+|                                                             | Demonstrate the power of geometric model classification                | Automated simulation tools designed for scientists and engineers working with real CAD models problem definition information must be specified on the geometric model - not the mesh. |
+| How can I reliably and efficiently execute simulations?     | Demonstrate an adaptive MFEM+PUMI elastic analysis                     | Adaptation is critical to automated, robust, and efficient simulation of simulations with transient behavior in which a static mesh defined a-priori will fail.                       |
 
 Before you begin, first [Open the Answers Form](https://goo.gl/forms/HmuX6HrT0Yfoz7ny2){:target="\_blank"}
 in a separate browser tab/window.
@@ -118,10 +118,12 @@ user specified controls.
 Note, the features of the geometric model highly dictate what mesh sizes are
 possible.
 Specifically:
-- the mesh topology must exactly respect the geometric model topology, 
-i.e., each geometric model vertex has at least one mesh vertex classied on it.
-- the geometry of the mesh (e.g., the position of the vertices or curvature of
-faces) is *always* an approximation to the geometric model.
+- the mesh topology must exactly respect the geometric model topology,
+i.e., each geometric model edge has a set of meshes edges classified on it
+that cover the entire model edge.
+- in the case of problems on curved domains, the geometry of the typical
+interpolating point mesh (even using higher-order curved elements) is
+only an approximation to the original geometric model.
 
 Once the mesh is generated we convert it, in-memory (i.e., using PUMI and
 SimModSuite APIs), to a PUMI mesh and then write the PUMI mesh to file.
