@@ -249,10 +249,6 @@ Final L2 norm of residual: 1.51089e-18
 |:---:||:---:|
 |<video src="slu_metis.mpg" width="400" height="300" controls preload></video>|[<img src="mfem-superlu0004.png" width="400">](mfem-superlu0004.png)|
 
-|Time to Solution|
-|:---:|
-|[<img src="slu_metis_time.png" width="400">](slu_metis_time.png)|
-
 ### Run 5.5: Now use SuperLU_DIST, with Metis(A'+A) ordering, using 1 MPI tasks, on a larger problem.
 By adding `--refine 3`, each element in the mesh is subdivided twice yielding a 64x larger problem.
 But, we'll run it on only one processor.
