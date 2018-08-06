@@ -54,8 +54,9 @@
   - title: "HYPRE"
     url: "https://computation.llnl.gov/projects/hypre-scalable-linear-solvers-multigrid-methods"
   - title: "SuperLU"
-    url: "https://github.com/xiaoyeli/superlu_dist"
+    url: "http://crd-legacy.lbl.gov/~xiaoye/SuperLU"
   - title: "Tao"
+    url: "http://www.mcs.anl.gov/research/projects/tao/tao-deprecated/index.html"
 
 - title: Contributing
   audience: "private"
