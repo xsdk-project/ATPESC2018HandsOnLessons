@@ -57,10 +57,151 @@ qsub -I -n 1 -t 480 -A ATPESC2018 -q training
 ```
 The command blocks until the node is ready.  Until the allocation expires (480mins in this example), all commands executed in the returned session will run on the allocated compute node; `mpiexec` can be used directly instead of going through `qsub`.
   * **Note 1:** The special `-q training` will not be functional until 9am, August 6th and will go away 9pm that same day.
-  * **Note 2:** Please **DO NOT** run jobs on the login nodes. Instead, run them on an allocated compute node.
+  * **Note 2:** Please **DO NOT** run MPI jobs on the login nodes. Instead, run them on an allocated compute node.
   * **Note 3:** Be aware, however, that any running job will be terminated when your allocation expires.
 
 ## Visualization Tool Setup
 
-To be completed
+### Local Installations
+
+Results from various applications we use today may involve visualization with
+[VisIt][visit], [ParaView][paraview] or [GLVis][glvis]. By far, the simplest and
+most reliable way to setup any of these tools is to create a local installation on your laptop
+and then transfer data files from cooley to visualize them locally. For instructions for
+installing these tools locally...
+* For [VisIt][visit], go [here](https://wci.llnl.gov/simulation/computer-codes/visit/executables) to
+  find a suitable bundled executable installation for your system and then download and install it.
+* For [ParaView][paraview], go [here](https://www.paraview.org/download/)  to
+  find a suitable bundled executable installation for your system and then download and install it.
+* For [GLVis][glvis], go [here](http://glvis.org/building/) and follow instructions for building GLVis
+  from sources. Note, this will also involve building MFEM but does NOT require any special MFEM
+  dependencies.
+
+Once you have installed these tools, you can move data from cooley to your local machine and 
+visualize it locally.  But, manually logging in to move data files each time you need to
+can become combersome. You can use a single `scp` command to copy many files using either
+file [globbing](https://en.wikipedia.org/wiki/Glob_(programming)) or the `-r` recursive
+command-line option to copy whole directory trees as for example...
+```
+scp "cooley:/tmp/imag00*.png" .
+```
+or
+```
+scp -r cooley:/foo/bar/tree .
+```
+
+Beyond that, you may also want to have a look at...
+
+* [Setting Up & Using SSH Multiplexing / Control master](https://en.wikibooks.org/wiki/OpenSSH/Cookbook/Multiplexing)
+* [Using SFTP](https://www.digitalocean.com/community/tutorials/how-to-use-sftp-to-securely-transfer-files-with-a-remote-server)
+* [Mounting Filesystems Over SSHFS](https://wiki.archlinux.org/index.php/SSHFS)
+
+to simplify the process of manually moving data over many iterations of examples and tests.
+
+### Using Local Installations in Client-Server Mode
+A benefit from installing these tools locally is that once you have them installed locally, you
+can also configure them to run _client-server_ where you run an instance locally but use that
+instance to log into a remote resource, such as cooley, and visualize data there without having
+to manually transfer it locally. To setup these tools for client-server operation...
+* Follow [these instructions](https://www.alcf.anl.gov/user-guides/visit-cooley) to setup and run [VisIt][visit] client-server to Cooley.
+* Follow [these instructions](https://www.alcf.anl.gov/user-guides/paraview-cooley) to setup and run [ParaView][paraview] client-server to Cooley.
+* Follow [these instructions](http://glvis.org/options-and-use/#server-mode) to setup and run [GLVis][glvis] client-server.
+
+### Using Remote Visualization Tools Through VNC
+If you don't want to bother with installing anything locally or if you run into problems with
+that and/or if you don't want to constantly move data between cooley and your local system or setup
+passwordless ssh for that, a final option is to use [VNC][vnc]. Setting up a VNC connection involves
+a complex set of steps including SSH tunneling and port forwarding. It is described in some detail
+[here](https://www.alcf.anl.gov/user-guides/remote-visualization-cooley-using-vnc). However, we
+have created a shell script for you to run to simplify this process.
+
+But, a few challenges in using VNC on cooley are...
+* It is likely to be useful to you only if you are on OSX or Linux or have Cygwin on Windows.
+* You must have some vnc client installed on your local system
+  * It is built into OSX
+  * On linux, you will need either _vncviewer_ or _vinagre_
+* Only the twm window manager is available
+* Windows can be sized way too large for the VNC wrapper window in which they are placed
+* Cutting and pasting between VNC windows and other windows may not work as expected.
+
+With all those warnings and caveats aside, in addition, the setup script we provide
+does take the following actions to your login setup on cooley...
+* It adds some lines to your `~/.ssh/config` file (for SSH control master)
+* It changes your `~/.vnc/xstartup`
+If you do not wont these files changed...please do not run this script.
+
+Here are the steps
+1. Copy the vnc setup script to a suitable directory on your local machine
+```
+scp -l <cooley-username> cooley:/projects/ATPESC2018/FASTMath/scripts/atpesc2018_cooley_vnc_setup.sh .
+chmod 755 ./atpesc2018_cooley_vnc_setup.sh
+```
+1. Run the script
+```
+./atpesc2018_cooley_vnc_setup.sh <cooley-username>
+```
+1. It will prompt you for your cooley login password. Enter it as you normally would.
+1. You may observer output such as...
+```
+Password: 
+Warning: No xauth data; using fake authentication data for X11 forwarding.
+Warning: No xauth data; using fake authentication data for X11 forwarding.
+```
+1. It will then ask you for a temporary VNC password. Use 8 chars, upper
+and lower case and at least one digit. Please do not use the password used
+here in this example.
+```
+Create temporary VNC Password: Hello246
+```
+1. It will ask you to confirm your password
+```
+You have entered "Hello246", is this correct?
+1) Yes
+2) No
+```
+1. Enter `1` for Yes or `2` for no and a chance to re-entry a password.
+1. It will then attempt to allocate (e.g. reserve a node on cooley). While
+the node reservation request is processing, it will periodically print a
+messaging indicating it is still waiting for the allocation...
+```
+Warning: No xauth data; using fake authentication data for X11 forwarding.
+Checking for allocation completion
+process_mux_new_session: tcgetattr: Operation not supported by device
+Warning: No xauth data; using fake authentication data for X11 forwarding.
+Checking for allocation completion
+Checking for allocation completion
+Checking for allocation completion
+Checking for allocation completion
+Checking for allocation completion
+Got allocation at cc006
+```
+1. Note, it can take a few minutes before an allocation is created. When
+the allocation is ready, it prints the node id. Above, that is `cc006`.
+1. It then sets up a tunneling VNC connection to that node on port 22590.
+```
+Warning: No xauth data; using fake authentication data for X11 forwarding.
+[1] 2479360
+Warning: No xauth data; using fake authentication data for X11 forwarding.
+Attempting to connect VNC to localhost:22590 - If this fails you can reattempt this manually
+```
+1. If all goes well, you will be prompted to enter your vnc password to
+connect to the vnc instance just created. Enter the password you created
+above (e.g. `Hello246` in this example). Then, you should see a VNC window
+appear like so with an xterm running in it on the allocated node.
+![VNC Window ::](/images/vnc_window.png)
+1. From here, you can
+```
+soft add +visit
+soft add +paraview
+```
+to add VisIt and ParaView to your environment.
+1. **Finally, remember that part of the process of using VNC is to acquire
+a reserved allocation on cooley. So, you should not then also reserve any
+other cooley nodes apart from the one reserved with VNC through this script.**
+
+
+[visit]: https://visit.llnl.gov
+[glvis]: http://glvis.org
+[paraview]: https://www.paraview.org
+[vnc]: https://en.wikipedia.org/wiki/Virtual_Network_Computing
 

@@ -64,12 +64,16 @@ code review, which [research has shown](http://www.sciencedirect.com/science/art
 results in higher productivity. Finally, if you are not using an OSX or Linux laptop, it would
 be best to try to pair with someone who is.
 
+#### Todays Agenda
+The [agenda for today's presentations and hands-on exercises](/atpesc_2018_agenda)
+is available under the _Intro_ menu on this site. This includes links to presentation slides,
+presenter emails and hands-on lesson plans.
+
 #### Chat Option
 We will set up a Google Hangouts Chat starting the morning of the session. Expect to receive
 an email invite with the subject _ATPESC2018 Numerical Packages Chat_. We will also include
 a link under the Intro menu. We ask that you please exercise discretion and use this chat only
 for interactions as they pertain to today’s material and exercises.
-
 
 #### Getting Help
 * If during day-time hands-on exercises, please use your red post-it note (see above)
