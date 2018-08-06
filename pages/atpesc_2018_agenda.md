@@ -14,17 +14,17 @@ permalink: "/atpesc_2018_agenda/"
 |7:30am|60|Breakfast||
 |8:30am|5|Introduction to Session|[Ulrike Meier Yang][11] ([LLNL][2])|
 |8:35am|55|Algorithmic Adaptations to Extreme-Scale Computing|[David Keyes][4] ([KAUST][5])|
-|9:30am|60|Overview of Numerical Algorithms and Software|[Lori Diachin][6] ([LLNL][2])<br>+ [Hands-on Example][27]|
+|9:30am|60|[Overview of Numerical Algorithms and Software][40]|[Lori Diachin][6] ([LLNL][2])<br>+ [Hands-on Example][27]|
 |10:30am|30|Break||
-|11:00am|60|Unstructured Meshing and Discretization|[Tzanio Kolev][3] ([LLNL][2]) &<br>[Mark Shephard][7] ([RPI][8])<br>[+ Hands-on examples with][21] [MFEM][1]|
+|11:00am|60|[Unstructured Meshing and Discretization][41]|[Tzanio Kolev][3] ([LLNL][2]) &<br>[Mark Shephard][7] ([RPI][8])<br>[+ Hands-on examples with][21] [MFEM][1]|
 |12:30pm|60|Lunch||
-|1:30pm|45|Time Integration and Nonlinear Solvers|[Barry Smith][9] ([ANL][12])<br>[+ Hands-on examples with][22] [PETSc][10]|
-|2:15pm|45|Krylov Solvers and Multigrid|[Ulrike Meier Yang][11] ([LLNL][2])<br>[+ Hands-on examples with][23] [HYPRE][13]|
+|1:30pm|45|[Time Integration and Nonlinear Solvers][42]|[Barry Smith][9] ([ANL][12])<br>[+ Hands-on examples with][22] [PETSc][10]|
+|2:15pm|45|[Krylov Solvers and Multigrid][43]|[Ulrike Meier Yang][11] ([LLNL][2])<br>[+ Hands-on examples with][23] [HYPRE][13]|
 |3:00pm|30|Break||
-|3:30pm|45|Direct Linear Solvers|[Xiaoye Li][14] ([LBNL][15])<br>[+ Hands-on examples with][24] [SuperLU][16]|
-|4:15pm|45|Numerical Optimization|[Todd Munson][17] &<br>[Hong Zhang][18] ([ANL][12])<br>[+ Hands-on examples with][25] [TAO][19]|
-|5:00pm|30|Putting It All Together:<br>One Perspective|[Mark Shephard][7] &<br>[Cameron Smith][26] ([RPI][8])|
-|5:30pm|60|Dinner + Panel: Extreme-Scale Algorithms & Software|Moderator [Mark Miller][20] ([LLNL][2])|
+|3:30pm|45|[Direct Linear Solvers][44]|[Xiaoye Li][14] ([LBNL][15])<br>[+ Hands-on examples with][24] [SuperLU][16]|
+|4:15pm|45|[Numerical Optimization][45]|[Todd Munson][17] &<br>[Hong Zhang][18] ([ANL][12])<br>[+ Hands-on examples with][25] [TAO][19]|
+|5:00pm|30|[Putting It All Together:][46]<br>One Perspective|[Mark Shephard][7] &<br>[Cameron Smith][26] ([RPI][8])|
+|5:30pm|60|Dinner + Panel: Extreme-Scale Algorithms &<br> Software|Moderator [Mark Miller][20] ([LLNL][2])<br>Panelists:<br>[Xiaoye Li][14] ([LBNL][15])<br>[Tzanio Kolev][3] ([LLNL][2])<br>[Ulrike Meier Yang][11] ([LLNL][2])<br>[Todd Munson][17] ([ANL][12])|
 |6:30pm|180|Evening Hands-on + Other Activities|All|
 |9:30pm|Adjourn||
 
@@ -57,3 +57,10 @@ permalink: "/atpesc_2018_agenda/"
 [25]: ../lessons/adjoint/
 [26]: <mailto:smithc11@rpi.edu>
 [27]: ../lessons/hand_coded_heat/
+[40]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_8-6_930am_Diachin_Overview.pdf
+[41]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_8-6_11am_Kolev-Shephard-Smith_Unstructured_Meshing_Technologies.pdf
+[42]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_8-6_130pm_Smith_ODE-DAE_Integrators_and_Nonlinear_Solvers.pdf
+[43]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_8-6_215pm_Yang_Krylov_Solvers_and_Algebraic_Multigrid.pdf
+[44]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_8-6_330pm_Li_Direct_Sparse_Linear_Solvers.pdf
+[45]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_8-6_415pm_Munson-Zhang_Numerical_Optimization_using_PETSc_TAO.pdf
+[46]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_8-6_5pm_Smith-Shephard_Putting_it_all_together-One_perspective.pdf	
