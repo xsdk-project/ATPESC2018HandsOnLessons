@@ -431,7 +431,7 @@ applications that address our science questions of interest.
 
 {% include qanda
    question='What is the Optimum thickness of an Adobe Brick Wall?'
-   answer='0.4-0.5 meters' %}
+   answer='0.3-0.4 meters' %}
 
 ### Determine Optimum Wall Thicknesses
 
