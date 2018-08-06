@@ -39,7 +39,7 @@ directory.
 
 - Copy the example directory to your home directory
 ```
-rsync -aP {{site.handson_install_root}}/mfem-pumi-lesson ~/.
+rsync -aP {{site.handson_install_root}}/HandsOnLessons/mfem-pumi-lesson ~/.
 ```
 
 - Enter the lesson directory
