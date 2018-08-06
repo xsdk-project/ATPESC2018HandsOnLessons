@@ -73,13 +73,3 @@
     url: "/design/"
   - title: "Full Documentation"
     url: "/documentation/"
-
-- title: "Search"
-  audience: "public"
-  url: "/search/"
-  side: right
-
-- title: "Contact"
-  audience: "public"
-  url: "/contact/"
-  side: right

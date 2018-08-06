@@ -136,8 +136,8 @@ The function, `solution_update_ftcs`, is defined below without its body.
 static void
 solution_update_ftcs(
     int n,              // # of temperature samples in space
-    Double *curr,       // new temperatures to be computed
-    Double const *last, // old/last temperatures computed
+    Double *uk1,        // new temperatures @ t = k+1
+    Double const *uk0,  // old/last temperatures @ t = k
     Double alpha,       // thermal diffusivity
     Double dx,          // spacing in space, x
     Double dt,          // spacing in time, t
@@ -157,7 +157,7 @@ solution_update_ftcs(
 
     // Update the solution using FTCS algorithm
     for (int i = 1; i < n-1; i++)
-        curr[i] = r*last[i+1] + (1-2*r)*last[i] + r*last[i-1];
+        uk1[i] = r*uk0[i+1] + (1-2*r)*uk0[i] + r*uk0[i-1];
 
     // Impose boundary conditions for solution indices i==0 and i==n-1
     curr[0  ] = bc_0;
@@ -338,9 +338,9 @@ below.
 ' %}
 
 
-## Exercise #3: Solve the Science Problem of Interest
+## Exercise #3: Use Applicaton to Model Science Problem of Interest
 
-Lets now use our `heat` application to solve our simple science question.
+Lets now use our `heat` application to model our simple science question.
 
 ### Additional Information / Assumptions
 
@@ -358,8 +358,60 @@ Lets now use our `heat` application to solve our simple science question.
 input in the correct units. Take care!
 
 {% include qanda
+   question='Determine the command-line to run for our simple science problem?'
+   answer='./heat alpha=8.2e-10 lenx=0.25 dx=0.01 dt=100 maxt=55800 bc0=233.15 bc1=294.261 ic="const(294.261)"' %}
+
+## Exercise #4: Analyze Results and Do Some Science
+
+Its time to use the results from our simulation to answer the science question of interest.
+Below we plot results
+
+![Pipe Solution ::](pipe_solution.png){:width="400"}
+
+{% include qanda
    question='Will the pipes freeze?'
    answer='No' %}
+
+## Custom Coded Solutions are a Slippery Slope
+
+We all like to write code and build useful tools. However, it is all too easy
+to see the unfamiliar as an impediment rather than enabler in reaching our sience goals.
+However, this is a slippery slope. We often start with relatively simple goals
+and over time wish to evolve our software solutions to ever more challenging
+science problems.
+
+Examine the lines of code of the _complete application_ here
+
+```
+$ wc -l *.[Ch]
+  125 args.C     # User interface
+   94 crankn.C   # Alternative solver
+   88 Double.H   # Performance tracking
+   38 exact.C    # Testing support
+   24 ftcs.C     # FTCS solver
+  222 heat.C     # Main
+   19 heat.H     # Modularization
+   27 upwind15.C # Alternative solver
+  151 utils.C    # Utilities, I/O, Data Formats
+  788 total
+```
+
+Developing generally useful science applications involves many considerations and software
+engineering challenges.
+
+* More than just one spatial dimension
+* More complex geometric shapes and non-cartesian coordinate systems
+* Heat sources and radiation
+* Laminated, anisotropic or non-linear materials
+* Much larger objects involving billions of discretization points and requiring scalability in all phases of the solution.
+* Parallelism such as MPI, and/or, GPU and/or many core and/or various parallel runtimes
+* Alternative and interoperable discretizations, solvers, time-integrators, optimizers
+* An agile and sustainable software design and implementation addressing understandability of code, with encapsulation
+of complexities, robustness, efficiency, scalability, portability, reproducibility, rigorous testing, etc.
+
+When we employ numerical packages, many of these issues are addressed for us allowing us to
+focus more of our effort on the software engineering involved in developing
+applications that address our science questions of interest.
 
 ----
 
