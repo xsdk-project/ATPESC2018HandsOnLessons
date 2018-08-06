@@ -90,7 +90,23 @@ and defeatured geometric models.
 
 
 ### Optional - Run SimModeler to defeature the upright.
-Launch the VNC. Run SimModeler. FIXME
+[Launch the VNC](https://www.alcf.anl.gov/user-guides/remote-visualization-cooley-using-vnc)
+
+Run SimModeler:
+
+```
+cd ~/mfem-pumi-lesson/SimModeler6.0-180525/
+./simmodeler
+```
+
+Remove a small face
+- click 'File->Import Geometry' and select the `upright.x_t` model
+- click the 'Modeling' tab
+- click a small geometric model face
+- click 'Delete Faces and Heal' then click 'Apply' to remove the face
+
+Try removing the ring inside the hub by selecting all three of its faces, clicking the
+'+' symbol to add them to the list, then clicking 'Apply'.
 
 ## Problem Definition Introduction {#probdefintro} 
 
