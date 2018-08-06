@@ -382,16 +382,12 @@ Run the adaptive simulation:
 
 ```
 cd ~/mfem-pumi-lesson/analysis
-mpirun -np 2 ./pumi_upright_ex2p -p upright_defeatured_geomsim.smd -bf upright.def -m 2p5kg1.smb
+mpirun -np 2 ./pumi_upright_ex2p -p upright_defeatured_geomsim.smd -bf upright.def -m 2p5kg1/
 ```
 
-[<img src="figs/uprightMesh/initial.png" width="400">](figs/uprightMesh/initial.png)
-[<img src="figs/uprightMesh/final.png" width="400">](figs/uprightMesh/final.png)
-[<img src="figs/uprightMesh/initial_displacement.png" width="400">](figs/uprightMesh/initial_displacement.png)
-[<img src="figs/uprightMesh/final_displacement.png" width="400">](figs/uprightMesh/final_displacement.png)
+[<img src="figs/analysis/initialAndFinalMesh.png" width="400">](figs/analysis/initialAndFinalMesh.png)
 
-*Figure 6. Initial (left) and final (right) mesh (top) and displacement field
-(bottom).*
+*Figure 6. Initial mesh (left) and final mesh with displacement field (right).
 
 The requested isotropic (same in all directions) edge length is specified
 with a scalar value at each mesh vertex.  In 
