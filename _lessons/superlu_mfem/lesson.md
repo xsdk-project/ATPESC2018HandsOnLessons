@@ -350,9 +350,8 @@ Final L2 norm of residual: 2.29801e-39
 	    of DOFs. We have
             also added 16x processors. The parallel runtime is 9.10544 seconds.' %}
 
-### Run 7: Now use SuperLU_DIST, with Metis(A'+A) ordering, using 16 MPI tasks, on a larger problem.
-
-Here, we re-solve a different linear system but with the same coefficient matrix A. We tell  SuperLU to re-use the exisiting LU factors, but only give a different right-hand side.
+### Run 7: Now use SuperLU_DIST, solve the systems with same A, but different right-hand side b.
+Here, we solve a different linear system but with the same coefficient matrix A. We tell  SuperLU to re-use the exisiting LU factors, but only give a different right-hand side.
 Notice the improvement in solve time when re-using the factors.
 
 ```
@@ -410,74 +409,8 @@ Final L2 norm of residual: 1.95236e-39
 ### Run 8
 
 ```
-i$ mpiexec -n 16 ./convdiff --refine 2 --velocity 1000 -slu -cp 4 -2mat
-Options used:
-   --refine 2
-   --order 1
-   --velocity 1000
-   --no-visit
-   --superlu
-   --slu-colperm 4
-   --slu-rowperm 1
-   --slu-parsymbfact 0
-   --two-matrix
-   --one-rhs
-Number of unknowns: 160801
-	Nonzeros in L       8751360
-	Nonzeros in U       8751360
-	nonzeros in L+U     17341919
-	nonzeros in LSUB    3696221
+$ mpiexec -n 16 ./convdiff --refine 3 --velocity 1000 -slu -cp 4 -2mat
 
-** Memory Usage **********************************
-** NUMfact space (MB): (sum-of-all-processes)
-    L\U :          153.37 |  Total :   295.20
-** Total highmark (MB):
-    Sum-of-all :   703.49 | Avg :    43.97  | Max :    43.97
-**************************************************
-Time required for first solve:  35.4073 (s)
-Final L2 norm of residual: 2.543e-40
-
-**************************************************
-**** Time (seconds) ****
-	EQUIL time             0.93
-	ROWPERM time           1.98
-	COLPERM time           1.86
-	SYMBFACT time          0.09
-	DISTRIBUTE time        0.33
-	FACTOR time           34.80
-	Factor flops	2.623572e+09	Mflops 	   75.39
-	SOLVE time             0.97
-	Solve flops	3.524035e+07	Mflops 	   36.51
-	REFINEMENT time        2.12	Steps       2
-
-**************************************************
-	Nonzeros in L       8751360
-	Nonzeros in U       8751360
-	nonzeros in L+U     17341919
-	nonzeros in LSUB    3696221
-
-** Memory Usage **********************************
-** NUMfact space (MB): (sum-of-all-processes)
-    L\U :          153.37 |  Total :   295.20
-** Total highmark (MB):
-    Sum-of-all :   703.49 | Avg :    43.97  | Max :    43.97
-**************************************************
-Time required for second matrix (same sparsity):  32.8356 (s)
-Final L2 norm of residual: 2.37648e-40
-**************************************************
-**** Time (seconds) ****
-	EQUIL time             0.70
-	ROWPERM time           0.31
-	COLPERM time           1.98
-	SYMBFACT time          0.09
-	DISTRIBUTE time        0.91
-	FACTOR time           32.69
-	Factor flops	2.623572e+09	Mflops 	   80.27
-	SOLVE time             0.96
-	Solve flops	3.524035e+07	Mflops 	   36.68
-	REFINEMENT time        2.16	Steps       2
-
-**************************************************
 ```
 
 ---
