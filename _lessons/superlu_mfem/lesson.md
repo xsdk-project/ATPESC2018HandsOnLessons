@@ -105,7 +105,7 @@ of the solution GMRES gives as velocity increases
    
 ---
 
-### Run 3: Now use SuperLU_DIST, with default options
+### Run 3: Now use SuperLU_DIST, with "natural ordering"
 ```
 $  ./convdiff --velocity 1000 -slu -cp 0  
 Options used:
