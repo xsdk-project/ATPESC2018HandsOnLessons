@@ -13,7 +13,7 @@ permalink: "/atpesc_2018_agenda/"
 |:----|:------|:---:|------:|
 |7:30am|60|Breakfast||
 |8:30am|5|Introduction to Session|[Ulrike Meier Yang][11] ([LLNL][2])|
-|8:35am|55|Algorithmic Adaptations to Extreme-Scale Computing|[David Keyes][4] ([KAUST][5])|
+|8:35am|55|[Algorithmic Adaptations to Extreme-Scale Computing][47]|[David Keyes][4] ([KAUST][5])|
 |9:30am|60|[Overview of Numerical Algorithms and Software][40]|[Lori Diachin][6] ([LLNL][2])<br>+ [Hands-on Example][27]|
 |10:30am|30|Break||
 |11:00am|60|[Unstructured Meshing and Discretization][41]|[Tzanio Kolev][3] ([LLNL][2]) &<br>[Mark Shephard][7] ([RPI][8])<br>[+ Hands-on examples with][21] [MFEM][1]|
@@ -64,3 +64,4 @@ permalink: "/atpesc_2018_agenda/"
 [44]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_8-6_330pm_Li_Direct_Sparse_Linear_Solvers.pdf
 [45]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_8-6_415pm_Munson-Zhang_Numerical_Optimization_using_PETSc_TAO.pdf
 [46]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_8-6_5pm_Smith-Shephard_Putting_it_all_together-One_perspective.pdf	
+[47]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_8-6_835am_Keyes_Algorithmic_Adaptations.pdf
