@@ -331,8 +331,8 @@ For more information, visit the MFEM website, [http://mfem.org](http://mfem.org)
 - [Finite Elements](http://mfem.org/fem/), and
 - [Meshing](http://mfem.org/meshing) pages.
 
-You may also be interested in visiting the websites of the related [GLVis](http://glvis.org)
-[CEED](http://ceed.exascaleproject.org) and [BLAST](https://computation.llnl.gov/projects/blast) projects.
+You may also be interested in visiting the websites of the related [GLVis](http://glvis.org),
+[CEED](http://ceed.exascaleproject.org), and [BLAST](https://computation.llnl.gov/projects/blast) projects.
 
 ---
 
@@ -417,5 +417,6 @@ don't hesitate to ask if you have any implementation questions.
 
 #### To Get Credit / Points
 
-Whatever you do with MFEM here, be sure to submit a _[Show Your Work](https://goo.gl/forms/B7UFpBvEOJbC58oJ2)_
-using the hands-on activity name `MFEM_Example_<##>` or `MFEM_Miniapp_<Name>`.
+To get points, please submit screenshots, simulation images and any additional material you have
+generated via _[Show Your Work](https://goo.gl/forms/B7UFpBvEOJbC58oJ2)_
+using the hands-on activity name `MFEM_HandsOn`.
