@@ -59,6 +59,7 @@ The command blocks until the node is ready.  Until the allocation expires (480mi
   * **Note 1:** The special `-q training` will not be functional until 9am, August 6th and will go away 9pm that same day.
   * **Note 2:** Please **DO NOT** run MPI jobs on the login nodes. Instead, run them on an allocated compute node.
   * **Note 3:** Be aware, however, that any running job will be terminated when your allocation expires.
+  * **Note 4:** To enable X windows for visualization on the compute node, you can open a new terminal and login to the allocated compute node by doing `ssh -Y cc0xx` (`cc0xx` is your node id)
 
 ## Visualization Tool Setup
 
