@@ -406,13 +406,6 @@ Final L2 norm of residual: 1.95236e-39
 **************************************************
 ```
 
-### Run 8
-
-```
-$ mpiexec -n 16 ./convdiff --refine 3 --velocity 1000 -slu -cp 4 -2mat
-
-```
-
 ---
 
 ## Out-Brief
