@@ -160,8 +160,10 @@ cd ~/mfem-pumi-lesson/meshGeneration
 *Figure 5. Mesh of defeatured upright model*
 
 ### Optional - Visualize the Initial Meshes
-Download the `.*vtu` files from [Here - FIXME](https://goo.gl/forms/HmuX6HrT0Yfoz7ny2), or
-use a file transfer utility (e.g., `scp`, `rsync`, `putty`, etc.) to copy them to your local machine.
+Download the `.*vtu` files from
+[Here](https://github.com/xsdk-project/ATPESC2018HandsOnLessons/raw/gh-pages/_lessons/pumi/paraview.tar.gz), or
+use a file transfer utility (e.g., `scp`, `rsync`, `putty`, etc.)
+to copy the ones you generated to your local machine.
 
 ---
 
@@ -278,9 +280,10 @@ two mesh elements).
 *Figure 6. Partitions created with multi-level graph (left), RCB (middle), and RIB (right)*
 
 ### Optional - Visualize the Partitioned Meshes
-Download the `*vtu` files from [Here]( https://goo.gl/forms/HmuX6HrT0Yfoz7ny2), or
-use a file transfer utility (e.g., `scp`, `rsync`, `putty`, etc.) to copy them
-to your local machine.
+Download the `.*vtu` files from
+[Here](https://github.com/xsdk-project/ATPESC2018HandsOnLessons/raw/gh-pages/_lessons/pumi/paraview.tar.gz), or
+use a file transfer utility (e.g., `scp`, `rsync`, `putty`, etc.)
+to copy the ones you generated to your local machine.
 
 ## Problem Definition {#probdef}
 
@@ -402,8 +405,10 @@ edge lengths that vary with direction, anisotropic, are specified.
 %}
 
 ### Optional - Visualize the analysis results
-Download the `.*vtu` files from [Here - FIXME](https://goo.gl/forms/HmuX6HrT0Yfoz7ny2), or
-use a file transfer utility (e.g., `scp`, `rsync`, `putty`, etc.) to copy them to your local machine.
+Download the `.*vtu` files from
+[Here](https://github.com/xsdk-project/ATPESC2018HandsOnLessons/raw/gh-pages/_lessons/pumi/paraview.tar.gz), or
+use a file transfer utility (e.g., `scp`, `rsync`, `putty`, etc.)
+to copy the ones you generated to your local machine.
 
 ## Out-Brief
 
