@@ -405,6 +405,11 @@ edge lengths that vary with direction, anisotropic, are specified.
 Download the `.*vtu` files from [Here - FIXME](https://goo.gl/forms/HmuX6HrT0Yfoz7ny2), or
 use a file transfer utility (e.g., `scp`, `rsync`, `putty`, etc.) to copy them to your local machine.
 
+#### Get Credit / Points
+
+Be sure to submit a [Show Your Work](https://goo.gl/forms/B7UFpBvEOJbC58oJ2) using the hands-on
+activity name, `PUMI_Partitioning` or `PUMI_Adaptive_Simulation`.
+
 ## Out-Brief
 
 We have exercised a workflow using PUMI and MFEM software components that is

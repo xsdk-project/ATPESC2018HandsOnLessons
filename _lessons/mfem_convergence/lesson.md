@@ -414,3 +414,8 @@ featured on MFEM's [gallery](http://mfem.org/gallery/) page!*
 
 Please consult the MFEM [code documentation](http://mfem.github.io/doxygen/html/index.html) and
 don't hesitate to ask if you have any implementation questions.
+
+#### To Get Credit / Points
+
+Whatever you do with MFEM here, be sure to submit a _[Show Your Work](https://goo.gl/forms/B7UFpBvEOJbC58oJ2)_
+using the hands-on activity name `MFEM_Example_<##>` or `MFEM_Miniapp_<Name>`.

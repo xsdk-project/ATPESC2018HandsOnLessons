@@ -75,7 +75,12 @@ installing these tools locally...
   find a suitable bundled executable installation for your system and then download and install it.
 * For [GLVis][glvis], go [here](http://glvis.org/building/) and follow instructions for building GLVis
   from sources. Note, this will also involve building MFEM but does NOT require any special MFEM
-  dependencies.
+  dependencies. Alternatively, you may use [Spack][spack] to install [GLVis][glvis] and MFEM as like so
+```
+git clone https://github.com/spack/spack.git
+. spack/share/spack/setup-env.sh
+spack install mfem glvis
+```
 
 Once you have installed these tools, you can move data from cooley to your local machine and 
 visualize it locally.  But, manually logging in to move data files each time you need to
@@ -204,4 +209,5 @@ other cooley nodes apart from the one reserved with VNC through this script.**
 [glvis]: http://glvis.org
 [paraview]: https://www.paraview.org
 [vnc]: https://en.wikipedia.org/wiki/Virtual_Network_Computing
+[spack]: https://spack.io
 

@@ -220,8 +220,8 @@ PETSC_OPTIONS="-ts_adapt_monitor no -ts_type arkimex -ts_monitor :/dev/null -log
 Try other combinations of levels of refinement and number of processes. Produce a small
 _scaling_ plot showing scaling of algorithms from say 1..32 mpi ranks.
 
-When you are done, go to `Intro->Submit A Show Your Work` using the hands-on activity
-name _Time Integrators Scalability_ and upload evidence of your completed solution.
+When you are done, be sure to submit a [Show Your Work](https://goo.gl/forms/B7UFpBvEOJbC58oJ2)
+ using the hands-on activity name _Time Integrators Scalability_ and upload evidence of your completed solutions.
 
 ### Further Reading
 

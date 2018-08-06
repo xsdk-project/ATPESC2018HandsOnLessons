@@ -27,9 +27,11 @@ questions for which you will submit Google Forms for your answers.
 * During day-time hands-on exercises, the expandable question-and-answer boxes
 inline with the lesson (which ordinarily show the correct answers) will be disabled
 but will provide a link to an associated Google From for you to submit your answers.
-* During most of the evening hands-on exercises, you will submit a _Show-Your-Work_
-Google form by going to the main menu (upper left of the site)
-Intro->Submit A Show Your Work.
+* During most of the evening hands-on exercises, you will submit a
+[Show-Your-Work](https://goo.gl/forms/B7UFpBvEOJbC58oJ2) Google form by going to
+the main menu (upper left of the site) Intro->Submit A Show Your Work. Be sure to
+include any relevant code snipits, images, and written description and analysis
+of your work.
 
 #### Red Post-Its
 For day-time hands-on exercises, you will be given a red sticky note to use if you encounter

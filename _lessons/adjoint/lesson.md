@@ -5,6 +5,7 @@ subheadline: "Adjoin time dependent differential equations"
 permalink: "lessons/adjoint/"
 use_math: true
 lesson: true
+answers_google_form: "https://docs.google.com/forms/d/e/1FAIpQLScxRMHLK7CCDLDU6qYYWfimi18IxPk261lp3wJL737I-78cKQ/viewform?usp=sf_link"
 header:
  image_fullwidth: "rd.jpg"
 ---
