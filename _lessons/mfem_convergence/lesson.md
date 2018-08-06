@@ -323,7 +323,7 @@ the effect of the polynomial order of the basis functions on convergence rates.
 
 ### Further Reading
 
-For more information, visit the MFEM website, http://mfem.org, including the
+For more information, visit the MFEM website, [http://mfem.org](http://mfem.org), including the
 
 - [Features](http://mfem.org/features),
 - [Examples](http://mfem.org/examples/),
@@ -342,7 +342,7 @@ The evening hands on exercise will be dedicated on getting more experience with 
 finite element discretization methods for additional physics.
 
 ##### (Bonus #1) Install MFEM + GLVis On Your Laptop
-- Follow the building instructions here: http://mfem.org/building/.
+- Follow the building instructions here: [http://mfem.org/building/](http://mfem.org/building/).
 - You should be able to download & install serial version of MFEM in 5min (there are no external dependencies).
 - Parallel versions of MFEM requires installing hypre and METIS (also discussed above).
 - Alternatively, if you already have Spack, you can build with: `spack install mfem glvis`.
