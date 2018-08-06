@@ -108,7 +108,7 @@ Remove a small face
 Try removing the ring inside the hub by selecting all three of its faces, clicking the
 '+' symbol to add them to the list, then clicking 'Apply'.
 
-## Problem Definition Introduction {#probdefintro} 
+## Problem Definition Introduction {#probdefintro}
 
 The boundary conditions, initial conditions, material parameters, etc. are
 specified on the geometric model - not the mesh.
@@ -120,12 +120,12 @@ that supports this and the specific boundary conditions for this problem.
 Now that we have prepared the model and defined the boundary conditions we can
 proceed with mesh generation using the Simmetrix SimModSuite library APIs.
 The mesh generation procedures are driven by size controls defined by the user
-on geometric model entities or defined within geometric primatives that
+on geometric model entities or defined within geometric primitives that
 intersect the model (e.g., cubes, spheres, cylinders, etc.).
 In this example we generate a coarse mesh using a single relative size control
 applied to the entire model.
 This control guides the generation procedures to create edges whose lengths are
-proportional, using our presribed value, to the length of local geometric model
+proportional, using our prescribed value, to the length of local geometric model
 features.
 
 The mesh generator is automated, which in the domain of mesh generation means
@@ -147,10 +147,10 @@ SimModSuite APIs), to a PUMI mesh and then write the PUMI mesh to file.
 {% include qanda
     question='
      1) Given the same mesh size controls (e.g., the length of mesh edges),
-        the mesh on the initial geometry will:
-        a) ... have *more* elements than the mesh of the defeatured geometric model.
-        b) ... have *less* elements than the mesh of the defeatured geometric model.
-        c) ... have the same number of elements as the mesh of the defeatured geometric model.'
+	the mesh on the initial geometry will:
+	a) ... have *more* elements than the mesh of the defeatured geometric model.
+	b) ... have *less* elements than the mesh of the defeatured geometric model.
+	c) ... have the same number of elements as the mesh of the defeatured geometric model.'
     answer='a'
 %}
 
@@ -195,7 +195,7 @@ Efficient parallel execution requires equally distributing the units of work amo
 processing resources while keeping communication costs low.
 The multi-level graph and recursive sectioning geometric methods are among the
 most commonly available and used methods for partitioning unstructured meshes.
-In this lesson we will exercise the multi-level graph partitioner (refered to as
+In this lesson we will exercise the multi-level graph partitioner (referred to as
 'graph' below) provided by the Zoltan interface and implemented by ParMETIS.
 We will then run recursive coordinate bisection ('RCB') and recursive inertial
 bisection ('RIB') to produce meshes of with the same part count (number of
@@ -266,13 +266,13 @@ Given the values of the imbalance and shared entity count for each partition
 {% include qanda
     question='
      4) Which partition has the highest element imbalance?
-        a)RCB
-        b)RIB
-        c)multi-level graph'
+	a)RCB
+	b)RIB
+	c)multi-level graph'
     answer='c'
 %}
 
-The partitioning descisions of RIB and RCB are based on the centroid of mesh
+The partitioning decisions of RIB and RCB are based on the centroid of mesh
 elements while the multi-level graph partitioner is using mesh adjacency
 information (graph vertex = mesh element, graph edge = mesh face shared by
 two mesh elements).
@@ -280,14 +280,14 @@ two mesh elements).
 {% include qanda
     question='
      5) What causes the boundaries of the RIB and RCB partitions to look jagged
-        relative to the multi-level graph partition boundaries?
-        a) the placement of the cutting plane versus the coordinates of
-        the mesh elements
-        b) the intersection of the cutting planes used by the recursive
-        sectioning procedures form angular multi-part junctions whereas the multi-level
-        graph procedures produce more rounded parts and thus smoother junctions
-        c) the multi-level graph procedure uses mesh adjacency information to reduce the
-        number of mesh faces on the partition boundaries'
+	relative to the multi-level graph partition boundaries?
+	a) the placement of the cutting plane versus the coordinates of
+	the mesh elements
+	b) the intersection of the cutting planes used by the recursive
+	sectioning procedures form angular multi-part junctions whereas the multi-level
+	graph procedures produce more rounded parts and thus smoother junctions
+	c) the multi-level graph procedure uses mesh adjacency information to reduce the
+	number of mesh faces on the partition boundaries'
     answer='All of the above.'
 %}
 
@@ -362,20 +362,20 @@ Load
 ## Adaptive Simulation
 
 This problem solves a linear elasticity model on a cantilever beam.
-Specifically, we approximate the weak form of 
+Specifically, we approximate the weak form of
 
-$$-div(\sigma(u))=0$$ 
+$$-div(\sigma(u))=0$$
 
 where
 
 $$\sigma(u)=\lambda*div(u)*I+\mu*(\nabla*u+u*\nabla)$$
 
-is the stress tensor corresponding to displacement field $$u$$, 
+is the stress tensor corresponding to displacement field $$u$$,
 and $$\lambda=1$$ and $$\mu=1$$ are the material Lame constants.
 
-[Figure 7](#probdef) depicts the applied boundary conditions; a fixed displacement 
+[Figure 7](#probdef) depicts the applied boundary conditions; a fixed displacement
 $$u=0$$ on the max Y face and pull force $$f=1.0e-2$$ on the min Z face.
-The specification of these boundary conditions using geometric model entity 
+The specification of these boundary conditions using geometric model entity
 ids is described in the [Problem Definition](#probdef) section.
 
 To control the error without a-priori knowledge of solution we will run this
@@ -393,7 +393,7 @@ In this example a patch recovery approach is used.
 
 Given the structure of the geometric model and the specified boundary
 conditions, we expect that the upper portion (positive Z) of the main hub
-experiences higher stresses as the the lower part is much stiffer.
+experiences higher stresses as the lower part is much stiffer.
 Given this intuition we would expect higher error there and therefore a finer
 mesh is expected as the result of the meshAdapt.
 
@@ -409,7 +409,7 @@ mpirun -np 2 ./pumi_upright_ex2p -p upright_defeatured_geomsim.smd -bf upright.d
 *Figure 8. Initial mesh (left) and final mesh with displacement field (right).
 
 The requested isotropic (same in all directions) edge length is specified
-with a scalar value at each mesh vertex.  In 
+with a scalar value at each mesh vertex.  In
 [Section 2.1 of Li et al.](https://www.scorec.rpi.edu/REPORTS/2005-31.pdf)
 edge lengths that vary with direction, anisotropic, are specified.
 
@@ -417,7 +417,7 @@ edge lengths that vary with direction, anisotropic, are specified.
     question='
     7) How do applications request anisotropic edge lengths from mesh adaptation procedures?'
     answer='Using a mesh metric tensor that can be decomposed into eigen values and eigen
-            vectors that specify the length of the edges in the principle directions.'
+	    vectors that specify the length of the edges in the principle directions.'
 %}
 
 ### Optional - Visualize the analysis results
@@ -455,12 +455,12 @@ of functionalities that support the needs of multiple applications.
 
 * Mesh data and geometry interactions
   * Seol, E.S. and Shephard, M.S., **Efficient distributed mesh data structure for parallel automated adaptive analysis**, Engineering with Computers, 22(3-4):197-213, 2006, DOI: 10.1007s00366-006-0048-4
-  * Beall, M.W., Walsh, J. and Shephard, M.S, **A comparison of techniques for geometry access related to mesh generation**, Engineering with Computers, 20(3):210-221, 2004, DOI: 10.1007s00366-004-0289-z. 
+  * Beall, M.W., Walsh, J. and Shephard, M.S, **A comparison of techniques for geometry access related to mesh generation**, Engineering with Computers, 20(3):210-221, 2004, DOI: 10.1007s00366-004-0289-z.
   * Beall, M.W.. and Shephard, M.S., **An Object-Oriented Framework for Reliable Numerical Simulations**, Engineering with Computers, 15(1):61-72, 1999, DOI: 10.1007/s003660050005.
   * Beall, M.W. and Shephard, M.S., **A general topology-based mesh data structure**, Int. J. Numer. Meth. Engng., 40(9):1573-1596, 1997, DOI: 10.1002(SICI)1097-0207(19970515)40:9<1573::AID-NME128>3.0.CO;2-9.
 
 * Adaptivity
-  * "Aleksandr Ovcharenko, **Parallel Anisotropic Mesh Adaptation with Boundary Layers**, Ph.D. Dissertation, RPI, 2012":http://www.scorec.rpi.edu/REPORTS/2012-20.pdf 
+  * "Aleksandr Ovcharenko, **Parallel Anisotropic Mesh Adaptation with Boundary Layers**, Ph.D. Dissertation, RPI, 2012":http://www.scorec.rpi.edu/REPORTS/2012-20.pdf
   * Q. Lu, M.S. Shephard, S. Tendulkar and M.W. Beall, **Parallel Curved Mesh Adaptation for Large Scale High-Order Finite Element Simulations**, Proc. 21 Roundtable, Springer, NY, pp. 419-436, 2012, DOI 10.1007978-3-642-33573-0.
   * A. Ovcharenko, K. Chitale, O. Sahni, K.E. Jansen and M.S. Shephard, S. Tendulkar and M.W. Beall, **Parallel Adaptive Boundary Layer Meshing for CFD Analysis**, Proc. 21st International Meshing Roundtable, Springer, NY, pp. 437-455, 2012, DOI 10.1007978-3-642-33573-0
   * X.-J. Luo, M.S. Shephard, L.-Q. Lee and C. Ng, **Moving Curved Mesh Adaption for Higher Order Finite Element Simulations**, Engineering with Computers, 27(1):41-50, 2011. DOI: 10.1007/s00366-010-0179-5
