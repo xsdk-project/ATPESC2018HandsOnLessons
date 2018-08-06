@@ -92,6 +92,9 @@ and defeatured geometric models.
 ### Optional - Run SimModeler to defeature the upright.
 [Launch the VNC](https://www.alcf.anl.gov/user-guides/remote-visualization-cooley-using-vnc)
 
+The [Setup page](https://xsdk-project.github.io/ATPESC2018HandsOnLessons/setup_instructions/)
+has more detailed, and scripted, instructions to launch the VNC.
+
 Run SimModeler:
 
 ```
