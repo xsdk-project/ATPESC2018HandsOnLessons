@@ -9,7 +9,7 @@ permalink: "/setup_instructions/"
 ---
 
 Instructions here are divided into _required_ and _optional_ steps.
-We expect everyone to, minimally, completed all _required_ steps here.
+We expect everyone to, minimally, complete all _required_ steps here.
 The _optional_ steps are likely to improve your experience by simplifying
 or improving performance of certain operations.
 
@@ -37,7 +37,7 @@ this command to update your local copy if we discover changes are necessary.
   * As a test case, use an example from hypre to confirm you can compile
     and run an example
 ```
-qsub -I -n 1 -t 5 -A ATPESC2018
+qsub -I -n 1 -t 5 -A ATPESC2018 -q debug
 cd HandsOnLessons/krylov_amg
 touch ij.c
 make ij
@@ -57,10 +57,8 @@ qsub -I -n 1 -t 480 -A ATPESC2018 -q training
 ```
 The command blocks until the node is ready.  Until the allocation expires (480mins in this example), all commands executed in the returned session will run on the allocated compute node; `mpiexec` can be used directly instead of going through `qsub`.
   * **Note 1:** The special `-q training` will not be functional until 9am, August 6th and will go away 9pm that same day.
-  * **Note 2:** All the software here can also run on the login nodes of Cooley. However, we ask that you please
-    **DO NOT** run jobs on the login nodes and instead run them on a reserved allocation.
-  * **Note 3:** Be aware, however, that starting new jobs on the reserved node too close to the allocation's expiration
-    may result in the allocation going away before your job completes.
+  * **Note 2:** Please **DO NOT** run jobs on the login nodes. Instead, run them on an allocated compute node.
+  * **Note 3:** Be aware, however, that any running job will be terminated when your allocation expires.
 
 ## Visualization Tool Setup
 

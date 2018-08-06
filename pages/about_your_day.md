@@ -33,7 +33,7 @@ Intro->Submit A Show Your Work.
 
 #### Red Post-Its
 For day-time hands-on exercises, you will be given a red sticky note to use if you encounter
-issues running hands on lessons. Instead of raising hands and interrupting the a day-time lesson,
+issues running hands on lessons. Instead of raising hands and interrupting the day-time lesson,
 we ask that you please place a red sticky note on the edge of your laptop display. Members
 of the numerical software team will be watching and roaming the room looking for anyone that
 has such notes _flying_ and will provide assistance. We ask that you please wait for a member
