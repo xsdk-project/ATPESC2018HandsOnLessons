@@ -409,8 +409,8 @@ For example, you can solve a steady-state [heat conduction](../hand_coded_heat/)
 and 3D using the `shaper` miniapp (modified for the cable shape) to define the mesh and `ex1`
 or `ex1p` to solve it (modified to include separate coefficients for air and cable).
 
-We will like to see your creativity -- the best simulations will enter for a chance to be
-featured on MFEM's [gallery](http://mfem.org/gallery/) page!
+*We want to see your creativity -- the best simulations will enter for a chance to be
+featured on MFEM's [gallery](http://mfem.org/gallery/) page!*
 
 Please consult the MFEM [code documentation](http://mfem.github.io/doxygen/html/index.html) and
 don't hesitate to ask if you have any implementation questions.

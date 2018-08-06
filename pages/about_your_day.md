@@ -12,7 +12,7 @@ permalink: "/about_your_day/"
 * Lectures and brief hands-on exercises will be interleaved throughout the day.
 Deeper dive hands-on lessons will be in the evening.
 * Day-time hands-on will be brief runs of examples and exposure to key concepts
-following fairly structured lesson plans. 
+following fairly structured lesson plans.
 * Evening hands-on will permit deeper dive into hands-on exercises of your choosing
 and with less structured lessons.
 
@@ -52,7 +52,7 @@ please sign up by 4 pm CT (end of the afternoon break). After dinner, we will pr
 schedule for evening one-on-ones.  This is a great opportunity to discuss detailed issues
 with experts in the field. You will, of course, have to decide how best to balance any
 one-on-one discussions with your evening hands-on exercise activities as these activities
-will both occurr concurrently.
+will both occur concurrently.
 
 #### For Evening, Consider Working in Teams (2-4)
 For the evening hands-on exercises, we encourage participants to work in teams of 2-4.
@@ -65,7 +65,7 @@ results in higher productivity. Finally, if you are not using an OSX or Linux la
 be best to try to pair with someone who is.
 
 #### Chat Option
-We will set up a Google Hangouts Chat starting the morning of the session. Expect to recieve
+We will set up a Google Hangouts Chat starting the morning of the session. Expect to receive
 an email invite with the subject _ATPESC2018 Numerical Packages Chat_. We will also include
 a link under the Intro menu. We ask that you please exercise discretion and use this chat only
 for interactions as they pertain to today’s material and exercises.

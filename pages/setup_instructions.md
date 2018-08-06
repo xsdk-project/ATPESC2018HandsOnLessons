@@ -15,7 +15,7 @@ or improving performance of certain operations.
 
 ## Required Steps
 
-Please complete the followig _required_ steps prior to the beginning of the session
+Please complete the following _required_ steps prior to the beginning of the session
 on Monday, August 6th.
 
 1. Log Into Cooley
@@ -38,13 +38,13 @@ this command to update your local copy if we discover changes are necessary.
     and run an example
 ```
 qsub -I -n 1 -t 5 -A ATPESC2018
-cd HandsOnLessons/hypre
+cd HandsOnLessons/krylov_amg
 touch ij.c
 make ij
 mpiexec -n 4 ./ij
 echo $?
 exit
-``` 
+```
   * The `qsub` command reserves a cooley node for interactive work for 5 minutes.
     You may have to wait a moment for the interactive prompt on the reserved node to return.
   * The above commands should produce makefile and execution output. In particular
