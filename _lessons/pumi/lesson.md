@@ -72,18 +72,18 @@ the simulation often must coordinate to create the `as-simulated' model.
 *Figure 1. Initial (left) and defeatured (right) Tokamak antenna geometric model*
 
 For this hands-on we removed a few small faces on the RPI Formula Hybrid
-suspension upright shown in Figure 3 to illustrate a few key characteristics of
+suspension upright shown in Figure 2 to illustrate a few key characteristics of
 the mesh generation procedures.
 
 [<img src="figs/upright/all_zmin.png" width="400">](figs/upright/all_zmin.png)
 [<img src="figs/upright/all_zmax.png" width="400">](figs/upright/all_zmax.png)
 
-*Figure 3. RPI Formula Hybrid suspension upright*
+*Figure 2. RPI Formula Hybrid suspension upright*
 
 [<img src="figs/upright_defeatured/all_zmin.png" width="400">](figs/upright_defeatured/all_zmin.png)
 [<img src="figs/upright_defeatured/all_zmax.png" width="400">](figs/upright_defeatured/all_zmax.png)
 
-*Figure 4. RPI Formula Hybrid suspension upright with small faces removed*
+*Figure 3. RPI Formula Hybrid suspension upright with small faces removed*
 
 In the Mesh Generation step we will generate and compare meshes of the initial
 and defeatured geometric models.
@@ -152,12 +152,12 @@ cd ~/mfem-pumi-lesson/meshGeneration
 [<img src="figs/upright/5kg1_all_zmax.png" width="400">](figs/upright/5kg1_all_zmax.png)
 [<img src="figs/upright/5kg1_all_zmin.png" width="400">](figs/upright/5kg1_all_zmin.png)
 
-*Figure 6. Mesh of initial upright model*
+*Figure 4. Mesh of initial upright model*
 
 [<img src="figs/upright_defeatured/5kg1_all_zmax.png" width="400">](figs/upright_defeatured/5kg1_all_zmax.png)
 [<img src="figs/upright_defeatured/5kg1_all_zmin.png" width="400">](figs/upright_defeatured/5kg1_all_zmin.png)
 
-*Figure 7. Mesh of defeatured upright model*
+*Figure 5. Mesh of defeatured upright model*
 
 ### Optional - Visualize the Initial Meshes
 Download the `.*vtu` files from [Here - FIXME](https://goo.gl/forms/HmuX6HrT0Yfoz7ny2), or
@@ -275,7 +275,7 @@ two mesh elements).
 
 [<img src="figs/pmetis-rcb-rib.png" width="400">](figs/pmetis-rcb-rib.png)
 
-*Figure 8. Partitions created with multi-level graph (left), RCB (middle), and RIB (right)*
+*Figure 6. Partitions created with multi-level graph (left), RCB (middle), and RIB (right)*
 
 ### Optional - Visualize the Partitioned Meshes
 Download the `*vtu` files from [Here]( https://goo.gl/forms/HmuX6HrT0Yfoz7ny2), or
@@ -286,13 +286,13 @@ to your local machine.
 
 We will define a tensile loading on the upright by applying a uniform force on
 one end (min Y face) and fixing the displacements on the other end (max Y face);
-as depicted in Figure 5.
+as depicted in Figure 7.
 All other geometric model faces will be unconstrained.  No body forces are
 applied.
 
 [<img src="figs/upright_defeatured/boundaryConditions.png" width="400">](figs/upright_defeatured/boundaryConditions.png)
 
-*Figure 5. Boundary conditions*
+*Figure 7. Boundary conditions*
 
 Using geometric classification of the mesh we can define the boundary conditions
 on the geometric model without having any knowledge/consideration of the mesh.
@@ -354,7 +354,7 @@ $$\sigma(u)=\lambda*div(u)*I+\mu*(\nabla*u+u*\nabla)$$
 is the stress tensor corresponding to displacement field $$u$$, 
 and $$\lambda=1$$ and $$\mu=1$$ are the material Lame constants.
 
-[Figure 5](#probdef) depicts the applied boundary conditions; a fixed displacement 
+[Figure 7](#probdef) depicts the applied boundary conditions; a fixed displacement 
 $$u=0$$ on the max Y face and pull force $$f=1.0e-2$$ on the min Z face.
 The specification of these boundary conditions using geometric model entity 
 ids is described in the [Problem Definition](#probdef) section.
@@ -382,16 +382,12 @@ Run the adaptive simulation:
 
 ```
 cd ~/mfem-pumi-lesson/analysis
-mpirun -np 2 ./pumi_upright_ex2p -p upright_defeatured_geomsim.smd -bf upright.def -m 2p5kg1.smb
+mpirun -np 2 ./pumi_upright_ex2p -p upright_defeatured_geomsim.smd -bf upright.def -m 2p5kg1/
 ```
 
-[<img src="figs/uprightMesh/initial.png" width="400">](figs/uprightMesh/initial.png)
-[<img src="figs/uprightMesh/final.png" width="400">](figs/uprightMesh/final.png)
-[<img src="figs/uprightMesh/initial_displacement.png" width="400">](figs/uprightMesh/initial_displacement.png)
-[<img src="figs/uprightMesh/final_displacement.png" width="400">](figs/uprightMesh/final_displacement.png)
+[<img src="figs/analysis/initialAndFinalMesh.png" width="400">](figs/analysis/initialAndFinalMesh.png)
 
-*Figure 6. Initial (left) and final (right) mesh (top) and displacement field
-(bottom).*
+*Figure 8. Initial mesh (left) and final mesh with displacement field (right).
 
 The requested isotropic (same in all directions) edge length is specified
 with a scalar value at each mesh vertex.  In 
