@@ -146,7 +146,7 @@ SimModSuite APIs), to a PUMI mesh and then write the PUMI mesh to file.
 
 {% include qanda
     question='
-     2) Given the same mesh size controls (e.g., the length of mesh edges), 
+     1) Given the same mesh size controls (e.g., the length of mesh edges),
         the mesh on the initial geometry will:
         a) ... have *more* elements than the mesh of the defeatured geometric model.
         b) ... have *less* elements than the mesh of the defeatured geometric model.
@@ -247,7 +247,7 @@ Given the values of the imbalance and shared entity count for each partition
 
 {% include qanda
     question='
-    3) Which partition has the highest vertex imbalance? 
+    2) Which partition has the highest vertex imbalance?
        a)RCB
        b)RIB
        c)multi-level graph'
@@ -256,7 +256,7 @@ Given the values of the imbalance and shared entity count for each partition
 
 {% include qanda
     question='
-    4) Which partition has the most mesh vertices? 
+    3) Which partition has the most mesh vertices?
        a)RCB
        b)RIB
        c)multi-level graph'
@@ -265,7 +265,7 @@ Given the values of the imbalance and shared entity count for each partition
 
 {% include qanda
     question='
-     5) Which partition has the highest element imbalance?
+     4) Which partition has the highest element imbalance?
         a)RCB
         b)RIB
         c)multi-level graph'
@@ -279,7 +279,7 @@ two mesh elements).
 
 {% include qanda
     question='
-     6) What causes the boundaries of the RIB and RCB partitions to look jagged
+     5) What causes the boundaries of the RIB and RCB partitions to look jagged
         relative to the multi-level graph partition boundaries?
         a) the placement of the cutting plane versus the coordinates of
         the mesh elements
@@ -351,7 +351,7 @@ Load
 
 {% include qanda
     question='
-    1) Which of the following statements are true? Specifying boundary 
+    6) Which of the following statements are true? Specifying boundary
        conditions on the geometric allows users to:
        a)... change the mesh without having to modify the boundary condition definition
        b)... specify boundary conditions that vary over the geometric model entity
