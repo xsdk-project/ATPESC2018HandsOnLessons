@@ -507,7 +507,7 @@ name _Composite Wall_ and upload evidence of your completed solution.
 
 ---
 
-### A note about the `ic=` argument to `heat`{#icarg}
+### A note about the `ic=` argument to `heat`{:icarg}
 
 The initial condition argument, `ic`, handles a few interesting cases
 

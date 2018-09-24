@@ -32,6 +32,18 @@ TODO
     * send email to students
     * disable qanda and push to github
 
+Speed Dating Schedule Creator
+    - Available = # SME x #slots
+    - Requested = # Requests x (2-3)
+    - Algorithm
+        - Accomodate all first choices, in order of submission
+          (e.g. first come/first serve)
+            - If all not possible, prioritize those second choices ahead
+              of next phase.
+        - Accomodate all second choices
+            - Just like above
+        - Accomodate all third choices
+
 Menu arrangement:
     Start: (rename to ATPESC2018 or Lessons)
         - 2018 lessons top-level
