@@ -57,9 +57,9 @@ permalink: "/atpesc_2018_agenda/"
 [25]: ../lessons/adjoint/
 [26]: <mailto:smithc11@rpi.edu>
 [27]: ../lessons/hand_coded_heat/
-[40]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_7_8-6_930am_Diachin_Overview.pdf
-[41]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_7_8-6_11am_Kolev-Shephard-Smith_Unstructured_Meshing_Technologies.pdf
-[42]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_7_8-6_130pm_Smith_ODE-DAE_Integrators_and_Nonlinear_Solvers.pdf
+[40]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_4_8-6_930am_Diachin_Overview.pdf
+[41]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_5_8-6_11am_Kolev-Shephard-Smith_Unstructured_Meshing_Technologies.pdf
+[42]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_6_8-6_130pm_Smith_ODE-DAE_Integrators_and_Nonlinear_Solvers.pdf
 [43]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_7_8-6_215pm_Yang_Krylov_Solvers_and_Algebraic_Multigrid.pdf
 [44]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_7_8-6_330pm_Li_Direct_Sparse_Linear_Solvers.pdf
 [45]: http://press3.mcs.anl.gov/atpesc/files/2018/08/ATPESC_2018_Track-4_7_8-6_415pm_Munson-Zhang_Numerical_Optimization_using_PETSc_TAO.pdf
