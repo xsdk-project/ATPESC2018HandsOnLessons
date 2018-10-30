@@ -11,7 +11,7 @@ permalink: "/contributing_guide/"
 ## Easiest Way To Create a New Lesson
 
 1. The easiest way to start creating a new lesson is to copy and then start modifying
-   modify the [lesson template](/lessons/lesson_template/). Starting from the top-level
+   modify the [lesson template](../lessons/lesson_template/). Starting from the top-level
    directory, copy the lesson template to a new sub-directory in `_lessons`. **Note:
    If you need separator chars, use underscores and not dashes in the directory name.**
 ```shell
@@ -52,7 +52,7 @@ header:
        to questions during the day (see below), go create that form and then 
        set the path to that form in this yaml variable.
    * There are header options you can choose from. You can see a list of header
-     options and examples [here](/headers/). Each option has different front-matter
+     options and examples [here](../pages/headers.md). Each option has different front-matter
      code to implement it. 
    * Select a header image in the `images` sub-folder you would like to use or
      add a new image to the `images` sub-folder and then specify the selected
@@ -73,7 +73,7 @@ header:
 1. Finally, remember that in order to see the raw markup used to create any rendered
    web page, equation, etc. you can simply go to the GitHub repo for the site, and
    find the associated page there. For example, to view the raw markup for the
-   [Hand Coded Heat Lesson](/lessons/hand_coded_heat/), you would go
+   [Hand Coded Heat Lesson](../lessons/hand_coded_heat/), you would go
    [here](https://github.com/xsdk-project/ATPESC2018HandsOnLessons/blob/gh-pages/_lessons/hand_coded_heat/lesson.md)
    and then hit the `Raw` button to view the
    [raw file contents](https://raw.githubusercontent.com/xsdk-project/ATPESC2018HandsOnLessons/gh-pages/_lessons/hand_coded_heat/lesson.md).
@@ -239,7 +239,7 @@ Detailed instructions on setting up GitHub pages locally can be found [here](/ho
 ## Including Math Equations
 
 We use MathJax to include LaTex directly in markdown (`.md`) files. You can examine
-the [Hand Coded Heat](/lessons/hand_coded_heat/) for examples of this.
+the [Hand Coded Heat](../lessons/hand_coded_heat/) for examples of this.
 
 I think it would be best put all content related to each hands-on lesson we develop here
 into its own separate directory. That means all images, example codes, markdown pages, etc.

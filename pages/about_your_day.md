@@ -67,7 +67,7 @@ results in higher productivity. Finally, if you are not using an OSX or Linux la
 be best to try to pair with someone who is.
 
 #### Todays Agenda
-The [agenda for today's presentations and hands-on exercises](/atpesc_2018_agenda)
+The [agenda for today's presentations and hands-on exercises](atpesc_2018_agenda.md)
 is available under the _Intro_ menu on this site. This includes links to presentation slides,
 presenter emails and hands-on lesson plans.
 

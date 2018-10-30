@@ -50,12 +50,6 @@ urlimg: 'https://xsdk-project.github.io/ATPESC2018HandsOnLessons/images/'
 # Logo size is 600x80 pixels
 logo: "logo.png"
 
-# Gems
-gems:
-    - jekyll-asciidoc
-    - jekyll-gist
-    - jekyll-paginate
-
 collections:
   lessons:
     output: true
@@ -284,5 +278,14 @@ asciidoctor:
     icons: font
 
 # For Atom RSS feed
-#plugins:
-#  - jekyll-feed
+plugins:
+# Gems
+    - jekyll-asciidoc
+    - jekyll-gist
+    - jekyll-paginate
+    - jekyll-relative-links
+#    - jekyll-feed
+
+relative_links:
+  enabled:     true
+  collections: true
