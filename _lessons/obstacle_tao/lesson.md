@@ -6,6 +6,7 @@ teaser: "Leveraging interoperability between PETSc/TAO and MFEM"
 permalink: "lessons/obstacle_tao/"
 use_math: true
 lesson: true
+youtube: "https://youtu.be/E-8lbX5Wi1I"
 header:
  image_fullwidth: "xsdk_logo_wide.png"
 ---

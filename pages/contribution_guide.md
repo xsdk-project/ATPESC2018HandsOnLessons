@@ -30,6 +30,7 @@ teaser: "Set your teaser here..."
 permalink: "lessons/my_new_lesson/"
 use_math: true
 lesson: true
+youtube: "<url-to-atpesc-youtube-upload">
 answers_google_form: "<path-to-a-google-forms-page-of-your-design-and-choosing>"
 header:
  image_fullwidth: "2012.jpg"
@@ -46,6 +47,8 @@ header:
        name that helps to indicate the lesson topic.
    * If you intend to have [LaTeX](https://www.latex-project.org) equations
      include the `use_math: true` line. Otherwise, leave it out.
+   * The `youtube` member is for connecting the lesson to the uploaded video
+     after ATPESC has been completed.
    * Keep the `lesson: true` line unchanged.
    * Provide a path to the associated Google Form (optiona)
      * If you want to create a Google Form for participants to submit their answers

@@ -18,6 +18,11 @@ permalink: /lessons/
     <tr>
     <td><a href="{{ site.url }}{{ site.baseurl }}{{ item.url }}">{{ item.title }}</a></td>
     <td>{{ item.subheadline }}</td>
+    {% if item.youtube %}
+        <td><a href="{{ item.youtube }}">YouTube</a></td>
+    {% else %}
+        <td>No Video</td>
+    {% endif %}
     </tr>
 {% endfor %}
 </table>
