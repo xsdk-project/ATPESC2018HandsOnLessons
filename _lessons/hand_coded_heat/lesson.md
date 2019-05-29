@@ -360,7 +360,7 @@ input in the correct units. Take care!
 
 {% include qanda
    question='Determine the command-line to run for our simple science problem?'
-   answer='./heat runame=wall alpha=8.2e-10 lenx=0.25 dx=0.01 dt=100 outi=100 savi=1000 maxt=55800 bc0=233.15 bc1=294.261 ic="const(294.261)"' %}
+   answer='<code>./heat runame=wall alpha=8.2e-10 lenx=0.25 dx=0.01 dt=100 outi=100 savi=1000 maxt=55800 bc0=233.15 bc1=294.261 ic="const(294.261)"</code>' %}
 
 ## Exercise #4: Analyze Results and Do Some Science
 
