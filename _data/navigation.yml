@@ -52,7 +52,7 @@
   - title: "PETSc"
     url: "https://www.mcs.anl.gov/petsc/"
   - title: "HYPRE"
-    url: "https://computation.llnl.gov/projects/hypre-scalable-linear-solvers-multigrid-methods"
+    url: "https://computing.llnl.gov/projects/hypre-scalable-linear-solvers-multigrid-methods"
   - title: "SuperLU"
     url: "http://crd-legacy.lbl.gov/~xiaoye/SuperLU"
   - title: "Tao"
